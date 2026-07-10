@@ -6,9 +6,9 @@
 class Second_hand
 {
 
-	std::vector<std::string>second_draw(60);
+	std::vector<std::string>second_draw;
 	
-	std::vector<std::string>second_clear(60);
+	std::vector<std::string>second_clear;
 
 
 
