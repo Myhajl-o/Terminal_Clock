@@ -584,18 +584,23 @@ int main()
 	
 */
 
+	Second_hand*sec = new Second_hand();
 	Minute_hand*min = new  Minute_hand();
-	for(int i=0;i<600;i++)
+	for(int i=0;i<120;i++)
 	{
 		if((i%60)==0)
 		{
-			min->get_minute_hand_clear(59);
+			std::cout<<sec->get_second_hands_clear(59)<<std::flush;
+			std::cout<<min->get_minute_hand_clear(59)<<std::flush;
 		}
 		else
 		{
-			min->get_minute_hand_clear(i-1);
+			std::cout<<sec->get_second_hands_clear((i%60)-1)<<std::flush;
+			std::cout<<min->get_minute_hand_clear((i%60)-1)<<std::flush;
 		}
-		min->get_minute_hand_draw(i);
+		std::cout<<sec->get_second_hands_draw(i%60)<<std::flush;
+		std::cout<<min->get_minute_hand_draw(i%60)<<std::flush;
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 	}
 
 
@@ -606,7 +611,7 @@ int main()
 	std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 	std::this_thread::sleep_for(std::chrono::milliseconds(10000));
 	std::cout<<"\033[0m"<<std::flush;
-//	delete sec;
+	delete sec;
 	delete min;
 	return 0;
 }
