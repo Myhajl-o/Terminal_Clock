@@ -137,13 +137,13 @@ Second_hand::Second_hand()
 
 
 
-std::string Second_hand::get_second_hands_draw(int current)
+std::string Second_hand::get_second_hand_draw(int current)
 {
 	return second_draw[current];
 }
 
 
-std::string Second_hand::get_second_hands_clear(int current)
+std::string Second_hand::get_second_hand_clear(int current)
 {
 	return second_clear[current];
 }

@@ -1,5 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/clock.dir/link.d"
+  "CMakeFiles/clock.dir/Hour-hand.cpp.o"
+  "CMakeFiles/clock.dir/Hour-hand.cpp.o.d"
   "CMakeFiles/clock.dir/Minute-hand.cpp.o"
   "CMakeFiles/clock.dir/Minute-hand.cpp.o.d"
   "CMakeFiles/clock.dir/Second-hand.cpp.o"

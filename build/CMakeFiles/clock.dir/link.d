@@ -6,6 +6,7 @@ clock: \
   CMakeFiles/clock.dir/background.cpp.o \
   CMakeFiles/clock.dir/Second-hand.cpp.o \
   CMakeFiles/clock.dir/Minute-hand.cpp.o \
+  CMakeFiles/clock.dir/Hour-hand.cpp.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libstdc++.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libm.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libm.so \
@@ -51,6 +52,8 @@ CMakeFiles/clock.dir/background.cpp.o:
 CMakeFiles/clock.dir/Second-hand.cpp.o:
 
 CMakeFiles/clock.dir/Minute-hand.cpp.o:
+
+CMakeFiles/clock.dir/Hour-hand.cpp.o:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libstdc++.so:
 

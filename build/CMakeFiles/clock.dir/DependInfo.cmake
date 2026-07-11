@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/misha/__arch_work_zone/time_and_date/Hour-hand.cpp" "CMakeFiles/clock.dir/Hour-hand.cpp.o" "gcc" "CMakeFiles/clock.dir/Hour-hand.cpp.o.d"
   "/home/misha/__arch_work_zone/time_and_date/Minute-hand.cpp" "CMakeFiles/clock.dir/Minute-hand.cpp.o" "gcc" "CMakeFiles/clock.dir/Minute-hand.cpp.o.d"
   "/home/misha/__arch_work_zone/time_and_date/Second-hand.cpp" "CMakeFiles/clock.dir/Second-hand.cpp.o" "gcc" "CMakeFiles/clock.dir/Second-hand.cpp.o.d"
   "/home/misha/__arch_work_zone/time_and_date/background.cpp" "CMakeFiles/clock.dir/background.cpp.o" "gcc" "CMakeFiles/clock.dir/background.cpp.o.d"

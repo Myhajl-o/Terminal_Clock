@@ -129,6 +129,30 @@ clock/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/clock.dir/build.make CMakeFiles/clock.dir/build
 .PHONY : clock/fast
 
+Hour-hand.o: Hour-hand.cpp.o
+.PHONY : Hour-hand.o
+
+# target to build an object file
+Hour-hand.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clock.dir/build.make CMakeFiles/clock.dir/Hour-hand.cpp.o
+.PHONY : Hour-hand.cpp.o
+
+Hour-hand.i: Hour-hand.cpp.i
+.PHONY : Hour-hand.i
+
+# target to preprocess a source file
+Hour-hand.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clock.dir/build.make CMakeFiles/clock.dir/Hour-hand.cpp.i
+.PHONY : Hour-hand.cpp.i
+
+Hour-hand.s: Hour-hand.cpp.s
+.PHONY : Hour-hand.s
+
+# target to generate assembly for a file
+Hour-hand.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clock.dir/build.make CMakeFiles/clock.dir/Hour-hand.cpp.s
+.PHONY : Hour-hand.cpp.s
+
 Minute-hand.o: Minute-hand.cpp.o
 .PHONY : Minute-hand.o
 
@@ -234,6 +258,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... clock"
+	@echo "... Hour-hand.o"
+	@echo "... Hour-hand.i"
+	@echo "... Hour-hand.s"
 	@echo "... Minute-hand.o"
 	@echo "... Minute-hand.i"
 	@echo "... Minute-hand.s"

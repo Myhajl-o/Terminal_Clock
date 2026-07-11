@@ -16,9 +16,9 @@ class Second_hand
 	
 	Second_hand();
 
-	std::string get_second_hands_draw(int current);
+	std::string get_second_hand_draw(int current);
 
-	std::string get_second_hands_clear(int current);
+	std::string get_second_hand_clear(int current);
 	
 
 };
