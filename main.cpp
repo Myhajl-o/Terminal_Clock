@@ -3,8 +3,7 @@
 #include <string>
 #include <chrono>
 #include <thread>
-#include <termios.h>
-#include <unistd.h>
+#include "input_block.hpp"
 #include "background.hpp"
 #include "Second-hand.hpp"
 #include "Minute-hand.hpp"
@@ -13,6 +12,7 @@
 int main()
 {
 // x = 170 ; y = 48;
+	block(false);
 	system("clear");
 	background_draw();
 	
@@ -26,19 +26,10 @@ int main()
 	int current_hor = 0;
 	int current_min = 0;
 	int current_sec = 0;
-/*
-	std::cout<<sec->get_second_hands_draw(40)<<std::flush;
-	std::cout<<min->get_minute_hand_draw(15)<<std::flush;
-	std::cout<<hor->get_hour_hand_draw(5)<<std::flush;
-	std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-	std::cout<<sec->get_second_hands_clear(40)<<std::flush;
-	std::cout<<min->get_minute_hand_clear(15)<<std::flush;
-	std::cout<<hor->get_hour_hand_clear(5)<<std::flush;
-*/
 
-
-	for(int i=0;i<1000;i++)
+	while(true)
 	{
+		if(exit()) goto exit;
 		
 		time_t now = time(nullptr);
 		tm*time = localtime(&now);
@@ -65,14 +56,15 @@ int main()
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	}
 
+	exit:
 
-
-	std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-
+	
 	std::cout<<"\033[0m"<<std::flush;
+	
 	delete sec;
 	delete min;
 	delete hor;
+	
 	return 0;
 }
 
