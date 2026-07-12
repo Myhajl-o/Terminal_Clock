@@ -8,6 +8,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/clock.dir/Second-hand.cpp.o.d"
   "CMakeFiles/clock.dir/background.cpp.o"
   "CMakeFiles/clock.dir/background.cpp.o.d"
+  "CMakeFiles/clock.dir/input_block.cpp.o"
+  "CMakeFiles/clock.dir/input_block.cpp.o.d"
   "CMakeFiles/clock.dir/main.cpp.o"
   "CMakeFiles/clock.dir/main.cpp.o.d"
   "clock"

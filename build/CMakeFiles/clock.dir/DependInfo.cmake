@@ -12,6 +12,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/misha/__arch_work_zone/time_and_date/Minute-hand.cpp" "CMakeFiles/clock.dir/Minute-hand.cpp.o" "gcc" "CMakeFiles/clock.dir/Minute-hand.cpp.o.d"
   "/home/misha/__arch_work_zone/time_and_date/Second-hand.cpp" "CMakeFiles/clock.dir/Second-hand.cpp.o" "gcc" "CMakeFiles/clock.dir/Second-hand.cpp.o.d"
   "/home/misha/__arch_work_zone/time_and_date/background.cpp" "CMakeFiles/clock.dir/background.cpp.o" "gcc" "CMakeFiles/clock.dir/background.cpp.o.d"
+  "/home/misha/__arch_work_zone/time_and_date/input_block.cpp" "CMakeFiles/clock.dir/input_block.cpp.o" "gcc" "CMakeFiles/clock.dir/input_block.cpp.o.d"
   "/home/misha/__arch_work_zone/time_and_date/main.cpp" "CMakeFiles/clock.dir/main.cpp.o" "gcc" "CMakeFiles/clock.dir/main.cpp.o.d"
   "" "clock" "gcc" "CMakeFiles/clock.dir/link.d"
   )

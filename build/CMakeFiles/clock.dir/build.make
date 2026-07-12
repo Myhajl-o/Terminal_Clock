@@ -86,10 +86,24 @@ CMakeFiles/clock.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/clock.dir/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/misha/__arch_work_zone/time_and_date/main.cpp -o CMakeFiles/clock.dir/main.cpp.s
 
+CMakeFiles/clock.dir/input_block.cpp.o: CMakeFiles/clock.dir/flags.make
+CMakeFiles/clock.dir/input_block.cpp.o: /home/misha/__arch_work_zone/time_and_date/input_block.cpp
+CMakeFiles/clock.dir/input_block.cpp.o: CMakeFiles/clock.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/misha/__arch_work_zone/time_and_date/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/clock.dir/input_block.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/clock.dir/input_block.cpp.o -MF CMakeFiles/clock.dir/input_block.cpp.o.d -o CMakeFiles/clock.dir/input_block.cpp.o -c /home/misha/__arch_work_zone/time_and_date/input_block.cpp
+
+CMakeFiles/clock.dir/input_block.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/clock.dir/input_block.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/misha/__arch_work_zone/time_and_date/input_block.cpp > CMakeFiles/clock.dir/input_block.cpp.i
+
+CMakeFiles/clock.dir/input_block.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/clock.dir/input_block.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/misha/__arch_work_zone/time_and_date/input_block.cpp -o CMakeFiles/clock.dir/input_block.cpp.s
+
 CMakeFiles/clock.dir/background.cpp.o: CMakeFiles/clock.dir/flags.make
 CMakeFiles/clock.dir/background.cpp.o: /home/misha/__arch_work_zone/time_and_date/background.cpp
 CMakeFiles/clock.dir/background.cpp.o: CMakeFiles/clock.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/misha/__arch_work_zone/time_and_date/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/clock.dir/background.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/misha/__arch_work_zone/time_and_date/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/clock.dir/background.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/clock.dir/background.cpp.o -MF CMakeFiles/clock.dir/background.cpp.o.d -o CMakeFiles/clock.dir/background.cpp.o -c /home/misha/__arch_work_zone/time_and_date/background.cpp
 
 CMakeFiles/clock.dir/background.cpp.i: cmake_force
@@ -103,7 +117,7 @@ CMakeFiles/clock.dir/background.cpp.s: cmake_force
 CMakeFiles/clock.dir/Second-hand.cpp.o: CMakeFiles/clock.dir/flags.make
 CMakeFiles/clock.dir/Second-hand.cpp.o: /home/misha/__arch_work_zone/time_and_date/Second-hand.cpp
 CMakeFiles/clock.dir/Second-hand.cpp.o: CMakeFiles/clock.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/misha/__arch_work_zone/time_and_date/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/clock.dir/Second-hand.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/misha/__arch_work_zone/time_and_date/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/clock.dir/Second-hand.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/clock.dir/Second-hand.cpp.o -MF CMakeFiles/clock.dir/Second-hand.cpp.o.d -o CMakeFiles/clock.dir/Second-hand.cpp.o -c /home/misha/__arch_work_zone/time_and_date/Second-hand.cpp
 
 CMakeFiles/clock.dir/Second-hand.cpp.i: cmake_force
@@ -117,7 +131,7 @@ CMakeFiles/clock.dir/Second-hand.cpp.s: cmake_force
 CMakeFiles/clock.dir/Minute-hand.cpp.o: CMakeFiles/clock.dir/flags.make
 CMakeFiles/clock.dir/Minute-hand.cpp.o: /home/misha/__arch_work_zone/time_and_date/Minute-hand.cpp
 CMakeFiles/clock.dir/Minute-hand.cpp.o: CMakeFiles/clock.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/misha/__arch_work_zone/time_and_date/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/clock.dir/Minute-hand.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/misha/__arch_work_zone/time_and_date/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/clock.dir/Minute-hand.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/clock.dir/Minute-hand.cpp.o -MF CMakeFiles/clock.dir/Minute-hand.cpp.o.d -o CMakeFiles/clock.dir/Minute-hand.cpp.o -c /home/misha/__arch_work_zone/time_and_date/Minute-hand.cpp
 
 CMakeFiles/clock.dir/Minute-hand.cpp.i: cmake_force
@@ -131,7 +145,7 @@ CMakeFiles/clock.dir/Minute-hand.cpp.s: cmake_force
 CMakeFiles/clock.dir/Hour-hand.cpp.o: CMakeFiles/clock.dir/flags.make
 CMakeFiles/clock.dir/Hour-hand.cpp.o: /home/misha/__arch_work_zone/time_and_date/Hour-hand.cpp
 CMakeFiles/clock.dir/Hour-hand.cpp.o: CMakeFiles/clock.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/misha/__arch_work_zone/time_and_date/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/clock.dir/Hour-hand.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/misha/__arch_work_zone/time_and_date/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/clock.dir/Hour-hand.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/clock.dir/Hour-hand.cpp.o -MF CMakeFiles/clock.dir/Hour-hand.cpp.o.d -o CMakeFiles/clock.dir/Hour-hand.cpp.o -c /home/misha/__arch_work_zone/time_and_date/Hour-hand.cpp
 
 CMakeFiles/clock.dir/Hour-hand.cpp.i: cmake_force
@@ -145,6 +159,7 @@ CMakeFiles/clock.dir/Hour-hand.cpp.s: cmake_force
 # Object files for target clock
 clock_OBJECTS = \
 "CMakeFiles/clock.dir/main.cpp.o" \
+"CMakeFiles/clock.dir/input_block.cpp.o" \
 "CMakeFiles/clock.dir/background.cpp.o" \
 "CMakeFiles/clock.dir/Second-hand.cpp.o" \
 "CMakeFiles/clock.dir/Minute-hand.cpp.o" \
@@ -154,6 +169,7 @@ clock_OBJECTS = \
 clock_EXTERNAL_OBJECTS =
 
 clock: CMakeFiles/clock.dir/main.cpp.o
+clock: CMakeFiles/clock.dir/input_block.cpp.o
 clock: CMakeFiles/clock.dir/background.cpp.o
 clock: CMakeFiles/clock.dir/Second-hand.cpp.o
 clock: CMakeFiles/clock.dir/Minute-hand.cpp.o
@@ -161,7 +177,7 @@ clock: CMakeFiles/clock.dir/Hour-hand.cpp.o
 clock: CMakeFiles/clock.dir/build.make
 clock: CMakeFiles/clock.dir/compiler_depend.ts
 clock: CMakeFiles/clock.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/misha/__arch_work_zone/time_and_date/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable clock"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/misha/__arch_work_zone/time_and_date/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable clock"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/clock.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

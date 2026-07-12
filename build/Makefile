@@ -225,6 +225,30 @@ background.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/clock.dir/build.make CMakeFiles/clock.dir/background.cpp.s
 .PHONY : background.cpp.s
 
+input_block.o: input_block.cpp.o
+.PHONY : input_block.o
+
+# target to build an object file
+input_block.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clock.dir/build.make CMakeFiles/clock.dir/input_block.cpp.o
+.PHONY : input_block.cpp.o
+
+input_block.i: input_block.cpp.i
+.PHONY : input_block.i
+
+# target to preprocess a source file
+input_block.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clock.dir/build.make CMakeFiles/clock.dir/input_block.cpp.i
+.PHONY : input_block.cpp.i
+
+input_block.s: input_block.cpp.s
+.PHONY : input_block.s
+
+# target to generate assembly for a file
+input_block.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clock.dir/build.make CMakeFiles/clock.dir/input_block.cpp.s
+.PHONY : input_block.cpp.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -270,6 +294,9 @@ help:
 	@echo "... background.o"
 	@echo "... background.i"
 	@echo "... background.s"
+	@echo "... input_block.o"
+	@echo "... input_block.i"
+	@echo "... input_block.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

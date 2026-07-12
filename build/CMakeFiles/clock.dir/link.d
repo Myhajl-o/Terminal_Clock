@@ -3,6 +3,7 @@ clock: \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o \
   CMakeFiles/clock.dir/main.cpp.o \
+  CMakeFiles/clock.dir/input_block.cpp.o \
   CMakeFiles/clock.dir/background.cpp.o \
   CMakeFiles/clock.dir/Second-hand.cpp.o \
   CMakeFiles/clock.dir/Minute-hand.cpp.o \
@@ -46,6 +47,8 @@ clock: \
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o:
 
 CMakeFiles/clock.dir/main.cpp.o:
+
+CMakeFiles/clock.dir/input_block.cpp.o:
 
 CMakeFiles/clock.dir/background.cpp.o:
 

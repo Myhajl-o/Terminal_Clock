@@ -1,7 +1,8 @@
-CMakeFiles/clock.dir/main.cpp.o: \
- /home/misha/__arch_work_zone/time_and_date/main.cpp \
- /usr/include/stdc-predef.h /usr/include/c++/16/iostream \
- /usr/include/c++/16/bits/requires_hosted.h \
+CMakeFiles/clock.dir/input_block.cpp.o: \
+ /home/misha/__arch_work_zone/time_and_date/input_block.cpp \
+ /usr/include/stdc-predef.h \
+ /home/misha/__arch_work_zone/time_and_date/include/input_block.hpp \
+ /usr/include/c++/16/iostream /usr/include/c++/16/bits/requires_hosted.h \
  /usr/include/c++/16/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/16/x86_64-pc-linux-gnu/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -139,38 +140,20 @@ CMakeFiles/clock.dir/main.cpp.o: \
  /usr/include/c++/16/bits/basic_ios.tcc \
  /usr/include/c++/16/bits/ostream_print.h \
  /usr/include/c++/16/bits/ostream.tcc /usr/include/c++/16/istream \
- /usr/include/c++/16/bits/istream.tcc /usr/include/c++/16/ctime \
- /usr/include/c++/16/chrono /usr/include/c++/16/bits/chrono.h \
- /usr/include/c++/16/ratio /usr/include/c++/16/cstdint \
- /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/stdint.h \
- /usr/include/stdint.h /usr/include/bits/stdint-uintn.h \
- /usr/include/bits/stdint-least.h /usr/include/c++/16/limits \
- /usr/include/c++/16/bits/parse_numbers.h /usr/include/c++/16/thread \
- /usr/include/c++/16/bits/std_thread.h /usr/include/c++/16/bits/refwrap.h \
- /usr/include/c++/16/bits/unique_ptr.h \
- /usr/include/c++/16/bits/this_thread_sleep.h \
- /home/misha/__arch_work_zone/time_and_date/include/input_block.hpp \
- /usr/include/termios.h /usr/include/bits/termios.h \
- /usr/include/bits/termios-struct.h /usr/include/bits/termios-c_cc.h \
- /usr/include/bits/termios-c_iflag.h /usr/include/bits/termios-c_oflag.h \
- /usr/include/bits/termios-c_cflag.h /usr/include/bits/termios-cbaud.h \
- /usr/include/bits/termios-c_lflag.h /usr/include/bits/termios-tcflow.h \
- /usr/include/bits/termios-misc.h /usr/include/bits/termios-baud.h \
- /usr/include/sys/ttydefaults.h /usr/include/unistd.h \
- /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \
- /usr/include/bits/confname.h /usr/include/bits/getopt_posix.h \
- /usr/include/bits/getopt_core.h /usr/include/bits/unistd_ext.h \
- /usr/include/linux/close_range.h /usr/include/sys/ioctl.h \
- /usr/include/bits/ioctls.h /usr/include/asm/ioctls.h \
- /usr/include/asm-generic/ioctls.h /usr/include/linux/ioctl.h \
- /usr/include/asm/ioctl.h /usr/include/asm-generic/ioctl.h \
- /usr/include/linux/sockios.h /usr/include/asm/sockios.h \
- /usr/include/asm-generic/sockios.h /usr/include/bits/ioctl-types.h \
- /home/misha/__arch_work_zone/time_and_date/include/background.hpp \
- /home/misha/__arch_work_zone/time_and_date/include/Second-hand.hpp \
- /usr/include/c++/16/vector /usr/include/c++/16/bits/stl_uninitialized.h \
- /usr/include/c++/16/bits/stl_vector.h \
- /usr/include/c++/16/bits/stl_bvector.h \
- /usr/include/c++/16/bits/vector.tcc \
- /home/misha/__arch_work_zone/time_and_date/include/Minute-hand.hpp \
- /home/misha/__arch_work_zone/time_and_date/include/Hour-hand.hpp
+ /usr/include/c++/16/bits/istream.tcc /usr/include/termios.h \
+ /usr/include/bits/termios.h /usr/include/bits/termios-struct.h \
+ /usr/include/bits/termios-c_cc.h /usr/include/bits/termios-c_iflag.h \
+ /usr/include/bits/termios-c_oflag.h /usr/include/bits/termios-c_cflag.h \
+ /usr/include/bits/termios-cbaud.h /usr/include/bits/termios-c_lflag.h \
+ /usr/include/bits/termios-tcflow.h /usr/include/bits/termios-misc.h \
+ /usr/include/bits/termios-baud.h /usr/include/sys/ttydefaults.h \
+ /usr/include/unistd.h /usr/include/bits/posix_opt.h \
+ /usr/include/bits/environments.h /usr/include/bits/confname.h \
+ /usr/include/bits/getopt_posix.h /usr/include/bits/getopt_core.h \
+ /usr/include/bits/unistd_ext.h /usr/include/linux/close_range.h \
+ /usr/include/sys/ioctl.h /usr/include/bits/ioctls.h \
+ /usr/include/asm/ioctls.h /usr/include/asm-generic/ioctls.h \
+ /usr/include/linux/ioctl.h /usr/include/asm/ioctl.h \
+ /usr/include/asm-generic/ioctl.h /usr/include/linux/sockios.h \
+ /usr/include/asm/sockios.h /usr/include/asm-generic/sockios.h \
+ /usr/include/bits/ioctl-types.h
