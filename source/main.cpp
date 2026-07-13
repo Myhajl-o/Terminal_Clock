@@ -3,7 +3,8 @@
 #include <string>
 #include <chrono>
 #include <thread>
-#include "input_block.hpp"
+#include "input.hpp"
+#include "date.hpp"
 #include "background.hpp"
 #include "Second-hand.hpp"
 #include "Minute-hand.hpp"
@@ -13,6 +14,7 @@ int main()
 {
 // x = 170 ; y = 48;
 	block(false);
+	hide_cursor();
 	system("clear");
 	background_draw();
 	
@@ -27,17 +29,25 @@ int main()
 	int current_min = 0;
 	int current_sec = 0;
 
+	bool show_date = false;
+
 	while(true)
 	{
-		if(exit()) goto exit;
-		
+		if(check_buffer(show_date)) goto exit;
+	
 		time_t now = time(nullptr);
 		tm*time = localtime(&now);
-
+//============ OPEN WINDOW WITH DATE =============
+				
+		show_window_date(show_date,time->tm_mday,time->tm_mon + 1,time->tm_year + 1900);
+		
+//================================================
 //================== CLEAR =======================
+
 		std::cout<<hor->get_hour_hand_clear(current_hor)<<std::flush;
 		std::cout<<min->get_minute_hand_clear(current_min)<<std::flush;
 		std::cout<<sec->get_second_hand_clear(current_sec)<<std::flush;
+
 //==================================================
 
 //=================== DRAW =========================
@@ -58,7 +68,10 @@ int main()
 
 	exit:
 
+	block(true);
+	show_cursor();
 	
+	system("clear");	
 	std::cout<<"\033[0m"<<std::flush;
 	
 	delete sec;
@@ -239,16 +252,15 @@ int main()
 								        00000000000000000000000000000	               					
 								
 
-
-
-
-									00000000000000000000000000000
-							 	  00000000000000000000000000000000000000000
-						             000000000000000000000000000000000000000000000000000
-						 	 000000000000000                             000000000000000
-						      000000000000    .    .    .     12    .    .    .    000000000000
-						    0000000000    .                                       .    0000000000 
-						  000000000   11                                              1    000000000 
+00011000
+																00000000000000000000000000000000
+									00000000000000000000000000000				0000000000DD//MM//YYYY0000000000
+							 	  00000000000000000000000000000000000000000			00000000000000000000000000000000
+						             000000000000000000000000000000000000000000000000000		00        00        00        00
+						 	 000000000000000                             000000000000000		00        00        00        00
+						      000000000000    .    .    .     12    .    .    .    000000000000		00        00        00        00
+						    0000000000    .                                       .    0000000000 	00000000000000000000000000000000
+						  000000000   11                                              1    000000000 	00000000000000000000000000000000
 						0000000    .     		                              	 .     0000000
 					       0000000				                                        0000000
 					      000000   . 			                                      .   000000

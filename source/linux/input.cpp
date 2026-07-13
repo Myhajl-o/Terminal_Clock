@@ -1,4 +1,4 @@
-#include "input_block.hpp"
+#include "input.hpp"
 #include <iostream>
 #include <termios.h>
 #include <unistd.h>
@@ -28,7 +28,6 @@ void block(bool enable)
 		newt.c_lflag &= ~(ICANON | ECHO);
 		tcsetattr(STDIN_FILENO, TCSANOW, &newt);
 	}
-	hide_cursor();
 }
 
 void hide_cursor()
@@ -41,32 +40,42 @@ void show_cursor()
 	std::cout<<"\033[?25h";
 }
 
-bool check_buffer()
+void clear()
+{
+	tcflush(STDIN_FILENO, TCIFLUSH);
+}
+
+bool check_buffer(bool&show_date)
 {
 	int bytes;
+	char c = '1';
 	ioctl(STDIN_FILENO, FIONREAD, &bytes);
 	if(bytes>0)
 	{
-		char c;
-		read(STDIN_FILENO, &c, 1);	
-		return (c == '\n' || c == ' ');
+		read(STDIN_FILENO, &c, 1);
+		
+		switch(c)
+		{
+			case '\x1b':
+				char seq[3];
+				if(read(STDIN_FILENO, &seq[0], 1) == 1 && read(STDIN_FILENO, &seq[1], 1) == 1)
+				{
+					if(seq[0] == '[')
+					{
+						if(seq[1] == 'B'){ show_date = true;}
+						else if(seq[1] == 'A'){ show_date = false;}
+					}
+				}
+			break;
+			case 's': show_date = true; break;
+			case 'w': show_date = false; break;
+			
+		}
+		clear();	
 	}
-	return false;
+	return (c == '\n' || c == ' ');
 }
 
-
-bool exit()
-{
-	if(check_buffer())
-	{
-		block(true);
-		tcflush(STDIN_FILENO, TCIFLUSH);
-		show_cursor();
-		return true;
-	}
-	tcflush(STDIN_FILENO, TCIFLUSH);
-	return false;
-}
 
 
 

@@ -1,3 +1,0 @@
-/home/misha/__arch_work_zone/time_and_date/build/CMakeFiles/clock.dir
-/home/misha/__arch_work_zone/time_and_date/build/CMakeFiles/edit_cache.dir
-/home/misha/__arch_work_zone/time_and_date/build/CMakeFiles/rebuild_cache.dir

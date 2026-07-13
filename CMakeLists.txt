@@ -1,15 +1,21 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.16)
 
 set(CMAKE_CXX_COMPILER "g++")
 
 project(Clock)
 
 set(CMAKE_CXX_STANDARD 17)
-
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(clock main.cpp input_block.cpp background.cpp Second-hand.cpp Minute-hand.cpp Hour-hand.cpp)
+set(SOURCES main.cpp date.cpp background.cpp Second-hand.cpp Minute-hand.cpp Hour-hand.cpp)
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+	list(APPEND SOURCES linux/input.cpp)
+elseif(WIN32)
+	list(APPEND SOURCES win/input.cpp)
+endif()
+list(TRANSFORM SOURCES PREPEND "source/")
+
+add_executable(clock ${SOURCES})
 
 target_include_directories(clock PRIVATE include/)
-
-target_compile_options(clock PRIVATE -Wall -Wextra -O1)
+target_compile_options(clock PRIVATE -Wall -Wextra -Werror -O1)
