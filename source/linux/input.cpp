@@ -1,82 +1,76 @@
 #include "input.hpp"
 #include <iostream>
+#include <sys/ioctl.h>
 #include <termios.h>
 #include <unistd.h>
-#include <sys/ioctl.h>
 
-
-void block(bool enable)
-{
-	static struct termios oldt, newt;
-	static bool initialized = false;
-	if(!initialized)
-	{
-		if(tcgetattr(STDIN_FILENO, &oldt) < 0)
-		{
-			return;
-		}
-	initialized = true;
-	}
-	
-	if(enable)
-	{
-		tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-	}
-	else
-	{
-		newt = oldt;
-		newt.c_lflag &= ~(ICANON | ECHO);
-		tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-	}
+void cursor(bool hide) {
+  if (hide) {
+    std::cout << "\033[?25l";
+  } else {
+    std::cout << "\033[?25h";
+  }
 }
 
-void hide_cursor()
-{
-	std::cout<<"\033[?25l";
+void clear_buffer() { tcflush(STDIN_FILENO, TCIFLUSH); }
+
+void block(bool enable) {
+  static struct termios oldt, newt;
+  static bool initialized = false;
+  if (!initialized) {
+    if (tcgetattr(STDIN_FILENO, &oldt) < 0) {
+      return;
+    }
+    initialized = true;
+  }
+
+  if (enable) {
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+    cursor(enable);
+  } else {
+    newt = oldt;
+    newt.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+    cursor(!enable);
+  }
 }
 
-void show_cursor()
-{
-	std::cout<<"\033[?25h";
+void get_term_size(int &x, int &y) {
+  struct winsize w;
+  ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+  y = w.ws_row;
+  x = w.ws_col;
 }
 
-void clear()
-{
-	tcflush(STDIN_FILENO, TCIFLUSH);
+bool check_buffer(bool &show_date) {
+  int bytes;
+  char c = '1';
+  ioctl(STDIN_FILENO, FIONREAD, &bytes);
+  if (bytes > 0) {
+    read(STDIN_FILENO, &c, 1);
+
+    switch (c) {
+    case '\x1b':
+      char seq[3];
+      if (read(STDIN_FILENO, &seq[0], 1) == 1 &&
+          read(STDIN_FILENO, &seq[1], 1) == 1) {
+        if (seq[0] == '[') {
+          if (seq[1] == 'B') {
+            show_date = true;
+          } else if (seq[1] == 'A') {
+            show_date = false;
+          }
+        }
+      }
+      break;
+    case 's':
+      show_date = true;
+      break;
+    case 'w':
+      show_date = false;
+      break;
+    }
+    clear_buffer();
+  }
+  return (c == '\n' || c == ' ');
 }
-
-bool check_buffer(bool&show_date)
-{
-	int bytes;
-	char c = '1';
-	ioctl(STDIN_FILENO, FIONREAD, &bytes);
-	if(bytes>0)
-	{
-		read(STDIN_FILENO, &c, 1);
-		
-		switch(c)
-		{
-			case '\x1b':
-				char seq[3];
-				if(read(STDIN_FILENO, &seq[0], 1) == 1 && read(STDIN_FILENO, &seq[1], 1) == 1)
-				{
-					if(seq[0] == '[')
-					{
-						if(seq[1] == 'B'){ show_date = true;}
-						else if(seq[1] == 'A'){ show_date = false;}
-					}
-				}
-			break;
-			case 's': show_date = true; break;
-			case 'w': show_date = false; break;
-			
-		}
-		clear();	
-	}
-	return (c == '\n' || c == ' ');
-}
-
-
-
-
-

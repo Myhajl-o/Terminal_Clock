@@ -1,14 +1,11 @@
 #pragma once
-#include <iostream>
-
 
 void block(bool enable);
 
-void hide_cursor();
+void cursor(bool hide);
 
-void show_cursor();
+void clear_buffer();
 
-void clear();
+void get_term_size(int &x, int &y);
 
-bool check_buffer(bool&show_date);
-
+bool check_buffer(bool &show_date);
