@@ -1,27 +1,29 @@
 // #include "Hour-hand.hpp"
 // #include "Minute-hand.hpp"
-// #include "Second-hand.hpp"
+#include "Second-hand.hpp"
 #include "output.hpp"
 //  #include "date.hpp"
 #include "Coordinates.hpp"
 #include "input.hpp"
 #include <unistd.h>
 
-bool incorrect_term_size(const int &x, const int &y) {
+bool incorrect_term_size(const int &x, const int &y)
+{
   return (x < 13 || y < 7 || x > 9999998 || y > 4999999);
 }
 
-int main() {
+int main()
+{
 
   Coordinates term_size;
   Coordinates past_term_size;
 
   get_term_size(term_size.x, term_size.y);
-  /*
-    Second_hand *second = new Second_hand();
-    Minute_hand *minute = new Minute_hand();
-    Hour_hand *hour = new Hour_hand();
-  */
+
+  Second_hand *second = new Second_hand();
+  /*   Minute_hand *minute = new Minute_hand();
+     Hour_hand *hour = new Hour_hand();
+   */
   bool temp;
 
   block(false);
@@ -29,18 +31,25 @@ int main() {
   past_term_size.x = 0;
   past_term_size.y = 0;
 
-  while (!check_buffer(temp)) {
+  while (!check_buffer(temp))
+  {
 
     get_term_size(term_size.x, term_size.y);
 
-    if (!incorrect_term_size(term_size.x, term_size.y)) {
-      if (term_size.x != past_term_size.x || term_size.y != past_term_size.y) {
+    if (!incorrect_term_size(term_size.x, term_size.y))
+    {
+      if (term_size.x != past_term_size.x || term_size.y != past_term_size.y)
+      {
         clear();
         background(term_size.x, term_size.y);
         watch_face(term_size.x, term_size.y);
+        second->update(term_size.x, term_size.y);
       }
-
-    } else {
+      second->clear();
+      second->draw();
+    }
+    else
+    {
       clear();
     }
 
@@ -52,10 +61,10 @@ int main() {
 
   block(true);
   clear();
-  /*
-    delete second;
-    delete minute;
-    delete hour;
-  */
+
+  delete second;
+  /*   delete minute;
+     delete hour;
+   */
   return 0;
 }

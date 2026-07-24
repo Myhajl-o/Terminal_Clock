@@ -1,24 +1,28 @@
 #pragma once
-#include <iostream>
-#include <string>
+#include "Coordinates.hpp"
+// #include <string>
 #include <vector>
 
 class Second_hand
 {
+  int radius;
+  Coordinates center;
+  std::vector<Coordinates> circle_second;
+  Coordinates second_stop;
+  std::vector<Coordinates> line;
+  Coordinates shift;
 
-	std::vector<std::string>second_draw;
-	
-	std::vector<std::string>second_clear;
+  int current_second;
 
+  bool Second_update(bool flag);
+  void build1();
 
+public:
+  Second_hand();
 
-	public:
-	
-	Second_hand();
+  void update(const int &new_size_x, const int &new_size_y);
 
-	std::string get_second_hand_draw(int current);
+  void clear();
 
-	std::string get_second_hand_clear(int current);
-	
-
+  void draw();
 };
