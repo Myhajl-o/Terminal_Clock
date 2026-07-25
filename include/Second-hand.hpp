@@ -11,9 +11,11 @@ class Second_hand
   Coordinates second_stop;
   std::vector<Coordinates> line;
   Coordinates shift;
+  char symbol;
 
   int current_second;
 
+  void current_symbol(char &symbol, std::size_t &i);
   bool Second_update(bool flag);
 
 public:

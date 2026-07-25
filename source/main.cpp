@@ -16,7 +16,7 @@ int main()
 {
 
   Coordinates term_size;
-  Coordinates past_term_size = Coordinates{0, 0};
+  Coordinates past_term_size = {0, 0};
 
   get_term_size(term_size);
 

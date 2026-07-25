@@ -26,7 +26,6 @@ void Coordinates_circle(const int &radius, std::vector<Coordinates> &circle)
 {
   circle.clear();
   int d = 3 - 2 * radius;
-  int i = 0;
   Coordinates temp = Coordinates{0, radius};
   circle.push_back(temp);
 
@@ -34,25 +33,24 @@ void Coordinates_circle(const int &radius, std::vector<Coordinates> &circle)
   {
     if (d < 0)
     {
-      d = d + 4 * circle[i].x + 6;
+      d = d + 4 * temp.x + 6;
       temp.x++;
       circle.push_back(temp);
     }
-    else if (d >= 0)
+    else
     {
-      d = d + 4 * (circle[i].x - circle[i].y) + 10;
+      d = d + 4 * (temp.x - temp.y) + 10;
       temp.x++;
       temp.y--;
       circle.push_back(temp);
     }
-    i++;
-  } while ((circle[i].x == circle[i].y || circle[i].x < circle[i].y));
+  } while (temp.x == temp.y || temp.x < temp.y);
 
-  circle.resize(i * 2);
-  for (int j = i * 2 - 1; j >= i; j--)
+  circle.resize(temp.x * 2);
+  for (int j = temp.x * 2 - 1; j >= temp.x; j--)
   {
-    circle[j].x = circle[(i * 2 - 1) - j].y;
-    circle[j].y = circle[(i * 2 - 1) - j].x;
+    circle[j].x = circle[(temp.x * 2 - 1) - j].y;
+    circle[j].y = circle[(temp.x * 2 - 1) - j].x;
   }
 }
 
@@ -84,12 +82,9 @@ void Degree(int degree, Coordinates &tick_element, const std::vector<Coordinates
   for (size_t i = 2; i < circle.size(); i++)
   {
     difference[1] = std::abs(degree - (convert * std::atan2((float)circle[i].x, (float)circle[i].y * 2)));
-
     if (difference[0] < difference[1])
     {
-      tick_element.x = circle[i - 1].x;
-      tick_element.y = circle[i - 1].y;
-
+      tick_element = circle[i - 1];
       return;
     }
     difference[0] = difference[1];
@@ -107,20 +102,9 @@ void Calculation_degrees(Coordinates (&tick)[14], const std::vector<Coordinates>
 void Coordinates_line(const Coordinates &B, std::vector<Coordinates> &line)
 {
   line.clear();
-  Coordinates temp = Coordinates{0, 0};
-  Coordinates delta;
-  Coordinates add;
-
-  if (B.x < B.y)
-  {
-    delta = Coordinates{B.y, B.x};
-    add = Coordinates{0, 1};
-  }
-  else
-  {
-    delta = Coordinates{B.x, B.y};
-    add = Coordinates{1, 0};
-  }
+  Coordinates temp = {0, 0};
+  Coordinates delta = (B.x < B.y) ? Coordinates{B.y, B.x} : Coordinates{B.x, B.y};
+  Coordinates add = (B.x < B.y) ? Coordinates{0, 1} : Coordinates{1, 0};
 
   int d = 2 * delta.y - delta.x;
 
@@ -133,7 +117,7 @@ void Coordinates_line(const Coordinates &B, std::vector<Coordinates> &line)
       line.push_back(temp);
       d = d + 2 * delta.y;
     }
-    else if (d >= 0)
+    else
     {
       temp.x++;
       temp.y++;

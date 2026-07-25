@@ -38,7 +38,7 @@ void draw_circle(const Coordinates &center, const std::vector<Coordinates> &circ
       output_string((center.x + circle[change_index.x - i * change_index.y].x * 2 * shift.x) - dilatation, (center.y + circle[change_index.x - i * change_index.y].y * shift.y), space, 40);
     }
   }
-  output_string(center.x, center.y, &space[0], 40);
+  output_string(center.x, center.y, &space[1], 40);
 }
 
 void draw_numbers(const Coordinates &center, const Coordinates (&tick)[14],
