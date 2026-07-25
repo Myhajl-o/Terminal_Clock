@@ -7,18 +7,18 @@
 #include "input.hpp"
 #include <unistd.h>
 
-bool incorrect_term_size(const int &x, const int &y)
+bool incorrect_term_size(const Coordinates &size)
 {
-  return (x < 13 || y < 7 || x > 9999998 || y > 4999999);
+  return (size.x < 20 || size.y < 10 || size.x > 9999998 || size.y > 4999999);
 }
 
 int main()
 {
 
   Coordinates term_size;
-  Coordinates past_term_size;
+  Coordinates past_term_size = Coordinates{0, 0};
 
-  get_term_size(term_size.x, term_size.y);
+  get_term_size(term_size);
 
   Second_hand *second = new Second_hand();
   /*   Minute_hand *minute = new Minute_hand();
@@ -28,22 +28,19 @@ int main()
 
   block(false);
 
-  past_term_size.x = 0;
-  past_term_size.y = 0;
-
   while (!check_buffer(temp))
   {
 
-    get_term_size(term_size.x, term_size.y);
+    get_term_size(term_size);
 
-    if (!incorrect_term_size(term_size.x, term_size.y))
+    if (!incorrect_term_size(term_size))
     {
-      if (term_size.x != past_term_size.x || term_size.y != past_term_size.y)
+      if (term_size != past_term_size)
       {
         clear();
-        background(term_size.x, term_size.y);
-        watch_face(term_size.x, term_size.y);
-        second->update(term_size.x, term_size.y);
+        background(term_size);
+        watch_face(term_size);
+        second->update(term_size);
       }
       second->clear();
       second->draw();
@@ -53,8 +50,7 @@ int main()
       clear();
     }
 
-    past_term_size.x = term_size.x;
-    past_term_size.y = term_size.y;
+    past_term_size = term_size;
 
     usleep(100000);
   }

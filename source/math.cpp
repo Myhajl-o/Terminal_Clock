@@ -5,22 +5,20 @@
 
 const float convert = 180.0f / M_PI;
 
-void Coordinate_center(Coordinates &center, const int &size_x,
-                       const int &size_y)
+void Coordinate_center(Coordinates &center, const Coordinates &size)
 {
-  center.x = size_x / 2;
-  center.y = size_y / 2;
+  center = Coordinates{size.x / 2, size.y / 2};
 }
 
-void Radius(int &radius, int backdown, const int &size_x, const int &size_y)
+void Radius(int &radius, int backdown, const Coordinates &center)
 {
-  if (size_x < (size_y * 2))
+  if (center.x < (center.y * 2))
   {
-    radius = (size_x / 4) - backdown;
+    radius = (center.x / 2) - backdown;
   }
   else
   {
-    radius = (size_y / 2) - backdown;
+    radius = center.y - backdown;
   }
 }
 
@@ -142,5 +140,5 @@ void Coordinates_line(const Coordinates &B, std::vector<Coordinates> &line)
       line.push_back(temp);
       d = d + 2 * delta.y - 2 * delta.x;
     }
-  } while (temp.x != B.x || temp.y != B.y);
+  } while (temp != B);
 }

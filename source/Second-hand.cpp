@@ -10,10 +10,10 @@ Second_hand::Second_hand()
   current_second = 60;
 }
 
-void Second_hand::update(const int &new_size_x, const int &new_size_y)
+void Second_hand::update(const Coordinates &new_size)
 {
-  Coordinate_center(center, new_size_x, new_size_y);
-  Radius(radius, 3, new_size_x, new_size_y);
+  Coordinate_center(center, new_size);
+  Radius(radius, 3, center);
   Coordinates_circle(radius, circle_second);
   Coordinate_upgrade(circle_second);
 }

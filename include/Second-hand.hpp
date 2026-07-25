@@ -19,7 +19,7 @@ class Second_hand
 public:
   Second_hand();
 
-  void update(const int &new_size_x, const int &new_size_y);
+  void update(const Coordinates &new_size);
 
   void clear();
 

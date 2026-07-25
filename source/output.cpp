@@ -1,7 +1,6 @@
 #include "output.hpp"
 #include "Coordinates.hpp"
 #include "math.hpp"
-#include <cstring>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -17,9 +16,9 @@ void output_string(const int &x, const int &y, const char *s, int color)
   std::cout << "\033[" << color << "m\033[" << y << ";" << x << "H" << s << "\033[47m" << std::flush;
 }
 
-void background(const int &x, const int &y)
+void background(const Coordinates &size)
 {
-  std::string canvas(x * y, ' ');
+  std::string canvas(size.x * size.y, ' ');
   std::cout << "\033[47m" << canvas;
 }
 
@@ -64,16 +63,7 @@ void draw_numbers(const Coordinates &center, const Coordinates (&tick)[14],
   }
 }
 
-void test_function(const std::vector<Coordinates> &circle)
-{
-  for (size_t i = 0; i < circle.size(); i++)
-  {
-    std::cout << "\033[30mZ" << i << " : " << circle[i].x << "  \tY" << i << " : " << circle[i].y << "\n"
-              << std::flush;
-  }
-}
-
-void watch_face(const int &size_x, const int &size_y)
+void watch_face(const Coordinates &size)
 {
   Coordinates center;
   int radius;
@@ -81,22 +71,13 @@ void watch_face(const int &size_x, const int &size_y)
   Coordinates tick[14];
   std::vector<Coordinates> circle_tick;
 
-  Coordinate_center(center, size_x, size_y);
-
-  Radius(radius, 1, size_x, size_y);
-
+  Coordinate_center(center, size);
+  Radius(radius, 1, center);
   Coordinates_circle(radius, circle);
-
   draw_circle(center, circle);
-
   radius--;
   Coordinates_circle(radius, circle_tick);
-
   Coordinate_upgrade(circle_tick);
-
   Calculation_degrees(tick, circle_tick);
-
-  //  test_function(circle, circle_tick, tick);
-
   draw_numbers(center, tick, circle_tick);
 }
