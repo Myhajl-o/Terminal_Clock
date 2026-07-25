@@ -15,7 +15,6 @@ class Second_hand
   int current_second;
 
   bool Second_update(bool flag);
-  void build1();
 
 public:
   Second_hand();

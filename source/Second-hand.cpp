@@ -7,7 +7,7 @@
 
 Second_hand::Second_hand()
 {
-  current_second = 1;
+  current_second = 60;
 }
 
 void Second_hand::update(const int &new_size_x, const int &new_size_y)
@@ -29,38 +29,6 @@ bool Second_hand::Second_update(bool flag)
   return current_second != time->tm_sec;
 }
 
-void Second_hand::build1()
-{
-  line.clear();
-  switch (current_second)
-  {
-  case 0:
-    for (int i = 1; i <= radius; i++)
-    {
-      line.push_back(Coordinates{0, i});
-    }
-    return;
-  case 15:
-    for (int i = 1; i <= radius * 2; i++)
-    {
-      line.push_back(Coordinates{i, 0});
-    }
-    return;
-  case 30:
-    for (int i = 1; i <= radius; i++)
-    {
-      line.push_back(Coordinates{0, i});
-    }
-    return;
-  case 45:
-    for (int i = 1; i <= radius * 2; i++)
-    {
-      line.push_back(Coordinates{i, 0});
-    }
-    return;
-  }
-}
-
 void Second_hand::draw()
 {
   if (Second_update(true))
@@ -68,7 +36,23 @@ void Second_hand::draw()
     int temp = current_second % 15;
     if (temp == 0)
     {
-      build1();
+      line.clear();
+      Coordinates value;
+      int dilatation;
+      if (current_second == 15 || current_second == 45)
+      {
+        value = Coordinates{1, 0};
+        dilatation = 2;
+      }
+      else
+      {
+        value = Coordinates{0, 1};
+        dilatation = 1;
+      }
+      for (int i = 1; i <= radius * dilatation; i++)
+      {
+        line.push_back(Coordinates{i * value.x, i * value.y});
+      }
     }
     else
     {
@@ -85,10 +69,6 @@ void Second_hand::draw()
     {
       output_char(center.x + line[i].x * shift.x, center.y + line[i].y * shift.y, ' ', 40);
     }
-    /*
-    test_function(circle_second);
-    test_function(line);
-    */
   }
 }
 
@@ -101,8 +81,4 @@ void Second_hand::clear()
       output_char(center.x + line[i].x * shift.x, center.y + line[i].y * shift.y, ' ', 47);
     }
   }
-  /*
-
-  test_function(line);
-  */
 }
