@@ -61,13 +61,14 @@ void Second_hand::draw()
       second_stop.x += (current_second > 30) ? 1 : 0;
       Coordinates_line(second_stop, line);
     }
+    const char *d = "-";
 
     shift.x = (current_second < 31) ? 1 : -1;
     shift.y = (current_second > 15 && current_second < 46) ? 1 : -1;
 
     for (size_t i = 0; i < line.size(); i++)
     {
-      output_char(center.x + line[i].x * shift.x, center.y + line[i].y * shift.y, ' ', 40);
+      output_string(center.x + line[i].x * shift.x, center.y + line[i].y * shift.y, d, 47);
     }
   }
 }
@@ -76,9 +77,11 @@ void Second_hand::clear()
 {
   if (Second_update(false))
   {
+    const char *c = " ";
+
     for (size_t i = 0; i < line.size(); i++)
     {
-      output_char(center.x + line[i].x * shift.x, center.y + line[i].y * shift.y, ' ', 47);
+      output_string(center.x + line[i].x * shift.x, center.y + line[i].y * shift.y, c, 47);
     }
   }
 }

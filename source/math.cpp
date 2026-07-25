@@ -29,23 +29,23 @@ void Coordinates_circle(const int &radius, std::vector<Coordinates> &circle)
   circle.clear();
   int d = 3 - 2 * radius;
   int i = 0;
-  int temp_x = 0, temp_y = radius;
-  circle.push_back(Coordinates{temp_x, temp_y});
+  Coordinates temp = Coordinates{0, radius};
+  circle.push_back(temp);
 
   do
   {
     if (d < 0)
     {
       d = d + 4 * circle[i].x + 6;
-      temp_x++;
-      circle.push_back(Coordinates{temp_x, temp_y});
+      temp.x++;
+      circle.push_back(temp);
     }
     else if (d >= 0)
     {
       d = d + 4 * (circle[i].x - circle[i].y) + 10;
-      temp_x++;
-      temp_y--;
-      circle.push_back(Coordinates{temp_x, temp_y});
+      temp.x++;
+      temp.y--;
+      circle.push_back(temp);
     }
     i++;
   } while ((circle[i].x == circle[i].y || circle[i].x < circle[i].y));

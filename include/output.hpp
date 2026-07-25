@@ -3,8 +3,7 @@
 #include <vector>
 
 void clear();
-void output_two_char(const int &x, int &y, const char s[], int color);
-void output_char(const int &x, const int &y, char c, int color);
+void output_string(const int &x, const int &y, const char *s, int color);
 void background(const int &x, const int &y);
 void draw_circle(const Coordinates &center, const std::vector<Coordinates> &circle);
 void draw_numbers(const Coordinates &center, const Coordinates (&tick)[14], const std::vector<Coordinates> &circle_tick);
