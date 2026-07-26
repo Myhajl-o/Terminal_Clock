@@ -12,6 +12,7 @@ class Second_hand
   std::vector<Coordinates> line;
   Coordinates shift;
   char symbol;
+  bool clearing;
 
   int current_second;
 

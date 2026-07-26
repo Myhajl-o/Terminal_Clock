@@ -8,10 +8,12 @@
 Second_hand::Second_hand()
 {
   current_second = 60;
+  clearing = false;
 }
 
 void Second_hand::update(const Coordinates &new_size)
 {
+  clearing = false;
   Coordinate_center(center, new_size);
   Radius(radius, 3, center);
   Coordinates_circle(radius, circle_second);
@@ -31,29 +33,30 @@ bool Second_hand::Second_update(bool flag)
 
 void Second_hand::current_symbol(char &symbol, std::size_t &i)
 {
+  char diagonal = (current_second < 16 || (current_second > 30 && current_second < 45)) ? '/' : '\\';
   if (i == 0)
   {
-    symbol = (line[i].x == line[i + 1].x) ? '-' : (line[i].y == line[i + 1].y) ? '|'
-                                                                               : '/';
+    symbol = (line[i].x == line[i + 1].x) ? '|' : (line[i].y == line[i + 1].y) ? '-'
+                                                                               : diagonal;
   }
   else if (i == line.size() - 1)
   {
-    symbol = (line[i].x == line[i - 1].x) ? '-' : (line[i].y == line[i - 1].y) ? '|'
-                                                                               : '/';
+    symbol = (line[i].x == line[i - 1].x) ? '|' : (line[i].y == line[i - 1].y) ? '-'
+                                                                               : diagonal;
   }
   else
   {
-    if (line[i - 1].x == line[i].x || line[i].x == line[i + 1].x)
+    if (line[i - 1].x == line[i].x && line[i].x == line[i + 1].x)
     {
-      symbol = ((line[i - 1].y != line[i].y) || line[i].y != line[i + 1].y) ? '/' : '-';
+      symbol = '|';
     }
-    else if (line[i - 1].y == line[i].y || line[i].y == line[i + 1].y)
+    else if (line[i - 1].y == line[i].y && line[i].y == line[i + 1].y)
     {
-      symbol = ((line[i - 1].x != line[i].x) || (line[i].x != line[i + 1].x)) ? '/' : '|';
+      symbol = '-';
     }
     else
     {
-      symbol = '/';
+      symbol = diagonal;
     }
   }
 }
@@ -88,12 +91,13 @@ void Second_hand::draw()
       current_symbol(symbol, i);
       output_string(center.x + line[i].x * shift.x, center.y + line[i].y * shift.y, &symbol, 47);
     }
+    clearing = true;
   }
 }
 
 void Second_hand::clear()
 {
-  if (Second_update(false))
+  if (Second_update(false) && clearing)
   {
     symbol = ' ';
     for (size_t i = 0; i < line.size(); i++)

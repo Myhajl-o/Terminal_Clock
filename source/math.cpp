@@ -35,22 +35,21 @@ void Coordinates_circle(const int &radius, std::vector<Coordinates> &circle)
     {
       d = d + 4 * temp.x + 6;
       temp.x++;
-      circle.push_back(temp);
     }
     else
     {
       d = d + 4 * (temp.x - temp.y) + 10;
       temp.x++;
       temp.y--;
-      circle.push_back(temp);
     }
+    circle.push_back(temp);
   } while (temp.x == temp.y || temp.x < temp.y);
 
   circle.resize(temp.x * 2);
-  for (int j = temp.x * 2 - 1; j >= temp.x; j--)
+  for (int i = temp.x * 2 - 1; i >= temp.x; i--)
   {
-    circle[j].x = circle[(temp.x * 2 - 1) - j].y;
-    circle[j].y = circle[(temp.x * 2 - 1) - j].x;
+    circle[i].x = circle[(temp.x * 2 - 1) - i].y;
+    circle[i].y = circle[(temp.x * 2 - 1) - i].x;
   }
 }
 
@@ -79,7 +78,7 @@ void Degree(int degree, Coordinates &tick_element, const std::vector<Coordinates
   float difference[2];
   difference[0] = std::abs(degree - (convert * std::atan2((float)circle[1].x, (float)circle[1].y * 2)));
 
-  for (size_t i = 2; i < circle.size(); i++)
+  for (std::size_t i = 2; i < circle.size(); i++)
   {
     difference[1] = std::abs(degree - (convert * std::atan2((float)circle[i].x, (float)circle[i].y * 2)));
     if (difference[0] < difference[1])
@@ -114,15 +113,14 @@ void Coordinates_line(const Coordinates &B, std::vector<Coordinates> &line)
     {
       temp.x += add.x;
       temp.y += add.y;
-      line.push_back(temp);
       d = d + 2 * delta.y;
     }
     else
     {
       temp.x++;
       temp.y++;
-      line.push_back(temp);
       d = d + 2 * delta.y - 2 * delta.x;
     }
+    line.push_back(temp);
   } while (temp != B);
 }
