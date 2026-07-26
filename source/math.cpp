@@ -5,22 +5,20 @@
 
 const float convert = 180.0f / M_PI;
 
-void Coordinate_center(Coordinates &center, const int &size_x,
-                       const int &size_y)
+void Coordinate_center(Coordinates &center, const Coordinates &size)
 {
-  center.x = size_x / 2;
-  center.y = size_y / 2;
+  center = Coordinates{size.x / 2, size.y / 2};
 }
 
-void Radius(int &radius, int backdown, const int &size_x, const int &size_y)
+void Radius(int &radius, int backdown, const Coordinates &center)
 {
-  if (size_x < (size_y * 2))
+  if (center.x < (center.y * 2))
   {
-    radius = (size_x / 4) - backdown;
+    radius = (center.x / 2) - backdown;
   }
   else
   {
-    radius = (size_y / 2) - backdown;
+    radius = center.y - backdown;
   }
 }
 
@@ -28,33 +26,30 @@ void Coordinates_circle(const int &radius, std::vector<Coordinates> &circle)
 {
   circle.clear();
   int d = 3 - 2 * radius;
-  int i = 0;
-  int temp_x = 0, temp_y = radius;
-  circle.push_back(Coordinates{temp_x, temp_y});
+  Coordinates temp = Coordinates{0, radius};
+  circle.push_back(temp);
 
   do
   {
     if (d < 0)
     {
-      d = d + 4 * circle[i].x + 6;
-      temp_x++;
-      circle.push_back(Coordinates{temp_x, temp_y});
+      d = d + 4 * temp.x + 6;
+      temp.x++;
     }
-    else if (d >= 0)
+    else
     {
-      d = d + 4 * (circle[i].x - circle[i].y) + 10;
-      temp_x++;
-      temp_y--;
-      circle.push_back(Coordinates{temp_x, temp_y});
+      d = d + 4 * (temp.x - temp.y) + 10;
+      temp.x++;
+      temp.y--;
     }
-    i++;
-  } while ((circle[i].x == circle[i].y || circle[i].x < circle[i].y));
+    circle.push_back(temp);
+  } while (temp.x == temp.y || temp.x < temp.y);
 
-  circle.resize(i * 2);
-  for (int j = i * 2 - 1; j >= i; j--)
+  circle.resize(temp.x * 2);
+  for (int i = temp.x * 2 - 1; i >= temp.x; i--)
   {
-    circle[j].x = circle[(i * 2 - 1) - j].y;
-    circle[j].y = circle[(i * 2 - 1) - j].x;
+    circle[i].x = circle[(temp.x * 2 - 1) - i].y;
+    circle[i].y = circle[(temp.x * 2 - 1) - i].x;
   }
 }
 
@@ -83,15 +78,12 @@ void Degree(int degree, Coordinates &tick_element, const std::vector<Coordinates
   float difference[2];
   difference[0] = std::abs(degree - (convert * std::atan2((float)circle[1].x, (float)circle[1].y * 2)));
 
-  for (size_t i = 2; i < circle.size(); i++)
+  for (std::size_t i = 2; i < circle.size(); i++)
   {
     difference[1] = std::abs(degree - (convert * std::atan2((float)circle[i].x, (float)circle[i].y * 2)));
-
     if (difference[0] < difference[1])
     {
-      tick_element.x = circle[i - 1].x;
-      tick_element.y = circle[i - 1].y;
-
+      tick_element = circle[i - 1];
       return;
     }
     difference[0] = difference[1];
@@ -109,20 +101,9 @@ void Calculation_degrees(Coordinates (&tick)[14], const std::vector<Coordinates>
 void Coordinates_line(const Coordinates &B, std::vector<Coordinates> &line)
 {
   line.clear();
-  Coordinates temp = Coordinates{0, 0};
-  Coordinates delta;
-  Coordinates add;
-
-  if (B.x < B.y)
-  {
-    delta = Coordinates{B.y, B.x};
-    add = Coordinates{0, 1};
-  }
-  else
-  {
-    delta = Coordinates{B.x, B.y};
-    add = Coordinates{1, 0};
-  }
+  Coordinates temp = {0, 0};
+  Coordinates delta = (B.x < B.y) ? Coordinates{B.y, B.x} : Coordinates{B.x, B.y};
+  Coordinates add = (B.x < B.y) ? Coordinates{0, 1} : Coordinates{1, 0};
 
   int d = 2 * delta.y - delta.x;
 
@@ -132,15 +113,14 @@ void Coordinates_line(const Coordinates &B, std::vector<Coordinates> &line)
     {
       temp.x += add.x;
       temp.y += add.y;
-      line.push_back(temp);
       d = d + 2 * delta.y;
     }
-    else if (d >= 0)
+    else
     {
       temp.x++;
       temp.y++;
-      line.push_back(temp);
       d = d + 2 * delta.y - 2 * delta.x;
     }
-  } while (temp.x != B.x || temp.y != B.y);
+    line.push_back(temp);
+  } while (temp != B);
 }
