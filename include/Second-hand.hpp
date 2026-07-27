@@ -2,7 +2,8 @@
 #include "Coordinates.hpp"
 #include <vector>
 
-class Second_hand {
+class Second_hand
+{
   short radius;
   Coordinates center;
   std::vector<Coordinates> circle_second;

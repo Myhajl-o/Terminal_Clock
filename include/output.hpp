@@ -2,8 +2,9 @@
 #include "Coordinates.hpp"
 #include <vector>
 
+void change_color();
 void clear();
-void output_symbols(short x, short y, const char *s, short color);
+void output_symbols(short x, short y, const char *s, bool other_color);
 void background(const Coordinates &size);
 void draw_circle(const Coordinates &center,
                  const std::vector<Coordinates> &circle);
