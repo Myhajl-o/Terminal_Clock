@@ -9,7 +9,7 @@ void Coordinate_center(Coordinates &center, const Coordinates &size) {
   center.reset(size.x / 2, size.y / 2);
 }
 
-void Radius(int &radius, int backdown, const Coordinates &center) {
+void Radius(short &radius, short backdown, const Coordinates &center) {
   if (center.x < (center.y * 2)) {
     radius = (center.x / 2) - backdown;
   } else {
@@ -17,9 +17,9 @@ void Radius(int &radius, int backdown, const Coordinates &center) {
   }
 }
 
-void Coordinates_circle(const int &radius, std::vector<Coordinates> &circle) {
+void Coordinates_circle(const short &radius, std::vector<Coordinates> &circle) {
   circle.clear();
-  int d = 3 - 2 * radius;
+  short d = 3 - 2 * radius;
   Coordinates temp(0, radius);
   circle.push_back(temp);
 
@@ -36,7 +36,7 @@ void Coordinates_circle(const int &radius, std::vector<Coordinates> &circle) {
   } while (temp.x == temp.y || temp.x < temp.y);
 
   circle.resize(temp.x * 2);
-  for (int i = temp.x * 2 - 1; i >= temp.x; i--) {
+  for (short i = temp.x * 2 - 1; i >= temp.x; i--) {
     circle[i].x = circle[(temp.x * 2 - 1) - i].y;
     circle[i].y = circle[(temp.x * 2 - 1) - i].x;
   }
@@ -45,10 +45,10 @@ void Coordinates_circle(const int &radius, std::vector<Coordinates> &circle) {
 void Coordinate_upgrade(std::vector<Coordinates> &circle) {
   std::vector<Coordinates> temp = circle;
   circle.resize(circle.size() * 2 - 1);
-  int j = 0;
-  int add;
+  short j = 0;
+  short add;
 
-  for (size_t i = 0; i < circle.size(); i += 2) {
+  for (short i = 0; i < (short)circle.size(); i += 2) {
     add = temp[j].x < temp[j + 1].x;
 
     circle[i].x = temp[j].x * 2;
@@ -60,14 +60,14 @@ void Coordinate_upgrade(std::vector<Coordinates> &circle) {
   }
 }
 
-void Degree(int degree, Coordinates &tick_element,
+void Degree(short degree, Coordinates &tick_element,
             const std::vector<Coordinates> &circle) {
   float difference[2];
   difference[0] =
       std::abs(degree - (convert * std::atan2((float)circle[1].x,
                                               (float)circle[1].y * 2)));
 
-  for (std::size_t i = 2; i < circle.size(); i++) {
+  for (short i = 2; i < (short)circle.size(); i++) {
     difference[1] =
         std::abs(degree - (convert * std::atan2((float)circle[i].x,
                                                 (float)circle[i].y * 2)));
@@ -81,7 +81,7 @@ void Degree(int degree, Coordinates &tick_element,
 
 void Calculation_degrees(Coordinates (&tick)[14],
                          const std::vector<Coordinates> &circle) {
-  for (int i = 0; i < 14; i++) {
+  for (short i = 0; i < 14; i++) {
     Degree((i + 1) * 6, tick[i], circle);
   }
 }
@@ -96,7 +96,7 @@ void Coordinates_line(const Coordinates &B, std::vector<Coordinates> &line) {
     add.reset(0, 1);
   }
 
-  int d = 2 * delta.y - delta.x;
+  short d = 2 * delta.y - delta.x;
 
   do {
     if (d < 0) {

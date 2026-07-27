@@ -3,7 +3,7 @@
 #include <vector>
 
 void clear();
-void output_symbols(int x, int y, const char *s, int color);
+void output_symbols(short x, short y, const char *s, short color);
 void background(const Coordinates &size);
 void draw_circle(const Coordinates &center,
                  const std::vector<Coordinates> &circle);

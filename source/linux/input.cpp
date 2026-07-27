@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sys/ioctl.h>
 #include <termios.h>
+#include <uchar.h>
 #include <unistd.h>
 
 void cursor(bool hide) {
@@ -43,7 +44,7 @@ void get_term_size(Coordinates &size) {
 }
 
 bool check_buffer(bool &show_date) {
-  int bytes;
+  char32_t bytes;
   char c = '1';
   ioctl(STDIN_FILENO, FIONREAD, &bytes);
   if (bytes > 0) {

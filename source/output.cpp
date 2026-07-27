@@ -11,7 +11,7 @@ void clear() {
   std::system("clear");
 }
 
-void output_symbols(int x, int y, const char *s, int color) {
+void output_symbols(short x, short y, const char *s, short color) {
   printf("\033[%dm\033[%d;%dH%s\033[47m", color, y, x, s);
   fflush(stdout);
 }
@@ -24,14 +24,14 @@ void background(const Coordinates &size) {
 void draw_circle(const Coordinates &center,
                  const std::vector<Coordinates> &circle) {
   char space[3] = "  ";
-  std::size_t size[4] = {circle.size() - 2, circle.size() - 1,
-                         circle.size() - 2, circle.size() - 1};
+  short size[4] = {(short)(circle.size() - 2), (short)(circle.size() - 1),
+                   (short)(circle.size() - 2), (short)(circle.size() - 1)};
   Coordinates shift[4] = {Coordinates(1, -1), Coordinates(1, 1),
                           Coordinates(-1, 1), Coordinates(-1, -1)};
-  int dilatation[4] = {0, 0, 2, 2};
+  short dilatation[4] = {0, 0, 2, 2};
 
-  for (int i = 0; i < 4; i++) {
-    for (std::size_t j = 0; j <= size[i]; j++) {
+  for (short i = 0; i < 4; i++) {
+    for (short j = 0; j <= size[i]; j++) {
       output_symbols((center.x + circle[j].x * 2 * shift[i].x) - dilatation[i],
                      (center.y + circle[j].y * shift[i].y), space, 40);
     }
@@ -45,19 +45,19 @@ void draw_numbers(const Coordinates &center, const Coordinates (&tick)[14],
                              "7", "8", "6", "11", "10", "9"};
   Coordinates shift[4] = {Coordinates(1, -1), Coordinates(1, 1),
                           Coordinates(-1, 1), Coordinates(-1, -1)};
-  int dilatation[7] = {0, 0, 1, 1, 0, 0, 1};
+  short dilatation[7] = {0, 0, 1, 1, 0, 0, 1};
   Coordinates flag[4] = {Coordinates(0, 1), Coordinates(1, 0),
                          Coordinates(0, 1), Coordinates(1, 0)};
 
-  for (int i = 0; i < 4; i++) {
-    for (int j = 0; j < 14; j++) {
+  for (short i = 0; i < 4; i++) {
+    for (short j = 0; j < 14; j++) {
       j += (j == 4 || j == 9);
       output_symbols(center.x + tick[j].x * shift[i].x - dilatation[i],
                      center.y + tick[j].y * shift[i].y, char_tick[0], 30);
     }
   }
 
-  for (int i = 0; i < 4; i++) {
+  for (short i = 0; i < 4; i++) {
     output_symbols(center.x + tick[4].x * shift[i].x - dilatation[i],
                    center.y + tick[4].y * shift[i].y, char_tick[(i * 3) + 1],
                    30);
@@ -114,7 +114,7 @@ void daw_numbers(const Coordinates &center, const Coordinates (&tick)[14],
 */
 void watch_face(const Coordinates &size) {
   Coordinates center;
-  int radius;
+  short radius;
   std::vector<Coordinates> circle;
   Coordinates tick[14];
   std::vector<Coordinates> circle_tick;

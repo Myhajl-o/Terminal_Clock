@@ -1,14 +1,14 @@
 #pragma once
 
 struct Coordinates {
-  int x;
-  int y;
+  short x;
+  short y;
 
   Coordinates() {
     x = 0;
     y = 0;
   }
-  Coordinates(int _x, int _y) {
+  Coordinates(short _x, short _y) {
     x = _x;
     y = _y;
   }
@@ -16,7 +16,7 @@ struct Coordinates {
     x = other.x;
     y = other.y;
   }
-  void reset(int _x, int _y) {
+  void reset(short _x, short _y) {
     x = _x;
     y = _y;
   }

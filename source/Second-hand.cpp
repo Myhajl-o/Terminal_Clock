@@ -8,6 +8,7 @@
 Second_hand::Second_hand() {
   current_second = 60;
   clearing = false;
+  symbol[1] = '\0';
 }
 
 void Second_hand::update(const Coordinates &new_size) {
@@ -29,37 +30,37 @@ bool Second_hand::Second_update(bool flag) {
   return current_second != time->tm_sec;
 }
 
-void Second_hand::current_symbol(char &symbol, std::size_t &i) {
+void Second_hand::current_symbol(const short &i) {
   char diagonal =
       (current_second < 16 || (current_second > 30 && current_second < 45))
           ? '/'
           : '\\';
   if (i == 0) {
-    symbol = (line[i].x == line[i + 1].x)   ? '|'
-             : (line[i].y == line[i + 1].y) ? '-'
-                                            : diagonal;
-  } else if (i == line.size() - 1) {
-    symbol = (line[i].x == line[i - 1].x)   ? '|'
-             : (line[i].y == line[i - 1].y) ? '-'
-                                            : diagonal;
+    symbol[0] = (line[i].x == line[i + 1].x)   ? '|'
+                : (line[i].y == line[i + 1].y) ? '-'
+                                               : diagonal;
+  } else if (i == (short)line.size() - 1) {
+    symbol[0] = (line[i].x == line[i - 1].x)   ? '|'
+                : (line[i].y == line[i - 1].y) ? '-'
+                                               : diagonal;
   } else {
     if (line[i - 1].x == line[i].x && line[i].x == line[i + 1].x) {
-      symbol = '|';
+      symbol[0] = '|';
     } else if (line[i - 1].y == line[i].y && line[i].y == line[i + 1].y) {
-      symbol = '-';
+      symbol[0] = '-';
     } else {
-      symbol = diagonal;
+      symbol[0] = diagonal;
     }
   }
 }
 
 void Second_hand::draw() {
   if (Second_update(true)) {
-    int temp = current_second % 15;
+    short temp = current_second % 15;
     if (temp == 0) {
       line.clear();
       Coordinates value;
-      int dilatation;
+      short dilatation;
       if (current_second == 15 || current_second == 45) {
         value.reset(1, 0);
         dilatation = 2;
@@ -67,7 +68,7 @@ void Second_hand::draw() {
         value.reset(0, 1);
         dilatation = 1;
       }
-      for (int i = 1; i <= radius * dilatation; i++) {
+      for (short i = 1; i <= radius * dilatation; i++) {
         line.push_back(Coordinates(i * value.x, i * value.y));
       }
     } else {
@@ -82,10 +83,10 @@ void Second_hand::draw() {
     shift.x = (current_second < 31) ? 1 : -1;
     shift.y = (current_second > 15 && current_second < 46) ? 1 : -1;
 
-    for (std::size_t i = 0; i < line.size(); i++) {
-      current_symbol(symbol, i);
+    for (short i = 0; i < (short)line.size(); i++) {
+      current_symbol(i);
       output_symbols(center.x + line[i].x * shift.x,
-                     center.y + line[i].y * shift.y, &symbol, 47);
+                     center.y + line[i].y * shift.y, symbol, 47);
     }
     clearing = true;
   }
@@ -93,10 +94,10 @@ void Second_hand::draw() {
 
 void Second_hand::clear() {
   if (Second_update(false) && clearing) {
-    symbol = ' ';
+    symbol[0] = ' ';
     for (short i = 0; i < (short)line.size(); i++) {
       output_symbols(center.x + line[i].x * shift.x,
-                     center.y + line[i].y * shift.y, &symbol, 47);
+                     center.y + line[i].y * shift.y, symbol, 47);
     }
   }
 }
