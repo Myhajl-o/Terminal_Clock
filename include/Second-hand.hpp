@@ -1,10 +1,8 @@
 #pragma once
 #include "Coordinates.hpp"
-// #include <string>
 #include <vector>
 
-class Second_hand
-{
+class Second_hand {
   int radius;
   Coordinates center;
   std::vector<Coordinates> circle_second;

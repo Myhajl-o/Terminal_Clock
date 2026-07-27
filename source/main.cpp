@@ -7,18 +7,14 @@
 #include "input.hpp"
 #include <unistd.h>
 
-bool incorrect_term_size(const Coordinates &size)
-{
-  return (size.x < 20 || size.y < 10 || size.x > 9999998 || size.y > 4999999);
+bool incorrect_term_size(const Coordinates &size) {
+  return (size.x < 20 || size.y < 10 || size.x > 32766 || size.y > 16383);
 }
 
-int main()
-{
+int main() {
 
   Coordinates term_size;
-  Coordinates past_term_size = {0, 0};
-
-  get_term_size(term_size);
+  Coordinates past_term_size;
 
   Second_hand *second = new Second_hand();
   /*   Minute_hand *minute = new Minute_hand();
@@ -28,15 +24,12 @@ int main()
 
   block(false);
 
-  while (!check_buffer(temp))
-  {
+  while (!check_buffer(temp)) {
 
     get_term_size(term_size);
 
-    if (!incorrect_term_size(term_size))
-    {
-      if (term_size != past_term_size)
-      {
+    if (!incorrect_term_size(term_size)) {
+      if (term_size != past_term_size) {
         clear();
         background(term_size);
         watch_face(term_size);
@@ -44,9 +37,7 @@ int main()
       }
       second->clear();
       second->draw();
-    }
-    else
-    {
+    } else {
       clear();
     }
 
