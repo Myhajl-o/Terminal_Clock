@@ -15,7 +15,7 @@ class Second_hand
 
   short current_second;
 
-  void current_symbol(const short &i);
+  void current_symbol(const unsigned short &i);
   bool Second_update(bool flag);
 
 public:

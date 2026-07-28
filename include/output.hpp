@@ -1,14 +1,6 @@
 #pragma once
-#include "Coordinates.hpp"
-#include <vector>
 
-void change_color();
+void change_color(const bool &color);
 void clear();
+void cursor(bool hide);
 void output_symbols(short x, short y, const char *s, bool other_color);
-void background(const Coordinates &size);
-void draw_circle(const Coordinates &center,
-                 const std::vector<Coordinates> &circle);
-void draw_numbers(const Coordinates &center, const Coordinates (&tick)[14],
-                  const std::vector<Coordinates> &circle_tick);
-void test_function(const std::vector<Coordinates> &circle);
-void watch_face(const Coordinates &size);

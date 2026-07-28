@@ -1,22 +1,9 @@
 #include "input.hpp"
 #include "Coordinates.hpp"
-#include <iostream>
 #include <sys/ioctl.h>
 #include <termios.h>
 #include <uchar.h>
 #include <unistd.h>
-
-void cursor(bool hide)
-{
-  if (hide)
-  {
-    std::cout << "\033[?25l";
-  }
-  else
-  {
-    std::cout << "\033[?25h";
-  }
-}
 
 void clear_buffer() { tcflush(STDIN_FILENO, TCIFLUSH); }
 
@@ -36,14 +23,12 @@ void block(bool enable)
   if (enable)
   {
     tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-    cursor(enable);
   }
   else
   {
     newt = oldt;
     newt.c_lflag &= ~(ICANON | ECHO);
     tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-    cursor(!enable);
   }
 }
 

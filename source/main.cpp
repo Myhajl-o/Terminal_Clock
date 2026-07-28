@@ -4,14 +4,14 @@
 #include "output.hpp"
 //  #include "date.hpp"
 #include "Coordinates.hpp"
+#include "background.hpp"
 #include "input.hpp"
+#include "watch_face.hpp"
 #include <unistd.h>
-
-bool color = false;
 
 bool incorrect_term_size(const Coordinates &size)
 {
-  return (size.x < 20 || size.y < 10 || size.x > 32766 || size.y > 16383);
+  return (size.x < 30 || size.y < 15 || size.x > 2048 || size.y > 1024);
 }
 
 int main()
@@ -25,9 +25,12 @@ int main()
      Hour_hand *hour = new Hour_hand();
    */
   bool temp;
+
+  bool color = false;
   bool past_color = false;
 
   block(false);
+  cursor(true);
 
   while (!check_buffer(temp, color))
   {
@@ -39,6 +42,7 @@ int main()
       if (term_size != past_term_size || color != past_color)
       {
         clear();
+        change_color(color);
         background(term_size);
         watch_face(term_size);
         second->update(term_size);
@@ -58,6 +62,7 @@ int main()
   }
 
   block(true);
+  cursor(false);
   clear();
 
   delete second;

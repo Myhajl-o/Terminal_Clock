@@ -60,7 +60,7 @@ void Coordinate_upgrade(std::vector<Coordinates> &circle)
   short j = 0;
   short add;
 
-  for (short i = 0; i < (short)circle.size(); i += 2)
+  for (unsigned short i = 0; i < circle.size(); i += 2)
   {
     add = temp[j].x < temp[j + 1].x;
 
@@ -81,7 +81,7 @@ void Degree(short degree, Coordinates &tick_element,
       std::abs(degree - (convert * std::atan2((float)circle[1].x,
                                               (float)circle[1].y * 2)));
 
-  for (short i = 2; i < (short)circle.size(); i++)
+  for (unsigned short i = 2; i < circle.size(); i++)
   {
     difference[1] =
         std::abs(degree - (convert * std::atan2((float)circle[i].x,

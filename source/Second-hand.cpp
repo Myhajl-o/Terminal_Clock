@@ -34,7 +34,7 @@ bool Second_hand::Second_update(bool flag)
   return current_second != time->tm_sec;
 }
 
-void Second_hand::current_symbol(const short &i)
+void Second_hand::current_symbol(const unsigned short &i)
 {
   char diagonal =
       (current_second < 16 || (current_second > 30 && current_second < 45))
@@ -77,17 +77,12 @@ void Second_hand::draw()
     if (temp == 0)
     {
       line.clear();
-      Coordinates value;
-      short dilatation;
+      Coordinates value(0, 1);
+      short dilatation = 1;
       if (current_second == 15 || current_second == 45)
       {
         value.reset(1, 0);
         dilatation = 2;
-      }
-      else
-      {
-        value.reset(0, 1);
-        dilatation = 1;
       }
       for (short i = 1; i <= radius * dilatation; i++)
       {
@@ -107,7 +102,7 @@ void Second_hand::draw()
     shift.x = (current_second < 31) ? 1 : -1;
     shift.y = (current_second > 15 && current_second < 46) ? 1 : -1;
 
-    for (short i = 0; i < (short)line.size(); i++)
+    for (unsigned short i = 0; i < line.size(); i++)
     {
       current_symbol(i);
       output_symbols(center.x + line[i].x * shift.x,
@@ -122,7 +117,7 @@ void Second_hand::clear()
   if (Second_update(false) && clearing)
   {
     symbol[0] = ' ';
-    for (short i = 0; i < (short)line.size(); i++)
+    for (unsigned short i = 0; i < line.size(); i++)
     {
       output_symbols(center.x + line[i].x * shift.x,
                      center.y + line[i].y * shift.y, symbol, false);
