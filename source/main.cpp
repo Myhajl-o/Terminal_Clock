@@ -16,14 +16,10 @@ bool incorrect_term_size(const Coordinates &size)
 
 int main()
 {
-
   Coordinates term_size;
   Coordinates past_term_size;
 
-  Second_hand *second = new Second_hand();
-  /*   Minute_hand *minute = new Minute_hand();
-     Hour_hand *hour = new Hour_hand();
-   */
+  Second_hand second;
   bool temp;
 
   bool color = false;
@@ -45,10 +41,10 @@ int main()
         change_color(color);
         background(term_size);
         watch_face(term_size);
-        second->update(term_size);
+        second.update(term_size);
       }
-      second->clear();
-      second->draw();
+      second.clear();
+      second.draw();
     }
     else
     {
@@ -65,9 +61,5 @@ int main()
   cursor(false);
   clear();
 
-  delete second;
-  /*   delete minute;
-     delete hour;
-   */
   return 0;
 }
