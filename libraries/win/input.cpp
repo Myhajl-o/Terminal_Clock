@@ -21,12 +21,13 @@ void block(bool state)
 
 void clear_buffer()
 {
-  HANDLE hStdin = GetStdHandle(STD_IINPUT_HANDLE);
+  HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE);
   FlushConsoleInputBuffer(hStdin);
 }
 
 void get_term_size(Coordinates &size)
 {
+  HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
   CONSOLE_SCREEN_BUFFER_INFO csbi;
   GetConsoleScreenBufferInfo(hStdout, &csbi);
 
@@ -37,38 +38,39 @@ bool check_buffer(bool &show_date, bool &color)
 {
   HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE);
   DWORD events;
-  unsigned char c = 1;
   GetNumberOfConsoleInputEvents(hStdin, &events);
 
   if (events > 0)
   {
     DWORD read_chars;
-    ReadConsoleA(hStdin, &c, 1, &read_chars, NULL);
+    INPUT_RECORD ir[4];
+    unsigned char c = 1;
+    ReadConsoleInput(hStdin, ir, 4, &read_chars);
 
-    switch (c)
+    for (int i = 0; i < 4; i++)
     {
-    case 0:
-    case 224:
-      ReadConsoleA(hStdin, &c, 1, &read_chars, NULL);
-      if (c == 80)
+      if (ir[i].EventType == KEY_EVENT && ir[i].Event.KeyEvent.bKeyDown)
       {
-        show_date = true;
+        c = ir[i].Event.KeyEvent.uChar.AsciiChar;
       }
-      else if (c == 72)
-      {
-        show_date = false;
-      }
-      break;
-    case 's':
-      show_date = true;
-      break;
-    case 'w':
-      show_date = false;
-      break;
-    case 'c':
-      color = !color;
     }
-    clear_buffer();
+
+    if (c != 1)
+    {
+      switch (c)
+      {
+      case 's':
+        show_date = true;
+        break;
+      case 'w':
+        show_date = false;
+        break;
+      case 'c':
+        color = !color;
+      }
+      clear_buffer();
+      return (c == '\n' || c == ' ');
+    }
   }
-  return (c == '\n' || c == ' ');
+  return false;
 }
