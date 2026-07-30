@@ -42,7 +42,7 @@ void get_term_size(Coordinates &size)
 bool check_buffer(bool &show_date, bool &color)
 {
   char32_t bytes;
-  char c = '1';
+  unsigned char c = 1;
   ioctl(STDIN_FILENO, FIONREAD, &bytes);
   if (bytes > 0)
   {

@@ -14,18 +14,23 @@ add_compile_options(-Wall -Wextra -Werror -O1)
 include_directories(include/)
 
 set(SOURCES main.cpp background.cpp watch_face.cpp Second-hand.cpp)
-#if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-#	list(APPEND SOURCES linux/input.cpp)
-#elseif(WIN32)
-#	list(APPEND SOURCES win/input.cpp)
-#endif()
 list(TRANSFORM SOURCES PREPEND "source/")
 
-add_library(_input_lib SHARED libraries/linux/input.cpp)
-add_library(_output_lib SHARED libraries/output.cpp)
-add_library(_math_lib SHARED libraries/math.cpp)
+set(INPUT)
+set(OUTPUT libraries/output.cpp)
+set(MATH libraries/math.cpp)
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+	list(APPEND INPUT libraries/linux/input.cpp)
+elseif(WIN32)
+	list(APPEND INPUT libraries/win/input.cpp)
+endif()
+
+
+add_library(_input_lib SHARED ${INPUT})
+add_library(_output_lib SHARED ${OUTPUT})
+add_library(_math_lib SHARED ${MATH})
 
 add_executable(clock ${SOURCES})
-#add_executable(clock source/main.cpp libraries/linux/input.cpp libraries/output.cpp libraries/math.cpp source/background.cpp source/watch_face.cpp source/Second-hand.cpp)
 
 target_link_libraries(clock PRIVATE _input_lib _output_lib _math_lib)
