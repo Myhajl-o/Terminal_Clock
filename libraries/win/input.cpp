@@ -4,8 +4,10 @@
 
 void block(bool state)
 {
+  //==== block input =====================
   HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE);
   DWORD mode;
+  DWORD inMode;
   GetConsoleMode(hStdin, &mode);
 
   if (state)
@@ -17,6 +19,27 @@ void block(bool state)
     mode &= ~(ENABLE_ECHO_INPUT | ENABLE_LINE_INPUT);
   }
   SetConsoleMode(hStdin, mode);
+
+  //==== Off quick edit mode ==============
+  GetConsoleMode(hStdin, &inMode);
+  if (state)
+  {
+    inMode |= ENABLE_QUICK_EDIT_MODE;
+    inMode |= ENABLE_EXTENDED_FLAGS;
+  }
+  else
+  {
+    inMode &= ~ENABLE_QUICK_EDIT_MODE;
+    inMode &= ~(ENABLE_ECHO_INPUT | ENABLE_LINE_INPUT);
+  }
+  SetConsoleMode(hStdin, inMode);
+
+  //==== read escape code =================
+  HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+  DWORD outMode = 0;
+  GetConsoleMode(hOut, &outMode);
+  outMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+  SetConsoleMode(hOut, outMode);
 }
 
 void clear_buffer()
@@ -43,33 +66,27 @@ bool check_buffer(bool &show_date, bool &color)
   if (events > 0)
   {
     DWORD read_chars;
-    INPUT_RECORD ir[4];
-    unsigned char c = 1;
-    ReadConsoleInput(hStdin, ir, 4, &read_chars);
+    INPUT_RECORD ir;
+    ReadConsoleInput(hStdin, &ir, 1, &read_chars);
 
-    for (int i = 0; i < 4; i++)
+    if (ir.EventType == KEY_EVENT && ir.Event.KeyEvent.bKeyDown)
     {
-      if (ir[i].EventType == KEY_EVENT && ir[i].Event.KeyEvent.bKeyDown)
+      if (ir.Event.KeyEvent.wVirtualKeyCode == VK_SPACE || ir.Event.KeyEvent.wVirtualKeyCode == VK_ESCAPE)
       {
-        c = ir[i].Event.KeyEvent.uChar.AsciiChar;
+        return true;
       }
-    }
-
-    if (c != 1)
-    {
-      switch (c)
+      else if (ir.Event.KeyEvent.wVirtualKeyCode == VK_DOWN || ir.Event.KeyEvent.wVirtualKeyCode == 'S')
       {
-      case 's':
         show_date = true;
-        break;
-      case 'w':
+      }
+      else if (ir.Event.KeyEvent.wVirtualKeyCode == VK_UP || ir.Event.KeyEvent.wVirtualKeyCode == 'W')
+      {
         show_date = false;
-        break;
-      case 'c':
+      }
+      else if (ir.Event.KeyEvent.wVirtualKeyCode == 'C')
+      {
         color = !color;
       }
-      clear_buffer();
-      return (c == '\n' || c == ' ');
     }
   }
   return false;
