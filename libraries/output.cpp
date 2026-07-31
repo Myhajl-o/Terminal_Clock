@@ -1,6 +1,5 @@
 #include "output.hpp"
 #include <cstdio>
-#include <cstdlib>
 
 short main_color;
 short secondary_color;
@@ -25,8 +24,7 @@ void change_color(const bool &color)
 
 void clear()
 {
-  printf("\033[0m");
-  std::system("clear");
+  printf("\033[0m\033[2J");
 }
 
 void cursor(bool hide)

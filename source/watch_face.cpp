@@ -74,8 +74,8 @@ void draw_numbers(const Coordinates &center, const Coordinates (&tick)[14], cons
   output_symbols(center.x + tick[9].x, center.y + tick[9].y, char_tick[5], false);
   output_symbols(center.x + circle_tick[0].y * 2, center.y, char_tick[6], false);
 
-  output_symbols(center.x - tick[4].x, center.y + tick[4].y, char_tick[7], false);
-  output_symbols(center.x - tick[9].x, center.y + tick[9].y, char_tick[8], false);
+  output_symbols(center.x - tick[4].x - 1, center.y + tick[4].y, char_tick[7], false);
+  output_symbols(center.x - tick[9].x - 1, center.y + tick[9].y, char_tick[8], false);
   output_symbols(center.x, center.y + circle_tick[0].y, char_tick[9], false);
 
   output_symbols(center.x - tick[4].x - 1, center.y - tick[4].y, char_tick[10], false);

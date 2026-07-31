@@ -38,6 +38,7 @@ int main()
       if (term_size != past_term_size || color != past_color)
       {
         clear();
+        cursor(true);
         change_color(color);
         background(term_size);
         watch_face(term_size);

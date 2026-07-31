@@ -50,11 +50,13 @@ bool check_buffer(bool &show_date, bool &color)
 
     switch (c)
     {
-    case '\x1b':
-      char seq[3];
-      if (read(STDIN_FILENO, &seq[0], 1) == 1 &&
-          read(STDIN_FILENO, &seq[1], 1) == 1)
+    case '\033':
+      ioctl(STDIN_FILENO, FIONREAD, &bytes);
+      if (bytes >= 2)
       {
+        char seq[3];
+        read(STDIN_FILENO, seq, 2);
+
         if (seq[0] == '[')
         {
           if (seq[1] == 'B')
@@ -66,6 +68,10 @@ bool check_buffer(bool &show_date, bool &color)
             show_date = false;
           }
         }
+      }
+      else if (bytes == 0)
+      {
+        return true;
       }
       break;
     case 's':
@@ -79,5 +85,5 @@ bool check_buffer(bool &show_date, bool &color)
     }
     clear_buffer();
   }
-  return (c == '\n' || c == ' ');
+  return c == ' ';
 }
