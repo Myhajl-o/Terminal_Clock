@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COORDINATES_HPP
+#define COORDINATES_HPP
 
 struct Coordinates
 {
@@ -30,3 +31,5 @@ struct Coordinates
     return (x != other.x || y != other.y);
   }
 };
+
+#endif

@@ -22,12 +22,12 @@ void change_color(const bool &color)
   printf("\033[%dm\033[%dm", main_color, symbol_color);
 }
 
-void clear()
+void clear_term()
 {
   printf("\033[0m\033[2J");
 }
 
-void cursor(bool hide)
+void hide_cursor(bool hide)
 {
   if (hide)
   {
@@ -39,16 +39,16 @@ void cursor(bool hide)
   }
 }
 
-void output_symbols(short x, short y, const char *s, bool other_color)
+void output_symbols(short x, short y, const char *symbols, bool other_color)
 {
   if (other_color)
   {
-    printf("\033[%dm\033[%d;%dH%s\033[%dm", secondary_color, y, x, s,
+    printf("\033[%dm\033[%d;%dH%s\033[%dm", secondary_color, y, x, symbols,
            main_color);
   }
   else
   {
-    printf("\033[%d;%dH%s", y, x, s);
+    printf("\033[%d;%dH%s", y, x, symbols);
   }
   fflush(stdout);
 }

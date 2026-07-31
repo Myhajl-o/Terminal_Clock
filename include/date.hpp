@@ -1,6 +1,4 @@
-#pragma once
-#include <iostream>
-#include <string>
-#include <iomanip>
+#ifndef DATE_HPP
+#define DATE_HPP
 
-void show_window_date(bool show, int day, int month, int year);
+#endif

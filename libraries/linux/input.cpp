@@ -7,7 +7,7 @@
 
 void clear_buffer() { tcflush(STDIN_FILENO, TCIFLUSH); }
 
-void block(bool enable)
+void setting_term_mode(bool raw_term)
 {
   static struct termios oldt, newt;
   static bool initialized = false;
@@ -20,15 +20,15 @@ void block(bool enable)
     initialized = true;
   }
 
-  if (enable)
-  {
-    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-  }
-  else
+  if (raw_term)
   {
     newt = oldt;
     newt.c_lflag &= ~(ICANON | ECHO);
     tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+  }
+  else
+  {
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
   }
 }
 
