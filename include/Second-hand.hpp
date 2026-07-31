@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SECOND_HAND_HPP
+#define SECOND_HAND_HPP
+
 #include "Coordinates.hpp"
 #include <vector>
 
@@ -15,8 +17,9 @@ class Second_hand
 
   short current_second;
 
+  void calculation_coordinate_line();
   void current_symbol(const unsigned short &i);
-  bool Second_update(bool flag);
+  bool second_update(bool flag);
 
 public:
   Second_hand();
@@ -27,3 +30,5 @@ public:
 
   void draw();
 };
+
+#endif

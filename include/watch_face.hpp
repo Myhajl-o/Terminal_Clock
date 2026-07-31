@@ -1,4 +1,6 @@
-#pragma once
+#ifndef WATCH_FACE_HPP
+#define WATCH_FACE_HPP
+
 #include "Coordinates.hpp"
 #include <vector>
 
@@ -7,3 +9,5 @@ void draw_circle(const Coordinates &center, const std::vector<Coordinates> &circ
 void calculate_data_numbers(short &radius, std::vector<Coordinates> &circle_tick, Coordinates (&tick)[14]);
 void draw_numbers(const Coordinates &center, const Coordinates (&tick)[14], const std::vector<Coordinates> &circle_tick);
 void draw_watch_face(const Coordinates &size);
+
+#endif

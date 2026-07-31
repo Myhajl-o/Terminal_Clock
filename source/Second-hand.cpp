@@ -21,7 +21,7 @@ void Second_hand::update(const Coordinates &new_size)
   Coordinate_upgrade(circle_second);
 }
 
-bool Second_hand::Second_update(bool flag)
+bool Second_hand::second_update(bool flag)
 {
   time_t now = time(NULL);
   tm *time = localtime(&now);
@@ -32,6 +32,36 @@ bool Second_hand::Second_update(bool flag)
                : false;
   }
   return current_second != time->tm_sec;
+}
+
+void Second_hand::calculation_coordinate_line()
+{
+  short temp = current_second % 15;
+  if (temp == 0)
+  {
+    line.clear();
+    Coordinates value(0, 1);
+    short dilatation = 1;
+    if (current_second == 15 || current_second == 45)
+    {
+      value.reset(1, 0);
+      dilatation = 2;
+    }
+    for (short i = 1; i <= radius * dilatation; i++)
+    {
+      line.push_back(Coordinates(i * value.x, i * value.y));
+    }
+  }
+  else
+  {
+    temp = ((current_second > 15 && current_second < 30) ||
+            (current_second > 45 && current_second < 60))
+               ? 15 - temp
+               : temp;
+    Coordinate_degree(temp * 6, second_stop, circle_second);
+    second_stop.x += (current_second > 30) ? 1 : 0;
+    Coordinates_line(second_stop, line);
+  }
 }
 
 void Second_hand::current_symbol(const unsigned short &i)
@@ -71,34 +101,9 @@ void Second_hand::current_symbol(const unsigned short &i)
 
 void Second_hand::draw()
 {
-  if (Second_update(true))
+  if (second_update(true))
   {
-    short temp = current_second % 15;
-    if (temp == 0)
-    {
-      line.clear();
-      Coordinates value(0, 1);
-      short dilatation = 1;
-      if (current_second == 15 || current_second == 45)
-      {
-        value.reset(1, 0);
-        dilatation = 2;
-      }
-      for (short i = 1; i <= radius * dilatation; i++)
-      {
-        line.push_back(Coordinates(i * value.x, i * value.y));
-      }
-    }
-    else
-    {
-      temp = ((current_second > 15 && current_second < 30) ||
-              (current_second > 45 && current_second < 60))
-                 ? 15 - temp
-                 : temp;
-      Coordinate_degree(temp * 6, second_stop, circle_second);
-      second_stop.x += (current_second > 30) ? 1 : 0;
-      Coordinates_line(second_stop, line);
-    }
+    calculation_coordinate_line();
     shift.x = (current_second < 31) ? 1 : -1;
     shift.y = (current_second > 15 && current_second < 46) ? 1 : -1;
 
@@ -114,7 +119,7 @@ void Second_hand::draw()
 
 void Second_hand::clear()
 {
-  if (Second_update(false) && clearing)
+  if (second_update(false) && clearing)
   {
     symbol[0] = ' ';
     for (unsigned short i = 0; i < line.size(); i++)

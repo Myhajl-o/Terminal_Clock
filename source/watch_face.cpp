@@ -74,10 +74,8 @@ void draw_watch_face(const Coordinates &size)
   std::vector<Coordinates> circle_tick;
 
   calculate_data_circle(size, center, radius, circle);
-
   draw_circle(center, circle);
 
   calculate_data_numbers(radius, circle_tick, tick);
-
   draw_numbers(center, tick, circle_tick);
 }

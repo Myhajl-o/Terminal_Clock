@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SIMPLE_STRING_HPP
+#define SIMPLE_STRING_HPP
+
 #include <cstring>
 
 struct Simple_string
@@ -18,3 +20,5 @@ struct Simple_string
     delete[] symbols;
   }
 };
+
+#endif

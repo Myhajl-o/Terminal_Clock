@@ -37,7 +37,6 @@ int main()
     {
       if (term_size != past_term_size || color != past_color)
       {
-        clear_term();
         hide_cursor(true);
         change_color(color);
         draw_background(term_size);
