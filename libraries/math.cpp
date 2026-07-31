@@ -5,11 +5,27 @@
 
 const float convert = 180.0f / M_PI;
 
+// The Coordinate_center function is designed to calculate
+// the center of the terminal window. The function calculates
+// the center by dividing the terminal width by 2 and
+// dividing the terminal height by 2.
+//
+// This function is used in the watch_face.cpp and
+// Second-hand.cpp files.
 void Coordinate_center(Coordinates &center, const Coordinates &size)
 {
   center.reset(size.x / 2, size.y / 2);
 }
 
+// The Calculation_radius function calculates a radius that will
+// fit the size of the terminal. For example, if the terminal width
+// is less than the height, the radius will be calculated relative
+// to the width rather than the height. This is done so that
+// the circle drawn using this radius fits exactly into the
+// terminal window.
+//
+// This function is used in the watch_face.cpp and
+// Second-hand.cpp files.
 void Calculation_radius(short &radius, short backdown, const Coordinates &center)
 {
   if (center.x < (center.y * 2))
@@ -22,6 +38,19 @@ void Calculation_radius(short &radius, short backdown, const Coordinates &center
   }
 }
 
+// The Coordinates_circle function calculates the coordinates for
+// drawing a 1/4 circle relative to the initial coordinates
+// x:0, y:0. That is, the function calculates raw data for
+// drawing a 1/4 circle; to use them, certain mathematical
+// calculations must be performed.
+// The function first calculates a 1/8 circle using
+// Bresenham's algorithm for drawing arcs or circles.
+// The coordinates for the 1/4 circle are found by
+// reflecting the previous coordinates that were
+// obtained using Bresenham's algorithm.
+//
+// This function is used in the watch_face.cpp and
+// Second-hand.cpp files.
 void Coordinates_circle(const short &radius, std::vector<Coordinates> &circle)
 {
   circle.clear();
