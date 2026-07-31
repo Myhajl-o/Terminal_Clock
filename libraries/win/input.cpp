@@ -2,7 +2,7 @@
 #include "Coordinates.hpp"
 #include <windows.h>
 
-void block(bool state)
+void setting_term_mode(bool raw_term)
 {
   //==== block input =====================
   HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE);
@@ -10,27 +10,27 @@ void block(bool state)
   DWORD inMode;
   GetConsoleMode(hStdin, &mode);
 
-  if (state)
+  if (raw_term)
   {
-    mode |= (ENABLE_ECHO_INPUT | ENABLE_LINE_INPUT);
+    mode &= ~(ENABLE_ECHO_INPUT | ENABLE_LINE_INPUT);
   }
   else
   {
-    mode &= ~(ENABLE_ECHO_INPUT | ENABLE_LINE_INPUT);
+    mode |= (ENABLE_ECHO_INPUT | ENABLE_LINE_INPUT);
   }
   SetConsoleMode(hStdin, mode);
 
   //==== Off quick edit mode ==============
   GetConsoleMode(hStdin, &inMode);
-  if (state)
-  {
-    inMode |= ENABLE_QUICK_EDIT_MODE;
-    inMode |= ENABLE_EXTENDED_FLAGS;
-  }
-  else
+  if (raw_term)
   {
     inMode &= ~ENABLE_QUICK_EDIT_MODE;
     inMode &= ~(ENABLE_ECHO_INPUT | ENABLE_LINE_INPUT);
+  }
+  else
+  {
+    inMode |= ENABLE_QUICK_EDIT_MODE;
+    inMode |= ENABLE_EXTENDED_FLAGS;
   }
   SetConsoleMode(hStdin, inMode);
 

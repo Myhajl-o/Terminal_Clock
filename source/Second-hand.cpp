@@ -16,7 +16,7 @@ void Second_hand::update(const Coordinates &new_size)
 {
   clearing = false;
   Coordinate_center(center, new_size);
-  Radius(radius, 3, center);
+  Calculation_radius(radius, 3, center);
   Coordinates_circle(radius, circle_second);
   Coordinate_upgrade(circle_second);
 }
@@ -95,7 +95,7 @@ void Second_hand::draw()
               (current_second > 45 && current_second < 60))
                  ? 15 - temp
                  : temp;
-      Degree(temp * 6, second_stop, circle_second);
+      Coordinate_degree(temp * 6, second_stop, circle_second);
       second_stop.x += (current_second > 30) ? 1 : 0;
       Coordinates_line(second_stop, line);
     }

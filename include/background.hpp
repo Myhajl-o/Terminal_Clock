@@ -1,4 +1,4 @@
 #pragma once
 #include "Coordinates.hpp"
 
-void background(const Coordinates &size);
+void draw_background(const Coordinates &size);

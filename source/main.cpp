@@ -9,9 +9,9 @@
 #include "watch_face.hpp"
 #include <unistd.h>
 
-bool incorrect_term_size(const Coordinates &size)
+bool correct_term_size(const Coordinates &size)
 {
-  return (size.x < 30 || size.y < 15 || size.x > 2048 || size.y > 1024);
+  return (size.x > 30 && size.y > 15 && size.x < 2048 && size.y < 1024);
 }
 
 int main()
@@ -25,23 +25,23 @@ int main()
   bool color = false;
   bool past_color = false;
 
-  block(false);
-  cursor(true);
+  setting_term_mode(true);
+  hide_cursor(true);
 
   while (!check_buffer(temp, color))
   {
 
     get_term_size(term_size);
 
-    if (!incorrect_term_size(term_size))
+    if (correct_term_size(term_size))
     {
       if (term_size != past_term_size || color != past_color)
       {
-        clear();
-        cursor(true);
+        clear_term();
+        hide_cursor(true);
         change_color(color);
-        background(term_size);
-        watch_face(term_size);
+        draw_background(term_size);
+        draw_watch_face(term_size);
         second.update(term_size);
       }
       second.clear();
@@ -49,7 +49,7 @@ int main()
     }
     else
     {
-      clear();
+      clear_term();
     }
 
     past_term_size = term_size;
@@ -58,9 +58,9 @@ int main()
     usleep(100000);
   }
 
-  block(true);
-  cursor(false);
-  clear();
+  setting_term_mode(false);
+  hide_cursor(false);
+  clear_term();
 
   return 0;
 }

@@ -10,7 +10,7 @@ void Coordinate_center(Coordinates &center, const Coordinates &size)
   center.reset(size.x / 2, size.y / 2);
 }
 
-void Radius(short &radius, short backdown, const Coordinates &center)
+void Calculation_radius(short &radius, short backdown, const Coordinates &center)
 {
   if (center.x < (center.y * 2))
   {
@@ -73,8 +73,8 @@ void Coordinate_upgrade(std::vector<Coordinates> &circle)
   }
 }
 
-void Degree(short degree, Coordinates &tick_element,
-            const std::vector<Coordinates> &circle)
+void Coordinate_degree(short degree, Coordinates &tick_element,
+                       const std::vector<Coordinates> &circle)
 {
   float difference[2];
   difference[0] =
@@ -92,15 +92,6 @@ void Degree(short degree, Coordinates &tick_element,
       return;
     }
     difference[0] = difference[1];
-  }
-}
-
-void Calculation_degrees(Coordinates (&tick)[14],
-                         const std::vector<Coordinates> &circle)
-{
-  for (short i = 0; i < 14; i++)
-  {
-    Degree((i + 1) * 6, tick[i], circle);
   }
 }
 
