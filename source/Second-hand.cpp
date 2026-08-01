@@ -9,18 +9,35 @@ Second_hand::Second_hand()
 {
   current_second = 60;
   clearing = false;
+  drawing = false;
   symbol[1] = '\0';
 }
 
+// The update method of the Second_hand class updates the class fields
+// relative to the new size, and calculates some of them
+// for the correct output of the second hand.
+//
+// The method returns nothing, and only takes constant data.
+//
+// The method is used in the main.cpp file.
 void Second_hand::update(const Coordinates &new_size)
 {
   clearing = false;
+  drawing = true;
   Coordinate_center(center, new_size);
   Calculation_radius(radius, 3, center);
   Coordinates_circle(radius, circle_second);
   Coordinate_upgrade(circle_second);
 }
 
+// The second_update method of the Second_hand class retrieves data about
+// the current second from the system and updates the class fields.
+// It is used as an internal indicator that the state of the
+// second hand needs to be updated.
+//
+// The method returns a bool value and takes a bool value.
+//
+// The method is used in the draw method.
 bool Second_hand::second_update(bool flag)
 {
   time_t now = time(NULL);
@@ -34,6 +51,13 @@ bool Second_hand::second_update(bool flag)
   return current_second != time->tm_sec;
 }
 
+// The calculation_coordinate_line method of the Second_hand class
+// calculates the coordinates for drawing the hand, which during the calculation
+// are adapted to a full circle.
+//
+// The method returns nothing and takes no arguments.
+//
+// The method is used in the draw method.
 void Second_hand::calculation_coordinate_line()
 {
   short temp = current_second % 15;
@@ -64,6 +88,12 @@ void Second_hand::calculation_coordinate_line()
   }
 }
 
+// The current_symbol method of the Second_hand class determines the specific
+// symbol for a specific coordinate of the second hand.
+//
+// The method returns nothing, and only takes a constant value.
+//
+// The method is used in the draw method.
 void Second_hand::current_symbol(const unsigned short &i)
 {
   char diagonal =
@@ -99,9 +129,17 @@ void Second_hand::current_symbol(const unsigned short &i)
   }
 }
 
+// The draw method of the Second_hand class calculates the coordinates and
+// outputs the second hand. It redraws it
+// every time the second changes, when the size of the terminal
+// window changes, and when the output color changes.
+//
+// The method returns nothing and takes no arguments.
+//
+// The method is used in the main.cpp file.
 void Second_hand::draw()
 {
-  if (second_update(true))
+  if (second_update(true) || drawing)
   {
     calculation_coordinate_line();
     shift.x = (current_second < 31) ? 1 : -1;
@@ -114,9 +152,19 @@ void Second_hand::draw()
                      center.y + line[i].y * shift.y, symbol, false);
     }
     clearing = true;
+    drawing = false;
   }
 }
 
+// The clear method of the Second_hand class outputs spaces
+// at the exact same coordinates where the previous hand was,
+// to erase it. It outputs spaces only when the
+// second changes, but not immediately after the terminal
+// size or its color has changed.
+//
+// The method returns nothing and takes no arguments.
+//
+// The method is used in the main.cpp file.
 void Second_hand::clear()
 {
   if (second_update(false) && clearing)

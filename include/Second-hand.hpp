@@ -14,6 +14,7 @@ class Second_hand
   Coordinates shift;
   char symbol[2];
   bool clearing;
+  bool drawing;
 
   short current_second;
 

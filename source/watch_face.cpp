@@ -4,6 +4,13 @@
 #include "output.hpp"
 #include <vector>
 
+// The calculate_data_circle function calculates all necessary
+// data for correctly drawing a circle in the terminal.
+//
+// The function returns nothing, and passes the result
+// into a variable by reference.
+//
+// The function is used in the draw_watch_face function.
 void calculate_data_circle(const Coordinates &size, Coordinates &center, short &radius, std::vector<Coordinates> &circle)
 {
   Coordinate_center(center, size);
@@ -11,6 +18,14 @@ void calculate_data_circle(const Coordinates &size, Coordinates &center, short &
   Coordinates_circle(radius, circle);
 }
 
+// The draw_circle function draws a circle in the terminal window that is
+// the base of the clock. In the function, the raw coordinate data of the circle
+// is adapted relative to the center of the terminal, and the coordinates are
+// reflected to draw the entire circle using the 1/4 circle coordinates.
+//
+// The function returns nothing; it only receives constant data.
+//
+// The function is used in the draw_watch_face function.
 void draw_circle(const Coordinates &center, const std::vector<Coordinates> &circle)
 {
   char space[4] = "  \0";
@@ -25,6 +40,14 @@ void draw_circle(const Coordinates &center, const std::vector<Coordinates> &circ
 
   output_symbols(center.x, center.y, &space[1], true);
 }
+
+// The calculate_data_numbers function calculates all data for outputting the watch face
+// into the terminal window (numbers and tick marks).
+//
+// The function returns nothing, but writes the result into the variables passed
+// by reference.
+//
+// The function is used in the draw_watch_face function.
 void calculate_data_numbers(short &radius, std::vector<Coordinates> &circle_tick, Coordinates (&tick)[14])
 {
   radius--;
@@ -36,6 +59,14 @@ void calculate_data_numbers(short &radius, std::vector<Coordinates> &circle_tick
   }
 }
 
+// The draw_numbers function outputs the clock numbers and tick marks to the
+// terminal window. In the function, the raw coordinates are adapted relative to
+// the center of the terminal, and also reflected to draw all tick marks, rather
+// than just those within the 1/4 circle.
+//
+// The function returns nothing, and only takes constant data.
+//
+// The function is used in the draw_watch_face function.
 void draw_numbers(const Coordinates &center, const Coordinates (&tick)[14], const std::vector<Coordinates> &circle_tick)
 {
   const char *char_tick[] = {".\0", "1\0", "2\0", "12\0", "5\0", "4\0", "3\0",
@@ -65,6 +96,13 @@ void draw_numbers(const Coordinates &center, const Coordinates (&tick)[14], cons
   output_symbols(center.x - circle_tick[0].y * 2 - 1, center.y, char_tick[12], false);
 }
 
+// The draw_watch_face function calculates all data and outputs
+// the ready watch face, which is adapted to the size
+// of the terminal.
+//
+// The function returns nothing, and only takes constant data.
+//
+// The function is used in the main.cpp file.
 void draw_watch_face(const Coordinates &size)
 {
   Coordinates center;
