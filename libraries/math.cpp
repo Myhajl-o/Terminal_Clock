@@ -5,11 +5,33 @@
 
 const float convert = 180.0f / M_PI;
 
+// The Coordinate_center function is designed to calculate
+// the center of the terminal window. The function calculates
+// the center by dividing the terminal width by 2 and
+// dividing the terminal height by 2.
+//
+// The function returns nothing, and writes the result
+// into the variable passed to the function by reference.
+//
+// This function is used in the watch_face.cpp and
+// Second-hand.cpp files.
 void Coordinate_center(Coordinates &center, const Coordinates &size)
 {
   center.reset(size.x / 2, size.y / 2);
 }
 
+// The Calculation_radius function calculates a radius that will
+// fit the size of the terminal. For example, if the terminal width
+// is less than the height, the radius will be calculated relative
+// to the width rather than the height. This is done so that
+// the circle drawn using this radius fits exactly into the
+// terminal window.
+//
+// The function returns nothing, and writes the result
+// into the variable passed to the function by reference.
+//
+// This function is used in the watch_face.cpp and
+// Second-hand.cpp files.
 void Calculation_radius(short &radius, short backdown, const Coordinates &center)
 {
   if (center.x < (center.y * 2))
@@ -22,6 +44,22 @@ void Calculation_radius(short &radius, short backdown, const Coordinates &center
   }
 }
 
+// The Coordinates_circle function calculates the coordinates for
+// drawing a 1/4 circle relative to the initial coordinates
+// x:0, y:0. That is, the function calculates raw data for
+// drawing a 1/4 circle; to use them, certain mathematical
+// calculations must be performed.
+// The function first calculates a 1/8 circle using
+// Bresenham's algorithm for drawing arcs or circles.
+// The coordinates for the 1/4 circle are found by
+// reflecting the previous coordinates that were
+// obtained using Bresenham's algorithm.
+//
+// The function returns nothing, and writes the result
+// into the variable passed to the function by reference.
+//
+// This function is used in the watch_face.cpp and
+// Second-hand.cpp files.
 void Coordinates_circle(const short &radius, std::vector<Coordinates> &circle)
 {
   circle.clear();
@@ -53,6 +91,18 @@ void Coordinates_circle(const short &radius, std::vector<Coordinates> &circle)
   }
 }
 
+// The Coordinate_upgrade function expands the coordinate array.
+// It expands the array and increases the x coordinate.
+// This is done to make the circle wider.
+//
+//! The function is designed for an array of 1/4 circle coordinates;
+// if anything else is passed to it, the result may be incorrect.
+//
+// The function returns nothing, and writes the result
+// into the variable passed to the function by reference.
+//
+// This function is used in the watch_face.cpp and
+// Second-hand.cpp files.
 void Coordinate_upgrade(std::vector<Coordinates> &circle)
 {
   std::vector<Coordinates> temp = circle;
@@ -73,6 +123,21 @@ void Coordinate_upgrade(std::vector<Coordinates> &circle)
   }
 }
 
+// The Coordinate_degree function calculates the closest coordinate
+// of the circle by its degree to the degree passed into the function.
+// The degree of the coordinate is calculated relative to the zero
+// coordinate (x:0, y:0), using the formula arctan(x / y).
+// This function is used for building a watch face
+// and for similar tasks.
+//
+// ! The function is designed for an array of 1/4 circle coordinates;
+// if anything else is passed to it, the result may be incorrect.
+//
+// The function returns nothing, and writes the result
+// into the variable passed to the function by reference.
+//
+// This function is used in the watch_face.cpp and
+// Second-hand.cpp files.
 void Coordinate_degree(short degree, Coordinates &tick_element,
                        const std::vector<Coordinates> &circle)
 {
@@ -95,6 +160,16 @@ void Coordinate_degree(short degree, Coordinates &tick_element,
   }
 }
 
+// The Coordinates_line function calculates the coordinates of a line segment
+// that runs from the zero coordinate (x:0, y:0) to
+// the passed coordinate B. The calculation is performed
+// using Bresenham's line algorithm.
+// The function is used in drawing watch hands.
+//
+// The function returns nothing, and writes the result
+// into the variable passed to the function by reference.
+//
+// The function is used in the Second-hand.cpp file.
 void Coordinates_line(const Coordinates &B, std::vector<Coordinates> &line)
 {
   line.clear();

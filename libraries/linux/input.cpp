@@ -5,8 +5,22 @@
 #include <uchar.h>
 #include <unistd.h>
 
+// The clear_buffer function clears the entire internal buffer
+// of the terminal from input.
+//
+// The function returns nothing and takes no arguments.
+//
+// The function is used in the check_buffer function.
 void clear_buffer() { tcflush(STDIN_FILENO, TCIFLUSH); }
 
+// The setting_term_mode function switches the terminal
+// into raw mode and vice versa. In this mode, the terminal
+// does not display user input, but simply stores it in
+// its internal buffer.
+//
+// The function returns nothing but takes a bool value.
+//
+// The function is used in the main.cpp file.
 void setting_term_mode(bool raw_term)
 {
   static struct termios oldt, newt;
@@ -32,6 +46,13 @@ void setting_term_mode(bool raw_term)
   }
 }
 
+// The get_term_size function writes the total number of
+// characters that can fit along the x and y axes into the size variable.
+//
+// The function returns nothing, and writes the result
+// into the variable passed by reference.
+//
+// The function is used in the main.cpp file.
 void get_term_size(Coordinates &size)
 {
   struct winsize w;
@@ -39,6 +60,13 @@ void get_term_size(Coordinates &size)
   size.reset(w.ws_col, w.ws_row);
 }
 
+// The check_buffer function reads the internal buffer
+// of the terminal and clears it. The function is used
+// to change the state of a bool variable and close the program.
+//
+// The function returns a bool value and takes bool variables.
+//
+// The function is used in the main.cpp file.
 bool check_buffer(bool &show_date, bool &color)
 {
   char32_t bytes;
