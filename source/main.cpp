@@ -43,8 +43,8 @@ int main()
       {
         hide_cursor(true);
         change_color(color);
-        canvas.update_array(term_size.x * term_size.y);
-        draw_background(canvas.get_array());
+        canvas.update_size_spaces(term_size.x * term_size.y);
+        draw_background(canvas.get_spaces());
         draw_watch_face(term_size);
         second.update(term_size);
       }

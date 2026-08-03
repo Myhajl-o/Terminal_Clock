@@ -3,7 +3,7 @@
 
 class Simple_string
 {
-  char *symbols;
+  char *spaces;
   unsigned int all_size;
   unsigned int current_size;
 
@@ -11,11 +11,11 @@ class Simple_string
   public:
   Simple_string(unsigned int _size);
   
-  void upgrade_size(unsigned int new_size);
+  void upgrade_size(const unsigned int&new_size);
 
-  void update_array(unsigned int _size);
+  void update_size_spaces(unsigned int _size);
 
-  char* get_array();
+  char* get_spaces();
 
   ~Simple_string();
 };
