@@ -1,6 +1,7 @@
 // #include "Hour-hand.hpp"
 // #include "Minute-hand.hpp"
 #include "Second-hand.hpp"
+#include "Simple_string.hpp"
 #include "output.hpp"
 //  #include "date.hpp"
 #include "Coordinates.hpp"
@@ -28,18 +29,22 @@ int main()
   setting_term_mode(true);
   hide_cursor(true);
 
+  get_term_size(term_size);
+  Simple_string canvas(term_size.x * term_size.y);
+
   while (!check_buffer(temp, color))
   {
 
     get_term_size(term_size);
-
+    
     if (correct_term_size(term_size))
     {
       if (term_size != past_term_size || color != past_color)
       {
         hide_cursor(true);
         change_color(color);
-        draw_background(term_size);
+        canvas.update_array(term_size.x * term_size.y);
+        draw_background(canvas.get_array());
         draw_watch_face(term_size);
         second.update(term_size);
       }

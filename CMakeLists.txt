@@ -13,7 +13,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_compile_options(-Wall -Wextra -Werror -O1)
 include_directories(include/)
 
-set(SOURCES main.cpp background.cpp watch_face.cpp Second-hand.cpp)
+set(SOURCES main.cpp background.cpp watch_face.cpp Simple_string.cpp Second-hand.cpp)
 list(TRANSFORM SOURCES PREPEND "source/")
 
 set(INPUT)
