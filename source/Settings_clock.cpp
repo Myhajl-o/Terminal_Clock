@@ -127,7 +127,7 @@ bool Settings_clock::validation_check()
   
   for(int i = 1; i < size_num; i++)
   {
-    if(*(array_num[i]) < 30 || (*(array_num[i]) > 37 && *(array_num[i]) < 100) || *(array_num[i]) > 107)
+    if(*(array_num[i]) < 30 || (*(array_num[i]) > 37 && *(array_num[i]) < 40) || (*(array_num[i]) > 47 && *(array_num[i]) < 90) || (*(array_num[i]) > 97 && *(array_num[i]) < 100) || *(array_num[i]) > 107)
     {
       return false;
     }
