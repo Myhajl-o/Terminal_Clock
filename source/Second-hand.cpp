@@ -1,12 +1,16 @@
 #include "Second-hand.hpp"
 #include "Coordinates.hpp"
+#include "Color_object.hpp"
 #include "math.hpp"
 #include "output.hpp"
 #include <ctime>
 #include <vector>
 
-Second_hand::Second_hand()
+Second_hand::Second_hand(const short wi,const Color_object draw_c,const Color_object clear_c)
 {
+  width = wi;
+  draw_color = draw_c;
+  clear_color = clear_c;
   current_second = 60;
   clearing = false;
   drawing = false;
@@ -20,14 +24,16 @@ Second_hand::Second_hand()
 // The method returns nothing, and only takes constant data.
 //
 // The method is used in the main.cpp file.
-void Second_hand::update(const Coordinates &new_size)
+void Second_hand::update(const Coordinates &new_size,const Color_object draw_c,const Color_object clear_c)
 {
+  draw_color = draw_c;
+  clear_color = clear_c;
   clearing = false;
   drawing = true;
   Coordinate_center(center, new_size);
-  Calculation_radius(radius, 3, center);
+  Calculation_radius(radius, 3, center,width);
   Coordinates_circle(radius, circle_second);
-  Coordinate_upgrade(circle_second);
+  Coordinate_upgrade(circle_second,width);
 }
 
 // The second_update method of the Second_hand class retrieves data about
@@ -69,7 +75,7 @@ void Second_hand::calculation_coordinate_line()
     if (current_second == 15 || current_second == 45)
     {
       value.reset(1, 0);
-      dilatation = 2;
+      dilatation = width;
     }
     for (short i = 1; i <= radius * dilatation; i++)
     {
@@ -148,8 +154,7 @@ void Second_hand::draw()
     for (unsigned short i = 0; i < line.size(); i++)
     {
       current_symbol(i);
-      output_symbols(center.x + line[i].x * shift.x,
-                     center.y + line[i].y * shift.y, symbol, false);
+      output_symbols(center.x + line[i].x * shift.x, center.y + line[i].y * shift.y, symbol, draw_color);
     }
     clearing = true;
     drawing = false;
@@ -172,8 +177,7 @@ void Second_hand::clear()
     symbol[0] = ' ';
     for (unsigned short i = 0; i < line.size(); i++)
     {
-      output_symbols(center.x + line[i].x * shift.x,
-                     center.y + line[i].y * shift.y, symbol, false);
+      output_symbols(center.x + line[i].x * shift.x,center.y + line[i].y * shift.y, symbol, clear_color);
     }
   }
 }

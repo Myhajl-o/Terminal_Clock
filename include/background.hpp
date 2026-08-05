@@ -1,6 +1,8 @@
 #ifndef BACKGROUND_HPP
 #define BACKGROUND_HPP
 
-void draw_background(const char*symbols);
+#include "Color_object.hpp"
+
+void draw_background(const char*symbols,const Color_object colors);
 
 #endif

@@ -8,10 +8,10 @@ class Simple_string
   unsigned int current_size;
 
 
+  void upgrade_size(const unsigned int&new_size);
+
   public:
   Simple_string(unsigned int _size);
-  
-  void upgrade_size(const unsigned int&new_size);
 
   void update_size_spaces(unsigned int _size);
 
