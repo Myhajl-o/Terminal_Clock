@@ -34,9 +34,9 @@ void hide_cursor(bool hide)
   }
 }
 
-void output_symbols(short x, short y, const char *symbols,Color_object obj)
+void output_symbols(short x, short y, const char *symbols,Color_object color)
 {
-  printf("\033[%dm\033[%dm\033[%d;%dH%s\033[%dm\033[%dm", obj.back_color,obj.front_color, y, x, symbols,obj.main_back_color,obj.main_front_color);
+  printf("\033[%dm\033[%dm\033[%d;%dH%s\033[%dm\033[%dm", color.back,color.front, y, x, symbols,color.main_back,color.main_front);
 
   fflush(stdout);
 }

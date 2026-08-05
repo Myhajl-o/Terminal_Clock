@@ -83,16 +83,16 @@ void draw_numbers(const Coordinates &center, const Coordinates (&tick)[14], cons
   output_symbols(center.x + tick[9].x, center.y - tick[9].y, num_sym[2], num);
   output_symbols(center.x + circle_tick[0].y * width, center.y, num_sym[3], num);
 
-  output_symbols(center.x + tick[4].x, center.y + tick[4].y, num_sym[4], num);
-  output_symbols(center.x + tick[9].x, center.y + tick[9].y, num_sym[5], num);
+  output_symbols(center.x + tick[4].x, center.y + tick[4].y, num_sym[5], num);
+  output_symbols(center.x + tick[9].x, center.y + tick[9].y, num_sym[4], num);
   output_symbols(center.x, center.y + circle_tick[0].y, num_sym[6], num);
 
   output_symbols(center.x - tick[4].x - 1, center.y + tick[4].y, num_sym[7], num);
   output_symbols(center.x - tick[9].x - 1, center.y + tick[9].y, num_sym[8], num);
   output_symbols(center.x - circle_tick[0].y * width - 1, center.y, num_sym[9], num);
 
-  output_symbols(center.x - tick[4].x - 1, center.y - tick[4].y, num_sym[10], num);
-  output_symbols(center.x - tick[9].x - 1, center.y - tick[9].y, num_sym[11], num);
+  output_symbols(center.x - tick[4].x - 1, center.y - tick[4].y, num_sym[11], num);
+  output_symbols(center.x - tick[9].x - 1, center.y - tick[9].y, num_sym[10], num);
   output_symbols(center.x - 1, center.y - circle_tick[0].y, num_sym[12], num);
 }
 

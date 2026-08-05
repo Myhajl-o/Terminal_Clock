@@ -26,7 +26,7 @@ int main()
   Settings_clock setting;
   setting.new_settings();
 
-  Second_hand second(setting.get_width(),setting.get_second_color(color),setting.get_background_color(color));
+  Second_hand second(setting.get_width(),setting.get_second_color(color),setting.get_background_color(color),setting.get_second_symbols());
   bool temp;
 
   setting_term_mode(true);

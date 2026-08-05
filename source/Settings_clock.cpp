@@ -62,22 +62,27 @@ Settings_clock::Settings_clock()
 
 void Settings_clock::default_settings()
 {
-  width = 2;
-  main_back_color[0] = 47;
-  main_back_color[1] = 40;
-  main_front_color[0] = 37;
-  main_front_color[1] = 30;
+  const short black_back = 40;
+  const short black_front = 30;
+  const short white_back = 47;
+  const short white_front = 37;
 
-  circle_back_color[0] = 40;
-  circle_back_color[1] = 47;
-  circle_front_color[0] = 30;
-  circle_front_color[1] = 37;
+  width = 2;
+  main_back_color[0] = white_back;
+  main_back_color[1] = black_back;
+  main_front_color[0] = white_front;
+  main_front_color[1] = black_front;
+
+  circle_back_color[0] = black_back;
+  circle_back_color[1] = white_back;
+  circle_front_color[0] = black_front;
+  circle_front_color[1] = white_front;
   circle_symbol[0] = ' ';
 
-  number_back_color[0] = 47;
-  number_back_color[1] = 40;
-  number_front_color[0] = 30;
-  number_front_color[1] = 37;
+  number_back_color[0] = white_back;
+  number_back_color[1] = black_back;
+  number_front_color[0] = black_front;
+  number_front_color[1] = white_front;
 
   tick_number[0] = '.';
   first_number[0] = '1';
@@ -88,6 +93,7 @@ void Settings_clock::default_settings()
   sixth_number[0] = '6';
   seventh_number[0] = '7';
   eighth_number[0] = '8';
+  ninth_number[0] = '9';
   tenth_number[0] = '1';
   tenth_number[1] = '0';
   eleventh_number[0] = '1';
@@ -95,10 +101,10 @@ void Settings_clock::default_settings()
   twelfth_number[0] = '1';
   twelfth_number[1] = '2';
 
-  second_back_color[0] = 47;
-  second_back_color[1] = 40;
-  second_front_color[0] = 30;
-  second_front_color[1] = 37;
+  second_back_color[0] = white_back;
+  second_back_color[1] = black_back;
+  second_front_color[0] = black_front;
+  second_front_color[1] = white_front;
 
   second_vertical_line[0] = '|';
   second_diagonal1_line[0] = '/';
@@ -110,8 +116,6 @@ void Settings_clock::default_settings()
     short add = (i >= 11 && i <= 13);
     array_sym[i][1+add] = '\0';
   }
-
-
 }
 
 bool Settings_clock::validation_check()
