@@ -3,45 +3,45 @@
 
 Simple_string::Simple_string(unsigned int _size)
 {
-  symbols = new char[_size + 1];
-  std::memset(symbols,' ',_size);
-  symbols[_size] = '\0';
+  spaces = new char[_size + 1];
+  std::memset(spaces,' ',_size);
+  spaces[_size] = '\0';
   all_size = _size;
   current_size = _size;
 }
 
-void Simple_string::upgrade_size(unsigned int new_size)
+void Simple_string::upgrade_size(const unsigned int&new_size)
 {
   char*temp = new char[new_size + 1];
   std::memset(temp, ' ', new_size);
-  delete[] symbols;
-  symbols = temp;
+  delete[] spaces;
+  spaces = temp;
 }
 
-void Simple_string::update_array(unsigned int _size)
+void Simple_string::update_size_spaces(unsigned int _size)
 {
   if(all_size < _size)
   {
     upgrade_size(_size);
-    symbols[_size] = '\0';
+    spaces[_size] = '\0';
     all_size = _size;
     current_size = _size;
   }
   else
   {
-    symbols[current_size] = ' ';
-    symbols[_size] = '\0';
+    spaces[current_size] = ' ';
+    spaces[_size] = '\0';
     current_size = _size;
   }
 }
 
-char* Simple_string::get_array()
+char* Simple_string::get_spaces()
 {
-  return symbols;
+  return spaces;
 }
 
 Simple_string::~Simple_string()
 {
-  delete[] symbols;
+  delete[] spaces;
 }
 

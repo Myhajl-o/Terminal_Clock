@@ -5,6 +5,11 @@
 
 const float convert = 180.0f / M_PI;
 
+float absolute_number(float number)
+{
+  return (number < 0) ? -number : number;
+}
+
 // The Coordinate_center function is designed to calculate
 // the center of the terminal window. The function calculates
 // the center by dividing the terminal width by 2 and
@@ -32,11 +37,11 @@ void Coordinate_center(Coordinates &center, const Coordinates &size)
 //
 // This function is used in the watch_face.cpp and
 // Second-hand.cpp files.
-void Calculation_radius(short &radius, short backdown, const Coordinates &center)
+void Calculation_radius(short &radius, short backdown, const Coordinates &center,const short width)
 {
-  if (center.x < (center.y * 2))
+  if (center.x < (center.y * width))
   {
-    radius = (center.x / 2) - backdown;
+    radius = (center.x / width) - backdown;
   }
   else
   {
@@ -103,22 +108,23 @@ void Coordinates_circle(const short &radius, std::vector<Coordinates> &circle)
 //
 // This function is used in the watch_face.cpp and
 // Second-hand.cpp files.
-void Coordinate_upgrade(std::vector<Coordinates> &circle)
+void Coordinate_upgrade(std::vector<Coordinates> &circle,const short width)
 {
   std::vector<Coordinates> temp = circle;
-  circle.resize(circle.size() * 2 - 1);
+  circle.resize(circle.size() * width - 1);
   short j = 0;
   short add;
 
-  for (unsigned short i = 0; i < circle.size(); i += 2)
+  for (unsigned short i = 0; i < circle.size(); i += width)
   {
     add = temp[j].x < temp[j + 1].x;
 
-    circle[i].x = temp[j].x * 2;
-    circle[i].y = temp[j].y;
+    for(short add_i = 0; add_i < width; add_i++)
+    {
+      circle[i+add_i].x = temp[j].x * width + (add * add_i);
+      circle[i+add_i].y = temp[j].y;
+    }
 
-    circle[i + 1].x = temp[j].x * 2 + add;
-    circle[i + 1].y = temp[j].y;
     j++;
   }
 }
@@ -142,15 +148,11 @@ void Coordinate_degree(short degree, Coordinates &tick_element,
                        const std::vector<Coordinates> &circle)
 {
   float difference[2];
-  difference[0] =
-      std::abs(degree - (convert * std::atan2((float)circle[1].x,
-                                              (float)circle[1].y * 2)));
+  difference[0] = absolute_number(degree - (convert * std::atan2((float)circle[1].x,(float)circle[1].y * 2)));
 
   for (unsigned short i = 2; i < circle.size(); i++)
   {
-    difference[1] =
-        std::abs(degree - (convert * std::atan2((float)circle[i].x,
-                                                (float)circle[i].y * 2)));
+    difference[1] = absolute_number(degree - (convert * std::atan2((float)circle[i].x,(float)circle[i].y * 2)));
     if (difference[0] < difference[1])
     {
       tick_element = circle[i - 1];
