@@ -20,11 +20,12 @@ void move_to_int(short*num,char*symbols,const short size)
   }
 }
 
-bool parsing_conf(short**numbers,char**symbols,const short size_num,const short size_sym)
+bool parsing_conf(short**numbers,char**symbols,const short size_num,const short size_sym,short&error)
 {
   FILE*conf_file = fopen(CONF_PATH,"r");
   if(conf_file == NULL)
   {
+    error = 1;
     return false;
   }
 
@@ -40,7 +41,7 @@ bool parsing_conf(short**numbers,char**symbols,const short size_num,const short 
       short i = 0;
       char temp_num[4];
 
-      while((fscanf(conf_file,"%c",&c) == 1) && i < 3)
+      while((fscanf(conf_file,"%c",&c) == 1) && c != '\n' && i < 3)
       {
         if(c >= '0' && c <= '9')
         {
@@ -49,12 +50,14 @@ bool parsing_conf(short**numbers,char**symbols,const short size_num,const short 
         }
         else
         {
+          error = 2;
           return false;
         }
       }
 
       if(i == 0)
       {
+        error = 3;
         return false;
       }
 
@@ -104,6 +107,7 @@ bool parsing_conf(short**numbers,char**symbols,const short size_num,const short 
 
       if(count_sym == 0)
       {
+        error = 4;
         return false;
       }
 
@@ -119,6 +123,7 @@ bool parsing_conf(short**numbers,char**symbols,const short size_num,const short 
     }
     else if(c != ' ' && c != '\n')
     {
+      error = 5;
       return false;
     }
   }
@@ -129,6 +134,8 @@ bool parsing_conf(short**numbers,char**symbols,const short size_num,const short 
   }
   else
   {
+    error = i_num * 100;
+    error += i_sym;
     return false;
   }
 

@@ -23,9 +23,10 @@ int main()
   Coordinates past_term_size;
   bool color = false;
   bool past_color = false;
+  short temp_er;
 
   Settings_clock setting;
-  setting.new_settings(parsing_conf(setting.get_array_numbers(),setting.get_array_symbols(),setting.get_size_num(),setting.get_size_sym()));
+  setting.new_settings(parsing_conf(setting.get_array_numbers(),setting.get_array_symbols(),setting.get_size_num(),setting.get_size_sym(),temp_er));
 
   Second_hand second(setting.get_width(),setting.get_second_color(color),setting.get_background_color(color),setting.get_second_symbols());
   bool temp;
