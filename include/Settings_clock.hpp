@@ -19,30 +19,30 @@ class Settings_clock
 
   short circle_back_color[2];
   short circle_front_color[2];
-  char circle_symbol[4];
+  char circle_symbol[10];
 
   short number_back_color[2];
   short number_front_color[2];
-  char tick_number[4];
-  char first_number[4];
-  char second_number[4];
-  char third_number[4];
-  char fourth_number[4];
-  char fifth_number[4];
-  char sixth_number[4];
-  char seventh_number[4];
-  char eighth_number[4];
-  char ninth_number[4];
-  char tenth_number[4];
-  char eleventh_number[4];
-  char twelfth_number[4];
+  char tick_number[10];
+  char first_number[10];
+  char second_number[10];
+  char third_number[10];
+  char fourth_number[10];
+  char fifth_number[10];
+  char sixth_number[10];
+  char seventh_number[10];
+  char eighth_number[10];
+  char ninth_number[10];
+  char tenth_number[10];
+  char eleventh_number[10];
+  char twelfth_number[10];
 
   short second_back_color[2];
   short second_front_color[2];
-  char second_vertical_line[4];
-  char second_diagonal1_line[4];
-  char second_diagonal2_line[4];
-  char second_horizontal_line[4];
+  char second_vertical_line[10];
+  char second_diagonal1_line[10];
+  char second_diagonal2_line[10];
+  char second_horizontal_line[10];
 
   short*array_num[17];
   char*array_sym[18];

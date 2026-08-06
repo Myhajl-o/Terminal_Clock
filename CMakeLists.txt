@@ -33,6 +33,8 @@ add_library(_output_lib SHARED ${OUTPUT})
 add_library(_math_lib SHARED ${MATH})
 add_library(_parsing_lib SHARED ${PARSING})
 
+target_compile_definitions(_parsing_lib PRIVATE CONF_PATH="${CMAKE_SOURCE_DIR}/configuration/clock.conf")
+
 add_executable(clock ${SOURCES})
 
 target_link_libraries(clock PRIVATE _input_lib _output_lib _math_lib _parsing_lib)
