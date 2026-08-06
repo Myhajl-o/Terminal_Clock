@@ -135,12 +135,34 @@ bool Settings_clock::validation_check()
   return true;
 }
 
-void Settings_clock::new_settings()
+void Settings_clock::new_settings(const bool conf)
 {
-  if(!validation_check())
+  if(!conf || !validation_check())
   {
     default_settings();
   }
+}
+
+
+
+short** Settings_clock::get_array_numbers()
+{
+  return array_num;
+}
+
+char** Settings_clock::get_array_symbols()
+{
+  return array_sym;
+}
+
+short Settings_clock::get_size_num()
+{
+  return size_num;
+}
+
+short Settings_clock::get_size_sym()
+{
+  return size_sym;
 }
 
 short Settings_clock::get_width()

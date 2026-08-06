@@ -7,6 +7,7 @@
 #include "Coordinates.hpp"
 #include "Settings_clock.hpp"
 #include "background.hpp"
+#include "parsing.hpp"
 #include "input.hpp"
 #include "watch_face.hpp"
 #include <unistd.h>
@@ -24,7 +25,7 @@ int main()
   bool past_color = false;
 
   Settings_clock setting;
-  setting.new_settings();
+  setting.new_settings(parsing_conf(setting.get_array_numbers(),setting.get_array_symbols(),setting.get_size_num(),setting.get_size_sym()));
 
   Second_hand second(setting.get_width(),setting.get_second_color(color),setting.get_background_color(color),setting.get_second_symbols());
   bool temp;

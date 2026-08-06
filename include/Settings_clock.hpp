@@ -58,7 +58,15 @@ class Settings_clock
 
   bool validation_check();
 
-  void new_settings();
+  void new_settings(const bool conf);
+
+  short** get_array_numbers();
+
+  char** get_array_symbols();
+
+  short get_size_num();
+
+  short get_size_sym();
 
   short get_width();
 
