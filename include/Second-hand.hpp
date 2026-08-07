@@ -13,7 +13,7 @@ class Second_hand
   Coordinates second_stop;
   std::vector<Coordinates> line;
   Coordinates shift;
-  char**symbols;
+  const char* const*symbols;
   bool clearing;
   bool drawing;
 
@@ -28,7 +28,7 @@ class Second_hand
   bool second_update(bool flag);
 
 public:
-  Second_hand(const short wi,const Color_object draw_c,const Color_object clear_c,char**sym);
+  Second_hand(const short wi,const Color_object draw_c,const Color_object clear_c,const char* const*sym);
 
   void update(const Coordinates &new_size,const Color_object draw_c,const Color_object clear_c);
 

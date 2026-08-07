@@ -6,7 +6,7 @@
 #include <ctime>
 #include <vector>
 
-Second_hand::Second_hand(const short wi,const Color_object draw_c,const Color_object clear_c,char**sym)
+Second_hand::Second_hand(const short wi,const Color_object draw_c,const Color_object clear_c,const char* const*sym)
 {
   width = wi;
   draw_color = draw_c;

@@ -7,10 +7,8 @@ class Settings_clock
 {
   private:
 
-  short i_color;
-
-  short size_num;
-  short size_sym;
+  const short size_num;
+  const short size_sym;
 
   short width;
 
@@ -19,33 +17,39 @@ class Settings_clock
 
   short circle_back_color[2];
   short circle_front_color[2];
-  char circle_symbol[4];
+  char circle_symbol[10];
+
+  short tick_back_color[2];
+  short tick_front_color[2];
+  char tick_symbol[10];
 
   short number_back_color[2];
   short number_front_color[2];
-  char tick_number[4];
-  char first_number[4];
-  char second_number[4];
-  char third_number[4];
-  char fourth_number[4];
-  char fifth_number[4];
-  char sixth_number[4];
-  char seventh_number[4];
-  char eighth_number[4];
-  char ninth_number[4];
-  char tenth_number[4];
-  char eleventh_number[4];
-  char twelfth_number[4];
+  char first_number[10];
+  char second_number[10];
+  char third_number[10];
+  char fourth_number[10];
+  char fifth_number[10];
+  char sixth_number[10];
+  char seventh_number[10];
+  char eighth_number[10];
+  char ninth_number[10];
+  char tenth_number[10];
+  char eleventh_number[10];
+  char twelfth_number[10];
+  short number_shift[12];
 
   short second_back_color[2];
   short second_front_color[2];
-  char second_vertical_line[4];
-  char second_diagonal1_line[4];
-  char second_diagonal2_line[4];
-  char second_horizontal_line[4];
+  char second_vertical_line[10];
+  char second_diagonal1_line[10];
+  char second_diagonal2_line[10];
+  char second_horizontal_line[10];
 
-  short*array_num[17];
+  short*array_num[33];
   char*array_sym[18];
+
+  Color_object wf_colors[3];
 
   char*num_clock_symbol[13];
   char*second_symbol[4];
@@ -58,23 +62,33 @@ class Settings_clock
 
   bool validation_check();
 
-  void new_settings();
+  void new_settings(const bool conf);
+
+  short** get_array_numbers();
+
+  char** get_array_symbols();
+
+  short get_size_num();
+
+  short get_size_sym();
 
   short get_width();
 
-  Color_object get_background_color(const bool color);
+  const short* get_numbers_shift();
 
-  Color_object get_circle_color(const bool color);
+  const Color_object get_background_color(const bool color);
 
-  Color_object get_number_color(const bool color);
+  const Color_object get_circle_color(const bool color);
 
-  Color_object get_second_color(const bool color);
+  const Color_object*get_watch_face_color(const bool color);
 
-  char get_circle_symbol();
+  const Color_object get_second_color(const bool color);
 
-  char** get_num_clock_symbols();
+  const char* get_circle_symbol();
 
-  char** get_second_symbols();
+  const char* const* get_num_symbols();
+
+  const char* const* get_second_symbols();
 
   ~Settings_clock();
 };
