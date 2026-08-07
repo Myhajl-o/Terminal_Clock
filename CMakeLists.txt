@@ -27,8 +27,6 @@ elseif(WIN32)
 	list(APPEND INPUT libraries/win/input.cpp)
 endif()
 
-set(TESTING testing/test_conf.cpp)
-
 
 add_library(_input_lib SHARED ${INPUT})
 add_library(_output_lib SHARED ${OUTPUT})
@@ -41,7 +39,4 @@ add_executable(clock ${SOURCES})
 
 target_link_libraries(clock PRIVATE _input_lib _output_lib _math_lib _parsing_lib)
 
-add_executable(testing_user_configuration_file ${TESTING})
-
-target_link_libraries(testing_user_configuration_file PRIVATE _parsing_lib)
 

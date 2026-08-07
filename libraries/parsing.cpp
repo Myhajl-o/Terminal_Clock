@@ -1,13 +1,18 @@
 #include "parsing.hpp"
 #include <cstdio>
 
-void skip_to_next_line(FILE*conf_file,char&c)
+void skip_to_next_line(char*buffer,std::size_t&i_buf,const std::size_t&all_size)
 {
-  while(c != '\n')
+  while(i_buf < all_size)
   {
-    if(fscanf(conf_file,"%c",&c) != 1)
+    if(buffer[i_buf] == '\n')
     {
+      i_buf++;
       return;
+    }
+    else
+    {
+      i_buf++;
     }
   }
 }
@@ -20,122 +25,130 @@ void move_to_int(short*num,char*symbols,const short size)
   }
 }
 
-bool parsing_conf(short**numbers,char**symbols,const short size_num,const short size_sym,short&error)
+bool parsing_conf(short**numbers,char**symbols,const short size_num,const short size_sym)
 {
+  const short size_buffer = 16384;
+  char*buffer_conf = new char[size_buffer];
+  std::size_t i_buf = 0;
+
   FILE*conf_file = fopen(CONF_PATH,"r");
-  if(conf_file == NULL)
+  std::size_t size_file = fread(buffer_conf,1,size_buffer,conf_file); 
+  if(size_file < 50)
   {
-    error = 1;
+    delete[] buffer_conf;
     return false;
   }
+  fclose(conf_file);
 
   short i_num = 0;
   short i_sym = 0;
-  char c = 0;
 
-  while((fscanf(conf_file,"%c",&c) == 1) && i_num < size_num && i_sym < size_sym)
+  while((i_buf < size_file) && (i_num < size_num || i_sym < size_sym))
   {
-    if(c == '=')
+    if(buffer_conf[i_buf] == '=')
     {
-      
+
       short i = 0;
       char temp_num[4];
 
-      while((fscanf(conf_file,"%c",&c) == 1) && c != '\n' && i < 3)
+      while((i_buf++,i_buf < size_file) && buffer_conf[i_buf] != '\n' && i < 3)
       {
-        if(c >= '0' && c <= '9')
+        if(buffer_conf[i_buf] >= '0' && buffer_conf[i_buf] <= '9')
         {
-          temp_num[i] = c;
+          temp_num[i] = buffer_conf[i_buf];
           i++;
         }
         else
         {
-          error = 2;
+          delete[] buffer_conf;
           return false;
         }
       }
 
       if(i == 0)
       {
-        error = 3;
+        delete[] buffer_conf;
         return false;
       }
 
       move_to_int(numbers[i_num],temp_num,i);
       i_num++;
 
-      skip_to_next_line(conf_file,c);
+      skip_to_next_line(buffer_conf,i_buf,size_file);
 
     }
-    else if(c == '-')
+    else if(buffer_conf[i_buf] == '-')
     {
-
       short i = 0;
       short count_sym = 0;
+      i_buf++;
 
-      while((fscanf(conf_file,"%c",&symbols[i_sym][i]) == 1) && symbols[i_sym][i] != '\n' && count_sym < 2)
+      while(i_buf < size_file && buffer_conf[i_buf] != '\n' && count_sym < 2)
       {
-        short add_bytes = 0;
-        if((symbols[i_sym][i] & 0x80) == 0x00)
-        {
-          add_bytes = 0;
-        }
-        else if((symbols[i_sym][i] & 0xE0) == 0xC0)
+        short add_bytes = 1;
+        if((buffer_conf[i_buf] & 0x80) == 0x00)
         {
           add_bytes = 1;
         }
-        else if((symbols[i_sym][i] & 0xF0) == 0xE0)
+        else if((buffer_conf[i_buf] & 0xE0) == 0xC0)
         {
           add_bytes = 2;
         }
-        else if((symbols[i_sym][i] & 0xF8) == 0xF0)
+        else if((buffer_conf[i_buf] & 0xF0) == 0xE0)
         {
           add_bytes = 3;
+        }
+        else if((buffer_conf[i_buf] & 0xF8) == 0xF0)
+        {
+          add_bytes = 4;
         }
 
         add_bytes += i;
 
         while(i < add_bytes)
         {
+          symbols[i_sym][i] = buffer_conf[i_buf];
+          i_buf++;
           i++;
-          fscanf(conf_file,"%c",&symbols[i_sym][i]);
         }
-
-        i++;
         count_sym++;
       }
 
       if(count_sym == 0)
       {
-        error = 4;
+        delete[] buffer_conf;
         return false;
       }
 
       symbols[i_sym][i] = '\0';
       i_sym++;
 
-      skip_to_next_line(conf_file,c);
+      skip_to_next_line(buffer_conf,i_buf,size_file);
 
     }
-    else if(c == '#')
+    else if(buffer_conf[i_buf] == '#')
     {
-      skip_to_next_line(conf_file,c);
+      skip_to_next_line(buffer_conf,i_buf,size_file);
     }
-    else if(c != ' ' && c != '\n')
+    else if(buffer_conf[i_buf] == ' ' || buffer_conf[i_buf] == '\n')
     {
-      error = 5;
+      i_buf++;
+    }
+    else
+    {
+      delete[] buffer_conf;
       return false;
     }
   }
 
   if(i_num == size_num && i_sym == size_sym)
   {
+    delete[] buffer_conf;
     return true;
   }
   else
   {
-    error = i_num * 100;
-    error += i_sym;
+    delete[] buffer_conf;
     return false;
   }
 

@@ -7,10 +7,8 @@ class Settings_clock
 {
   private:
 
-  short i_color;
-
-  short size_num;
-  short size_sym;
+  const short size_num;
+  const short size_sym;
 
   short width;
 
@@ -36,6 +34,7 @@ class Settings_clock
   char tenth_number[10];
   char eleventh_number[10];
   char twelfth_number[10];
+  short number_shift[12];
 
   short second_back_color[2];
   short second_front_color[2];
@@ -44,7 +43,7 @@ class Settings_clock
   char second_diagonal2_line[10];
   char second_horizontal_line[10];
 
-  short*array_num[17];
+  short*array_num[29];
   char*array_sym[18];
 
   char*num_clock_symbol[13];
@@ -70,6 +69,8 @@ class Settings_clock
 
   short get_width();
 
+  short* get_numbers_shift();
+
   Color_object get_background_color(const bool color);
 
   Color_object get_circle_color(const bool color);
@@ -78,7 +79,7 @@ class Settings_clock
 
   Color_object get_second_color(const bool color);
 
-  char get_circle_symbol();
+  char* get_circle_symbol();
 
   char** get_num_clock_symbols();
 

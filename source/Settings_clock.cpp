@@ -1,12 +1,8 @@
 #include "Settings_clock.hpp"
 #include "Color_object.hpp"
 
-Settings_clock::Settings_clock()
+Settings_clock::Settings_clock():size_num(29),size_sym(18)
 {
-  i_color = 0;
-  size_num = 17;
-  size_sym = 18;
-
   array_num[0] = &width;
   array_num[1] = &main_back_color[0];
   array_num[2] = &main_back_color[1];
@@ -20,10 +16,15 @@ Settings_clock::Settings_clock()
   array_num[10] = &number_back_color[1];
   array_num[11] = &number_front_color[0];
   array_num[12] = &number_front_color[1];
-  array_num[13] = &second_back_color[0];
-  array_num[14] = &second_back_color[1];
-  array_num[15] = &second_front_color[0];
-  array_num[16] = &second_front_color[1];
+  for(int i = 0; i < 12; i++)
+  {
+    array_num[13 + i] = &number_shift[i];
+  }
+
+  array_num[25] = &second_back_color[0];
+  array_num[26] = &second_back_color[1];
+  array_num[27] = &second_front_color[0];
+  array_num[28] = &second_front_color[1];
 
   for(short i = 0; i < size_num; i++)
   {
@@ -101,6 +102,12 @@ void Settings_clock::default_settings()
   twelfth_number[0] = '1';
   twelfth_number[1] = '2';
 
+  for(int i = 0; i < 11; i++)
+  {
+    number_shift[i] = 2;
+  }
+  number_shift[11] = 1;
+
   second_back_color[0] = white_back;
   second_back_color[1] = black_back;
   second_front_color[0] = black_front;
@@ -127,11 +134,21 @@ bool Settings_clock::validation_check()
   
   for(int i = 1; i < size_num; i++)
   {
+    i += (i == 13) ? 12 : 0;
     if(*(array_num[i]) < 30 || (*(array_num[i]) > 37 && *(array_num[i]) < 40) || (*(array_num[i]) > 47 && *(array_num[i]) < 90) || (*(array_num[i]) > 97 && *(array_num[i]) < 100) || *(array_num[i]) > 107)
     {
       return false;
     }
   }
+  
+  for(int i = 0; i < 12; i++)
+  {
+    if(number_shift[i] < 0 || number_shift[i] > 4)
+    {
+      return false;
+    }
+  }
+
   return true;
 }
 
@@ -170,6 +187,11 @@ short Settings_clock::get_width()
   return width;
 }
 
+short* Settings_clock::get_numbers_shift()
+{
+  return number_shift;
+}
+
 Color_object Settings_clock::get_background_color(const bool color)
 {
   return Color_object(main_back_color[color],main_front_color[color],main_back_color[color],main_front_color[color]);
@@ -190,9 +212,29 @@ Color_object Settings_clock::get_second_color(const bool color)
   return Color_object(second_back_color[color],second_front_color[color],main_back_color[color],main_front_color[color]);
 }
 
-char Settings_clock::get_circle_symbol()
+char* Settings_clock::get_circle_symbol()
 {
-  return circle_symbol[0];
+  if((circle_symbol[0] & 0x80) == 0x00)
+  {
+    circle_symbol[1] = '\0';
+    circle_symbol[5] = 1;
+  }
+  else if((circle_symbol[0] & 0xE0) == 0xC0)
+  {
+    circle_symbol[2] = '\0';
+    circle_symbol[5] = 2;
+  }
+  else if((circle_symbol[0] & 0xF0) == 0xE0)
+  {
+    circle_symbol[3] = '\0';
+    circle_symbol[5] = 3;
+  }
+  else if((circle_symbol[0] & 0xF8) == 0xF0)
+  {
+    circle_symbol[4] = '\0';
+    circle_symbol[5] = 4;
+  }
+  return circle_symbol;
 }
 
 char** Settings_clock::get_num_clock_symbols()
