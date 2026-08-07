@@ -1,7 +1,7 @@
 #include "Settings_clock.hpp"
 #include "Color_object.hpp"
 
-Settings_clock::Settings_clock():size_num(29),size_sym(18)
+Settings_clock::Settings_clock():size_num(33),size_sym(18)
 {
   array_num[0] = &width;
   array_num[1] = &main_back_color[0];
@@ -12,19 +12,23 @@ Settings_clock::Settings_clock():size_num(29),size_sym(18)
   array_num[6] = &circle_back_color[1];
   array_num[7] = &circle_front_color[0];
   array_num[8] = &circle_front_color[1];
-  array_num[9] = &number_back_color[0];
-  array_num[10] = &number_back_color[1];
-  array_num[11] = &number_front_color[0];
-  array_num[12] = &number_front_color[1];
+  array_num[9] = &tick_back_color[0];
+  array_num[10] = &tick_back_color[1];
+  array_num[11] = &tick_front_color[0];
+  array_num[12] = &tick_front_color[1];
+  array_num[13] = &number_back_color[0];
+  array_num[14] = &number_back_color[1];
+  array_num[15] = &number_front_color[0];
+  array_num[16] = &number_front_color[1];
   for(int i = 0; i < 12; i++)
   {
-    array_num[13 + i] = &number_shift[i];
+    array_num[17 + i] = &number_shift[i];
   }
 
-  array_num[25] = &second_back_color[0];
-  array_num[26] = &second_back_color[1];
-  array_num[27] = &second_front_color[0];
-  array_num[28] = &second_front_color[1];
+  array_num[29] = &second_back_color[0];
+  array_num[30] = &second_back_color[1];
+  array_num[31] = &second_front_color[0];
+  array_num[32] = &second_front_color[1];
 
   for(short i = 0; i < size_num; i++)
   {
@@ -32,7 +36,7 @@ Settings_clock::Settings_clock():size_num(29),size_sym(18)
   }
 
   array_sym[0] = circle_symbol;
-  array_sym[1] = tick_number;
+  array_sym[1] = tick_symbol;
   array_sym[2] = first_number;
   array_sym[3] = second_number;
   array_sym[4] = third_number;
@@ -80,12 +84,17 @@ void Settings_clock::default_settings()
   circle_front_color[1] = white_front;
   circle_symbol[0] = ' ';
 
+  tick_back_color[0] = white_back;
+  tick_back_color[1] = black_back;
+  tick_front_color[0] = black_front;
+  tick_front_color[1] = white_front;
+  tick_symbol[0] = '.';
+
   number_back_color[0] = white_back;
   number_back_color[1] = black_back;
   number_front_color[0] = black_front;
   number_front_color[1] = white_front;
 
-  tick_number[0] = '.';
   first_number[0] = '1';
   second_number[0] = '2';
   third_number[0] = '3';
@@ -134,7 +143,7 @@ bool Settings_clock::validation_check()
   
   for(int i = 1; i < size_num; i++)
   {
-    i += (i == 13) ? 12 : 0;
+    i += (i == 17) ? 12 : 0;
     if(*(array_num[i]) < 30 || (*(array_num[i]) > 37 && *(array_num[i]) < 40) || (*(array_num[i]) > 47 && *(array_num[i]) < 90) || (*(array_num[i]) > 97 && *(array_num[i]) < 100) || *(array_num[i]) > 107)
     {
       return false;
@@ -187,32 +196,35 @@ short Settings_clock::get_width()
   return width;
 }
 
-short* Settings_clock::get_numbers_shift()
+const short* Settings_clock::get_numbers_shift()
 {
   return number_shift;
 }
 
-Color_object Settings_clock::get_background_color(const bool color)
+const Color_object Settings_clock::get_background_color(const bool color)
 {
   return Color_object(main_back_color[color],main_front_color[color],main_back_color[color],main_front_color[color]);
 }
 
-Color_object Settings_clock::get_circle_color(const bool color)
+const Color_object Settings_clock::get_circle_color(const bool color)
 {
   return Color_object(circle_back_color[color],circle_front_color[color],main_back_color[color],main_front_color[color]);
 }
 
-Color_object Settings_clock::get_number_color(const bool color)
+const Color_object*Settings_clock::get_watch_face_color(const bool color)
 {
-  return Color_object(number_back_color[color],number_front_color[color],main_back_color[color],main_front_color[color]);
+  wf_colors[0].reset(circle_back_color[color],circle_front_color[color],main_back_color[color],main_front_color[color]);
+  wf_colors[1].reset(tick_back_color[color],tick_front_color[color],main_back_color[color],main_front_color[color]);
+  wf_colors[2].reset(number_back_color[color],number_front_color[color],main_back_color[color],main_front_color[color]);
+  return wf_colors;
 }
 
-Color_object Settings_clock::get_second_color(const bool color)
+const Color_object Settings_clock::get_second_color(const bool color)
 {
   return Color_object(second_back_color[color],second_front_color[color],main_back_color[color],main_front_color[color]);
 }
 
-char* Settings_clock::get_circle_symbol()
+const char* Settings_clock::get_circle_symbol()
 {
   if((circle_symbol[0] & 0x80) == 0x00)
   {
@@ -237,12 +249,12 @@ char* Settings_clock::get_circle_symbol()
   return circle_symbol;
 }
 
-char** Settings_clock::get_num_clock_symbols()
+const char* const* Settings_clock::get_num_symbols()
 {
   return num_clock_symbol;
 }
 
-char** Settings_clock::get_second_symbols()
+const char* const* Settings_clock::get_second_symbols()
 {
   return second_symbol;
 }

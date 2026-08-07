@@ -24,9 +24,13 @@ struct Color_object
     main_front = mf;
   }
 
-
-
-
+  void reset(const short b,const short f,const short mb,const short mf)
+  {
+    back = b;
+    front = f;
+    main_back = mb;
+    main_front = mf;
+  }
 };
 
 #endif

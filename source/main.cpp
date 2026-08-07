@@ -48,7 +48,7 @@ int main()
         hide_cursor(true);
         canvas.update_size_spaces(term_size.x * term_size.y);
         draw_background(canvas.get_spaces(), setting.get_background_color(color));
-        draw_watch_face(term_size,setting.get_width(),setting.get_circle_color(color),setting.get_number_color(color),setting.get_circle_symbol(),setting.get_num_clock_symbols(),setting.get_numbers_shift());
+        draw_watch_face(term_size,setting.get_width(),setting.get_watch_face_color(color),setting.get_circle_symbol(),setting.get_num_symbols(),setting.get_numbers_shift());
         second.update(term_size,setting.get_second_color(color),setting.get_background_color(color));
       }
       second.clear();
