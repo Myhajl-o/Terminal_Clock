@@ -2,6 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// The skip_to_next_line function searches for a newline character
+// in the provided character buffer, starting from the current index.
+//
+// This function is used in the parsing_conf function.
 void skip_to_next_line(char*buffer,size_t*i_buf,const size_t all_size)
 {
   while(*i_buf < all_size)
@@ -18,6 +22,10 @@ void skip_to_next_line(char*buffer,size_t*i_buf,const size_t all_size)
   }
 }
 
+// The move_to_int function converts a character array into an integer.
+// The number of characters processed depends on the provided size.
+//
+// This function is used in the parsing_conf function.
 void move_to_int(short*num,char*symbols,const short size)
 {
   int i = 0;
@@ -27,6 +35,12 @@ void move_to_int(short*num,char*symbols,const short size)
   }
 }
 
+// The parsing_conf function is written entirely in C. It allocates heap memory 
+// to store bytes from the configuration file. The function iterates through 
+// each byte and populates the passed arrays according to their size. 
+// While the underlying parsing logic is quite trivial, it is highly optimized.
+//
+// This function is used in the main.cpp file.
 char parsing_conf(short**numbers,char**symbols,const short size_num,const short size_sym)
 {
   const short size_buffer = 16384;
