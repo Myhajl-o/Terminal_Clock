@@ -1,35 +1,34 @@
 #ifndef COLOR_OBJECT_HPP
 #define COLOR_OBJECT_HPP
 
+#include "Colors.h"
+
 struct Color_object
 {
-  short back;
-  short front;
-  short main_back;
-  short main_front;
+  Colors c;
 
   Color_object()
   {
-    back = 0;
-    front = 0;
-    main_back = 0;
-    main_front = 0;
+    c.back = 0;
+    c.front = 0;
+    c.main_back = 0;
+    c.main_front = 0;
   }
 
   Color_object(const short b,const short f,const short mb,const short mf)
   {
-    back = b;
-    front = f;
-    main_back = mb;
-    main_front = mf;
+    c.back = b;
+    c.front = f;
+    c.main_back = mb;
+    c.main_front = mf;
   }
 
   void reset(const short b,const short f,const short mb,const short mf)
   {
-    back = b;
-    front = f;
-    main_back = mb;
-    main_front = mf;
+    c.back = b;
+    c.front = f;
+    c.main_back = mb;
+    c.main_front = mf;
   }
 };
 

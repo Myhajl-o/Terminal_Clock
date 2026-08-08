@@ -49,7 +49,9 @@ class Settings_clock
   short*array_num[33];
   char*array_sym[18];
 
-  Color_object wf_colors[3];
+  Color_object bg_color[2];
+  Color_object wf_colors[2][3];
+  Color_object sec_color[2];
 
   char*num_clock_symbol[13];
   char*second_symbol[4];
@@ -77,8 +79,6 @@ class Settings_clock
   const short* get_numbers_shift();
 
   const Color_object get_background_color(const bool color);
-
-  const Color_object get_circle_color(const bool color);
 
   const Color_object*get_watch_face_color(const bool color);
 
