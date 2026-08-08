@@ -1,7 +1,6 @@
 #include "background.hpp"
-#include "Coordinates.hpp"
-#include "Simple_string.hpp"
-#include "output.hpp"
+#include "output.h"
+#include "Color_object.hpp"
 
 // The draw_background function fills the terminal
 // window with spaces. It uses the custom data type
@@ -11,8 +10,7 @@
 // terminal size coordinates.
 //
 // The function is used in the main.cpp file.
-void draw_background(const Coordinates &size)
+void draw_background(const char*symbols,const Color_object colors)
 {
-  Simple_string canvas((unsigned int)(size.x * size.y));
-  output_symbols(1, 1, canvas.symbols, false);
+  output_symbols(1, 1, symbols, colors.c);
 }

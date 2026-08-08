@@ -1,47 +1,55 @@
 // #include "Hour-hand.hpp"
 // #include "Minute-hand.hpp"
 #include "Second-hand.hpp"
-#include "output.hpp"
+#include "Simple_string.hpp"
+#include "output.h"
 //  #include "date.hpp"
 #include "Coordinates.hpp"
+#include "Settings_clock.hpp"
 #include "background.hpp"
+#include "parsing.h"
 #include "input.hpp"
 #include "watch_face.hpp"
 #include <unistd.h>
 
-bool correct_term_size(const Coordinates &size)
+bool correct_term_size(const Coordinates &size,const short width)
 {
-  return (size.x > 30 && size.y > 15 && size.x < 2048 && size.y < 1024);
+  return (size.x > (15 * width) && size.y > 15 && size.x < (1024 * width) && size.y < 1024);
 }
 
 int main()
 {
   Coordinates term_size;
   Coordinates past_term_size;
-
-  Second_hand second;
-  bool temp;
-
   bool color = false;
   bool past_color = false;
 
+  Settings_clock setting;
+  setting.new_settings(parsing_conf(setting.get_array_numbers(),setting.get_array_symbols(),setting.get_size_num(),setting.get_size_sym()));
+
+  Second_hand second(setting.get_width(),setting.get_second_color(color),setting.get_background_color(color),setting.get_second_symbols());
+  bool temp;
+
   setting_term_mode(true);
   hide_cursor(true);
+
+  get_term_size(term_size);
+  Simple_string canvas(term_size.x * term_size.y);
 
   while (!check_buffer(temp, color))
   {
 
     get_term_size(term_size);
-
-    if (correct_term_size(term_size))
+    
+    if (correct_term_size(term_size,setting.get_width()))
     {
       if (term_size != past_term_size || color != past_color)
       {
         hide_cursor(true);
-        change_color(color);
-        draw_background(term_size);
-        draw_watch_face(term_size);
-        second.update(term_size);
+        canvas.update_size_spaces(term_size.x * term_size.y);
+        draw_background(canvas.get_spaces(), setting.get_background_color(color));
+        draw_watch_face(term_size,setting.get_width(),setting.get_watch_face_color(color),setting.get_circle_symbol(),setting.get_num_symbols(),setting.get_numbers_shift());
+        second.update(term_size,setting.get_second_color(color),setting.get_background_color(color));
       }
       second.clear();
       second.draw();

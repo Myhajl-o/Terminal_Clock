@@ -1,8 +1,8 @@
 #ifndef BACKGROUND_HPP
 #define BACKGROUND_HPP
 
-#include "Coordinates.hpp"
+#include "Color_object.hpp"
 
-void draw_background(const Coordinates &size);
+void draw_background(const char*symbols,const Color_object colors);
 
 #endif

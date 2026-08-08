@@ -1,24 +1,23 @@
 #ifndef SIMPLE_STRING_HPP
 #define SIMPLE_STRING_HPP
 
-#include <cstring>
-
-struct Simple_string
+class Simple_string
 {
-  char *symbols;
-  unsigned int size;
-  Simple_string(unsigned int _size)
-  {
-    symbols = new char[_size + 1];
-    std::memset(symbols, ' ', _size);
-    symbols[_size] = '\0';
-    size = _size;
-  }
+  char *spaces;
+  unsigned int all_size;
+  unsigned int current_size;
 
-  ~Simple_string()
-  {
-    delete[] symbols;
-  }
+
+  void upgrade_size(const unsigned int&new_size);
+
+  public:
+  Simple_string(unsigned int _size);
+
+  void update_size_spaces(unsigned int _size);
+
+  char* get_spaces();
+
+  ~Simple_string();
 };
 
 #endif
