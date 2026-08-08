@@ -1,26 +1,7 @@
 #include "output.hpp"
+#include "Color_object.hpp"
 #include <cstdio>
 
-short main_color;
-short secondary_color;
-short symbol_color;
-
-void change_color(const bool &color)
-{
-  if (color)
-  {
-    main_color = 40;
-    secondary_color = 47;
-    symbol_color = 37;
-  }
-  else
-  {
-    main_color = 47;
-    secondary_color = 40;
-    symbol_color = 30;
-  }
-  printf("\033[%dm\033[%dm", main_color, symbol_color);
-}
 
 // The clear_term function resets all escape codes
 // that were previously output, clears the terminal
@@ -53,16 +34,9 @@ void hide_cursor(bool hide)
   }
 }
 
-void output_symbols(short x, short y, const char *symbols, bool other_color)
+void output_symbols(short x, short y, const char *symbols,Color_object color)
 {
-  if (other_color)
-  {
-    printf("\033[%dm\033[%d;%dH%s\033[%dm", secondary_color, y, x, symbols,
-           main_color);
-  }
-  else
-  {
-    printf("\033[%d;%dH%s", y, x, symbols);
-  }
+  printf("\033[%dm\033[%dm\033[%d;%dH%s\033[%dm\033[%dm", color.back,color.front, y, x, symbols,color.main_back,color.main_front);
+
   fflush(stdout);
 }
