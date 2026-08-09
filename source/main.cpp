@@ -24,10 +24,11 @@ int main()
   bool color = false;
   bool past_color = false;
 
-  Settings_clock setting;
-  setting.new_settings(parsing_conf(setting.get_array_numbers(),setting.get_array_symbols(),setting.get_size_num(),setting.get_size_sym()));
+  Settings_clock set;
+  bool correct_read = parsing_conf(set.get_array_numbers(),set.get_array_symbols(),set.get_size_num(),set.get_size_sym());
+  set.new_settings(correct_read);
 
-  Second_hand second(setting.get_width(),setting.get_second_color(color),setting.get_background_color(color),setting.get_second_symbols());
+  Second_hand second(set.get_width(),set.get_sec_color(color),set.get_bg_color(color),set.get_sec_symbols());
   bool temp;
 
   setting_term_mode(true);
@@ -41,15 +42,15 @@ int main()
 
     get_term_size(term_size);
     
-    if (correct_term_size(term_size,setting.get_width()))
+    if (correct_term_size(term_size,set.get_width()))
     {
       if (term_size != past_term_size || color != past_color)
       {
         hide_cursor(true);
         canvas.update_size_spaces(term_size.x * term_size.y);
-        draw_background(canvas.get_spaces(), setting.get_background_color(color));
-        draw_watch_face(term_size,setting.get_width(),setting.get_watch_face_color(color),setting.get_circle_symbol(),setting.get_num_symbols(),setting.get_numbers_shift());
-        second.update(term_size,setting.get_second_color(color),setting.get_background_color(color));
+        draw_background(canvas.get_spaces(), set.get_bg_color(color));
+        draw_watch_face(term_size,set.get_width(),set.get_wf_color(color),set.get_circ_symbol(),set.get_num_symbols(),set.get_num_shift());
+        second.update(term_size,set.get_sec_color(color),set.get_bg_color(color));
       }
       second.clear();
       second.draw();

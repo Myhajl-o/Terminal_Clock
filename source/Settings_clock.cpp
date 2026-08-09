@@ -234,27 +234,27 @@ short Settings_clock::get_width()
   return width;
 }
 
-const short* Settings_clock::get_numbers_shift()
+const short* Settings_clock::get_num_shift()
 {
   return number_shift;
 }
 
-const Color_object Settings_clock::get_background_color(const bool color)
+const Color_object Settings_clock::get_bg_color(const bool color)
 {
   return bg_color[color];
 }
 
-const Color_object*Settings_clock::get_watch_face_color(const bool color)
+const Color_object*Settings_clock::get_wf_color(const bool color)
 {
   return wf_colors[color];
 }
 
-const Color_object Settings_clock::get_second_color(const bool color)
+const Color_object Settings_clock::get_sec_color(const bool color)
 {
   return sec_color[color];
 }
 
-const char* Settings_clock::get_circle_symbol()
+const char* Settings_clock::get_circ_symbol()
 {
   return circle_symbol;
 }
@@ -264,7 +264,7 @@ const char* const* Settings_clock::get_num_symbols()
   return num_clock_symbol;
 }
 
-const char* const* Settings_clock::get_second_symbols()
+const char* const* Settings_clock::get_sec_symbols()
 {
   return second_symbol;
 }

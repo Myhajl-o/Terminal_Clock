@@ -33,7 +33,11 @@ void hide_cursor(char hide)
     printf("\033[?25h");
   }
 }
-
+//The output_symbols function is written in C. It is the primary
+//output function for this utility. The function prints elements from
+//a char array to specific terminal locations using specific colors.
+//
+//It is used in the following files: main.cpp, background.cpp, watch_face.cpp, and Second-hand.cpp.
 void output_symbols(short x, short y, const char *symbols,const Colors color)
 {
   printf("\033[%dm\033[%dm\033[%d;%dH%s\033[%dm\033[%dm", color.back,color.front, y, x, symbols,color.main_back,color.main_front);
