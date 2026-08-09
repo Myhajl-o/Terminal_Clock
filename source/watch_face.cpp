@@ -68,15 +68,15 @@ void calculate_data_numbers(short &radius, std::vector<Coordinates> &circle_tick
 // It also mirrors them because the input coordinates only cover 1/4 of the circle.
 //
 // This function is used within the watch_face function.
-void draw_tick(const Coordinates &center,const Coordinates*tick,const Color_object&t_color,const char*tick_symbols)
+void draw_tick(const Coordinates &center,const Coordinates*tick,const Color_object&t_color,const char*tick_symbol)
 {
 for (short i = 0; i < 14; i++)
   {
     i += (i == 4 || i == 9);
-    output_symbols(center.x + tick[i].x, center.y - tick[i].y, tick_symbols, t_color.c);
-    output_symbols(center.x + tick[i].x, center.y + tick[i].y, tick_symbols, t_color.c);
-    output_symbols(center.x - tick[i].x - 1, center.y + tick[i].y,tick_symbols, t_color.c);
-    output_symbols(center.x - tick[i].x - 1, center.y - tick[i].y, tick_symbols, t_color.c);
+    output_symbols(center.x + tick[i].x, center.y - tick[i].y, tick_symbol, t_color.c);
+    output_symbols(center.x + tick[i].x, center.y + tick[i].y, tick_symbol, t_color.c);
+    output_symbols(center.x - tick[i].x - 1, center.y + tick[i].y,tick_symbol, t_color.c);
+    output_symbols(center.x - tick[i].x - 1, center.y - tick[i].y, tick_symbol, t_color.c);
   }
 }
 
@@ -114,9 +114,9 @@ void draw_watch_face(const Coordinates &size,const short width,const Color_objec
 {
   Coordinates center;
   short radius;
-  std::vector<Coordinates> circle;
+  static std::vector<Coordinates> circle;
   Coordinates tick[14];
-  std::vector<Coordinates> circle_tick;
+  static std::vector<Coordinates> circle_tick;
 
   calculate_data_circle(size, center, radius, circle,width);
   draw_circle(center, circle,width,colors[0],circ_sym);

@@ -76,19 +76,19 @@ class Settings_clock
 
   short get_width();
 
-  const short* get_numbers_shift();
+  const short* get_num_shift();
 
-  const Color_object get_background_color(const bool color);
+  const Color_object get_bg_color(const bool color);
 
-  const Color_object*get_watch_face_color(const bool color);
+  const Color_object*get_wf_color(const bool color);
 
-  const Color_object get_second_color(const bool color);
+  const Color_object get_sec_color(const bool color);
 
-  const char* get_circle_symbol();
+  const char* get_circ_symbol();
 
   const char* const* get_num_symbols();
 
-  const char* const* get_second_symbols();
+  const char* const* get_sec_symbols();
 
   ~Settings_clock();
 };

@@ -83,6 +83,7 @@ void Settings_clock::default_settings()
   circle_front_color[0] = black_front;
   circle_front_color[1] = white_front;
   circle_symbol[0] = ' ';
+  circle_symbol[5] = 1;
 
   tick_back_color[0] = white_back;
   tick_back_color[1] = black_back;
@@ -165,20 +166,6 @@ void Settings_clock::new_settings(const bool conf)
 {
   if(conf && validation_check())
   {
-    bg_color[0].reset(main_back_color[0],main_front_color[0],main_back_color[0],main_front_color[0]);
-    bg_color[1].reset(main_back_color[1],main_front_color[1],main_back_color[1],main_front_color[1]);
-
-    wf_colors[0][0].reset(circle_back_color[0],circle_front_color[0],main_back_color[0],main_front_color[0]);
-    wf_colors[0][1].reset(tick_back_color[0],tick_front_color[0],main_back_color[0],main_front_color[0]);
-    wf_colors[0][2].reset(number_back_color[0],number_front_color[0],main_back_color[0],main_front_color[0]);
-
-    wf_colors[1][0].reset(circle_back_color[1],circle_front_color[1],main_back_color[1],main_front_color[1]);
-    wf_colors[1][1].reset(tick_back_color[1],tick_front_color[1],main_back_color[1],main_front_color[1]);
-    wf_colors[1][2].reset(number_back_color[1],number_front_color[1],main_back_color[1],main_front_color[1]);
-
-    sec_color[0].reset(second_back_color[0],second_front_color[0],main_back_color[0],main_front_color[0]);
-    sec_color[1].reset(second_back_color[1],second_front_color[1],main_back_color[1],main_front_color[1]);
-    
     if((circle_symbol[0] & 0x80) == 0x00)
     {
       circle_symbol[1] = '\0';
@@ -199,12 +186,24 @@ void Settings_clock::new_settings(const bool conf)
       circle_symbol[4] = '\0';
       circle_symbol[5] = 4;
     }
-
   }
   else
   {
     default_settings();
   }
+  bg_color[0].reset(main_back_color[0],main_front_color[0],main_back_color[0],main_front_color[0]);
+  bg_color[1].reset(main_back_color[1],main_front_color[1],main_back_color[1],main_front_color[1]);
+
+  wf_colors[0][0].reset(circle_back_color[0],circle_front_color[0],main_back_color[0],main_front_color[0]);
+  wf_colors[0][1].reset(tick_back_color[0],tick_front_color[0],main_back_color[0],main_front_color[0]);
+  wf_colors[0][2].reset(number_back_color[0],number_front_color[0],main_back_color[0],main_front_color[0]);
+
+  wf_colors[1][0].reset(circle_back_color[1],circle_front_color[1],main_back_color[1],main_front_color[1]);
+  wf_colors[1][1].reset(tick_back_color[1],tick_front_color[1],main_back_color[1],main_front_color[1]);
+  wf_colors[1][2].reset(number_back_color[1],number_front_color[1],main_back_color[1],main_front_color[1]);
+
+  sec_color[0].reset(second_back_color[0],second_front_color[0],main_back_color[0],main_front_color[0]);
+  sec_color[1].reset(second_back_color[1],second_front_color[1],main_back_color[1],main_front_color[1]);
 }
 
 
@@ -234,27 +233,27 @@ short Settings_clock::get_width()
   return width;
 }
 
-const short* Settings_clock::get_numbers_shift()
+const short* Settings_clock::get_num_shift()
 {
   return number_shift;
 }
 
-const Color_object Settings_clock::get_background_color(const bool color)
+const Color_object Settings_clock::get_bg_color(const bool color)
 {
   return bg_color[color];
 }
 
-const Color_object*Settings_clock::get_watch_face_color(const bool color)
+const Color_object*Settings_clock::get_wf_color(const bool color)
 {
   return wf_colors[color];
 }
 
-const Color_object Settings_clock::get_second_color(const bool color)
+const Color_object Settings_clock::get_sec_color(const bool color)
 {
   return sec_color[color];
 }
 
-const char* Settings_clock::get_circle_symbol()
+const char* Settings_clock::get_circ_symbol()
 {
   return circle_symbol;
 }
@@ -264,7 +263,7 @@ const char* const* Settings_clock::get_num_symbols()
   return num_clock_symbol;
 }
 
-const char* const* Settings_clock::get_second_symbols()
+const char* const* Settings_clock::get_sec_symbols()
 {
   return second_symbol;
 }
