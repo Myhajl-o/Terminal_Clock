@@ -2,10 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// The skip_to_next_line function searches for a newline character
-// in the provided character buffer, starting from the current index.
-//
-// This function is used in the parsing_conf function.
+/* The skip_to_next_line function searches for a newline character
+ * in the provided character buffer, starting from the current index.
+ *
+ * This function is used in the parsing_conf function. */
 void skip_to_next_line(char*buffer,size_t*i_buf,const size_t all_size)
 {
   while(*i_buf < all_size)
@@ -22,10 +22,10 @@ void skip_to_next_line(char*buffer,size_t*i_buf,const size_t all_size)
   }
 }
 
-// The move_to_int function converts a character array into an integer.
-// The number of characters processed depends on the provided size.
-//
-// This function is used in the parsing_conf function.
+/* The move_to_int function converts a character array into an integer.
+ * The number of characters processed depends on the provided size.
+ *
+ * This function is used in the parsing_conf function. */
 void move_to_int(short*num,char*symbols,const short size)
 {
   int i = 0;
@@ -35,12 +35,12 @@ void move_to_int(short*num,char*symbols,const short size)
   }
 }
 
-// The parsing_conf function is written entirely in C. It allocates heap memory 
-// to store bytes from the configuration file. The function iterates through 
-// each byte and populates the passed arrays according to their size. 
-// While the underlying parsing logic is quite trivial, it is highly optimized.
-//
-// This function is used in the main.cpp file.
+/* The parsing_conf function is written entirely in C. It allocates heap memory 
+ * to store bytes from the configuration file. The function iterates through 
+ * each byte and populates the passed arrays according to their size. 
+ * While the underlying parsing logic is quite trivial, it is highly optimized.
+ *
+ * This function is used in the main.cpp file. */
 char parsing_conf(short**numbers,char**symbols,const short size_num,const short size_sym)
 {
   const short size_buffer = 16384;
@@ -49,6 +49,15 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
 
   FILE*conf_file = fopen(CONF_PATH,"r");
   size_t size_file = fread(buffer_conf,1,size_buffer,conf_file); 
+  
+  short i_num = 0;
+  short i_sym = 0;
+
+  short i = 0;
+  char temp_num[4];
+
+  short count_sym = 0;
+
   if(size_file < 50)
   {
     free(buffer_conf);
@@ -56,17 +65,11 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
   }
   fclose(conf_file);
 
-  short i_num = 0;
-  short i_sym = 0;
-
   while((i_buf < size_file) && (i_num < size_num || i_sym < size_sym))
   {
     if(buffer_conf[i_buf] == '=')
     {
-
-      short i = 0;
-      char temp_num[4];
-
+      i = 0;
       while((i_buf++,i_buf < size_file) && buffer_conf[i_buf] != '\n' && i < 3)
       {
         if(buffer_conf[i_buf] >= '0' && buffer_conf[i_buf] <= '9')
@@ -95,8 +98,8 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
     }
     else if(buffer_conf[i_buf] == '-')
     {
-      short i = 0;
-      short count_sym = 0;
+      i = 0;
+      count_sym = 0;
       i_buf++;
 
       while(i_buf < size_file && buffer_conf[i_buf] != '\n' && count_sym < 2)
