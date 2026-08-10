@@ -8,7 +8,7 @@ extern "C"
 {
 #endif
 
-void clear_term();
+void clear_term(const char*spaces);
 void hide_cursor(char hide);
 void output_symbols(short x, short y, const char *symbols,const Colors color);
 
