@@ -34,12 +34,8 @@ void setting_term_mode(bool raw_term)
   }
   SetConsoleMode(hStdin, inMode);
 
-  //==== read escape code =================
-  HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-  DWORD outMode = 0;
-  GetConsoleMode(hOut, &outMode);
-  outMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
-  SetConsoleMode(hOut, outMode);
+  //==== UTF-8 for output =================
+  SetConsoleOutputCP(CP_UTF8);
 }
 
 void clear_buffer()

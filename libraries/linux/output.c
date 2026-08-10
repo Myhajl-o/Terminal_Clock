@@ -9,9 +9,9 @@
  * of the terminal, using escape codes.
  *
  * The function is used in the main.cpp file. */
-void clear_term()
+void clear_term(const char*spaces)
 {
-  printf("\033[0m\033[2J\033[1;1H");
+  printf("\033[0m%s\033[1;1H",spaces);
 }
 
 /* The hide_cursor function hides the terminal cursor
@@ -36,7 +36,7 @@ void hide_cursor(char hide)
  * It is used in the following files: main.cpp, background.cpp, watch_face.cpp, and Second-hand.cpp. */
 void output_symbols(short x, short y, const char *symbols,const Colors color)
 {
-  printf("\033[%dm\033[%dm\033[%d;%dH%s\033[%dm\033[%dm", color.back,color.front, y, x, symbols,color.main_back,color.main_front);
+  printf("\033[%dm\033[%dm\033[%d;%dH%s", color.back,color.front, y, x, symbols);
 
   fflush(stdout);
 }

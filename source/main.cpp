@@ -57,7 +57,7 @@ int main()
     }
     else
     {
-      clear_term();
+      clear_term(canvas.get_spaces());
     }
 
     past_term_size = term_size;
@@ -68,7 +68,7 @@ int main()
 
   setting_term_mode(false);
   hide_cursor(false);
-  clear_term();
+  clear_term(canvas.get_spaces());
 
   return 0;
 }
