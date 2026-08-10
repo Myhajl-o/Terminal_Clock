@@ -16,7 +16,7 @@ void clear_term(const char*spaces)
   HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
   COORD pos;
   SetConsoleTextAttribute(hStdout, 7);
-  pos.X = 1;
+  pos.X = 0;
   pos.Y = 1;
 
   SetConsoleCursorPosition(hStdout, pos);
@@ -46,7 +46,7 @@ void hide_cursor(char hide)
  * It is used in the following files: main.cpp, background.cpp, watch_face.cpp, and Second-hand.cpp. */
 void output_symbols(short x, short y, const char *symbols,const Colors color)
 {
-  HANDLE hStdout = tdout = GetConsoleOut;
+  HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
 
   unsigned short background = (color.back < 50) ? (color.back%10) : (color.back%10) + 8;
   unsigned short foreground = (color.front < 50) ? (color.front%10) : (color.front%10) + 8;

@@ -8,5 +8,5 @@
 // The function is used in the main.cpp file.
 void draw_background(const char*symbols,const Color_object colors)
 {
-  output_symbols(1, 1, symbols, colors.c);
+  output_symbols(0, 1, symbols, colors.c);
 }
