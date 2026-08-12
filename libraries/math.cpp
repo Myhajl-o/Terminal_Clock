@@ -110,6 +110,10 @@ void Coordinates_circle(const short &radius, std::vector<Coordinates> &circle)
 // Second-hand.cpp files.
 void Coordinate_upgrade(std::vector<Coordinates> &circle,const short width)
 {
+  if(width == 1)
+  {
+    return;
+  }
   std::vector<Coordinates> temp = circle;
   circle.resize(circle.size() * width - 1);
   short j = 0;
@@ -144,13 +148,26 @@ void Coordinate_upgrade(std::vector<Coordinates> &circle,const short width)
 //
 // This function is used in the watch_face.cpp and
 // Second-hand.cpp files.
-void Coordinate_degree(short degree, Coordinates &tick_element,
-                       const std::vector<Coordinates> &circle)
+void Coordinate_degree(short degree, Coordinates &tick_element,const std::vector<Coordinates> &circle)
 {
   float difference[2];
+  unsigned short i;
+  if(degree < 42)
+  {
+    i = 2;
+  }
+  else if(degree < 66)
+  {
+    i = circle.size() >> 2;
+  }
+  else
+  {
+    i = circle.size() >> 1;
+  }
+
   difference[0] = absolute_number(degree - (convert * std::atan2((float)circle[1].x,(float)circle[1].y * 2)));
 
-  for (unsigned short i = 2; i < circle.size(); i++)
+  while(i < circle.size())
   {
     difference[1] = absolute_number(degree - (convert * std::atan2((float)circle[i].x,(float)circle[i].y * 2)));
     if (difference[0] < difference[1])
@@ -159,6 +176,36 @@ void Coordinate_degree(short degree, Coordinates &tick_element,
       return;
     }
     difference[0] = difference[1];
+    i++;
+  }
+}
+
+void Coordinate_circle_degrees(Coordinates *ticks,const std::vector<Coordinates>&circle)
+{
+  float difference[2];
+  static const short degrees[14] = {6,12,18,24,30,36,42,48,54,60,66,72,78,84};
+  short i_deg = 0;
+  difference[0] = absolute_number(degrees[0] - (convert * std::atan2((float)circle[1].x,(float)circle[1].y * 2)));
+
+  for(unsigned short i = 2; i < circle.size() && i_deg < 14; i++)
+  {
+    difference[1] = absolute_number(degrees[i_deg] - (convert * std::atan2((float)circle[i].x,(float)circle[i].y * 2)));
+    if(difference[0] < difference[1])
+    {
+      ticks[i_deg] = circle[i - 1];
+      i_deg++;
+      difference[0] = absolute_number(degrees[i_deg] - (convert * std::atan2((float)circle[i].x,(float)circle[i].y * 2)));
+    }
+    else
+    {
+      difference[0] = difference[1];
+    }
+  }
+
+  while(i_deg < 14)
+  {
+    ticks[i_deg] = ticks[i_deg - 1];
+    i_deg++;
   }
 }
 

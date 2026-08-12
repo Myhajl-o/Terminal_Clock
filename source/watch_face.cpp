@@ -57,10 +57,7 @@ void calculate_data_numbers(short &radius, std::vector<Coordinates> &circle_tick
   radius--;
   Coordinates_circle(radius, circle_tick);
   Coordinate_upgrade(circle_tick,width);
-  for (short i = 0; i < 14; i++)
-  {
-    Coordinate_degree((i + 1) * 6, tick[i], circle_tick);
-  }
+  Coordinate_circle_degrees(tick,circle_tick);
 }
 
 // The draw_tick function outputs clock ticks to the terminal window.

@@ -15,6 +15,7 @@ set(OUTPUT libraries/output.c)
 set(MATH libraries/math.cpp)
 set(PARSING libraries/parsing.c)
 
+
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 	list(APPEND INPUT libraries/linux/input.cpp)
 elseif(WIN32)
@@ -30,6 +31,7 @@ add_library(_parsing_lib SHARED ${PARSING})
 target_compile_definitions(_parsing_lib PRIVATE CONF_PATH="${CMAKE_SOURCE_DIR}/configuration/clock.conf")
 
 add_executable(clock ${SOURCES})
+
 
 target_compile_options(clock PRIVATE -fno-exceptions -fno-rtti -Wall -Wextra -Werror -O2)
 target_compile_options(_input_lib PRIVATE -fno-exceptions -fno-rtti -Wall -Wextra -Werror -O2)
