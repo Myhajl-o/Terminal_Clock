@@ -34,6 +34,7 @@ void Second_hand::update(const Coordinates &new_size,const Color_object draw_c,c
   Calculation_radius(radius, 3, center,width);
   Coordinates_circle(radius, circle_second);
   Coordinate_upgrade(circle_second,width);
+  Coordinate_circle_degrees(second_tick,circle_second);
 }
 
 // The second_update method of the Second_hand class retrieves data about
@@ -88,8 +89,8 @@ void Second_hand::calculation_coordinate_line()
             (current_second > 45 && current_second < 60))
                ? 15 - temp
                : temp;
-    Coordinate_degree(temp * 6, second_stop, circle_second);
-    second_stop.x += (current_second > 30) ? 1 : 0;
+    second_stop = second_tick[temp - 1];
+    second_stop.x += current_second > 30;
     Coordinates_line(second_stop, line);
   }
 }
@@ -107,7 +108,7 @@ short Second_hand::current_symbol(const unsigned short &i)
   {
     return (line[i].x == line[i + 1].x)   ? 0 : (line[i].y == line[i + 1].y) ? 3 : diagonal;
   }
-  else if (i == (short)line.size() - 1)
+  else if (i == line.size() - 1)
   {
     return (line[i].x == line[i - 1].x)   ? 0 : (line[i].y == line[i - 1].y) ? 3 : diagonal;
   }
