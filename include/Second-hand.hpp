@@ -10,6 +10,7 @@ class Second_hand
   short radius;
   Coordinates center;
   std::vector<Coordinates> circle_second;
+  Coordinates second_tick[14];
   Coordinates second_stop;
   std::vector<Coordinates> line;
   Coordinates shift;
