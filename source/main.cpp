@@ -17,8 +17,9 @@ bool correct_term_size(const Coordinates &size,const short width)
   return (size.x > (15 * width) && size.y > 15 && size.x < (1024 * width) && size.y < 1024);
 }
 
-int main()
+int main(const int argc,const char*const*argv)
 {
+  parsing_main(argc,argv);
   Coordinates term_size;
   Coordinates past_term_size;
   bool color = false;

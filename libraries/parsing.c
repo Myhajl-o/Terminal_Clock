@@ -99,7 +99,7 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
     else if(buffer_conf[i_buf] == '-')
     {
       i = 0;
-      count_sym = 0;
+      
       i_buf++;
 
       while(i_buf < size_file && buffer_conf[i_buf] != '\n' && count_sym < 2)
@@ -173,3 +173,16 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
 
 }
 
+
+
+char parsing_main(const int argc,const char* const*argv)
+{
+  if(argc == 1)
+  {
+    return 1;
+  }
+
+
+
+
+}
