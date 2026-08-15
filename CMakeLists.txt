@@ -7,7 +7,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 
 include_directories(include/)
 
-set(SOURCES main.cpp background.cpp watch_face.cpp Simple_string.cpp Settings_clock.cpp Second-hand.cpp)
+set(SOURCES main.cpp addition_functional.cpp background.cpp watch_face.cpp Simple_string.cpp Settings_clock.cpp Second-hand.cpp)
 list(TRANSFORM SOURCES PREPEND "source/")
 
 set(INPUT)
@@ -34,6 +34,8 @@ target_compile_definitions(_parsing_lib PRIVATE CONF_PATH="${CMAKE_SOURCE_DIR}/c
 
 add_executable(clock ${SOURCES})
 
+target_compile_definitions(clock PRIVATE NAME=\"${PROJECT_NAME}\")
+target_compile_definitions(clock PRIVATE VERSION=\"${PROJECT_VERSION}\")
 
 target_compile_options(clock PRIVATE -fno-exceptions -fno-rtti -Wall -Wextra -Werror -O2)
 target_compile_options(_input_lib PRIVATE -fno-exceptions -fno-rtti -Wall -Wextra -Werror -O2)

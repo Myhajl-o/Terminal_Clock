@@ -99,7 +99,7 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
     else if(buffer_conf[i_buf] == '-')
     {
       i = 0;
-      
+      count_sym = 0;
       i_buf++;
 
       while(i_buf < size_file && buffer_conf[i_buf] != '\n' && count_sym < 2)
@@ -175,14 +175,23 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
 
 
 
-char parsing_main(const int argc,const char* const*argv)
+char parsing_main(short *flag,const char* const*argv)
 {
-  if(argc == 1)
+  const char*flags = "shnrv";
+  short i = 0;
+  if(argv[1][0] == '-')
   {
-    return 1;
+    if(argv[1][1] >= 'h' && argv[1][1] <= 'v')
+    {
+      do
+      {
+        if(flags[i] == argv[1][1])
+        {
+          *flag = i+1;
+          return 1;
+        }
+      }while(i++,i < 5);
+    }
   }
-
-
-
-
+  return 0;
 }

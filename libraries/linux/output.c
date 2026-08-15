@@ -40,3 +40,14 @@ void output_symbols(short x, short y, const char *symbols,const Colors color)
 
   fflush(stdout);
 }
+
+void output_message(const char*msg)
+{
+  printf("%s",msg);
+}
+
+void set_cursor(short x,short y)
+{
+  printf("\033[%d;%dH",y,x);
+}
+

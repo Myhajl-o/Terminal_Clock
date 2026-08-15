@@ -66,3 +66,8 @@ void output_symbols(short x, short y, const char *symbols,const Colors color)
 
   fflush(stdout);
 }
+
+void output_message(const char*msg)
+{
+  printf("%s",msg);
+}
