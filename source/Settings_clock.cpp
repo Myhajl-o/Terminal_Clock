@@ -191,19 +191,19 @@ void Settings_clock::new_settings(const bool conf)
   {
     default_settings();
   }
-  bg_color[0].reset(main_back_color[0],main_front_color[0],main_back_color[0],main_front_color[0]);
-  bg_color[1].reset(main_back_color[1],main_front_color[1],main_back_color[1],main_front_color[1]);
+  bg_color[0].reset(main_back_color[0],main_front_color[0]);
+  bg_color[1].reset(main_back_color[1],main_front_color[1]);
 
-  wf_colors[0][0].reset(circle_back_color[0],circle_front_color[0],main_back_color[0],main_front_color[0]);
-  wf_colors[0][1].reset(tick_back_color[0],tick_front_color[0],main_back_color[0],main_front_color[0]);
-  wf_colors[0][2].reset(number_back_color[0],number_front_color[0],main_back_color[0],main_front_color[0]);
+  wf_colors[0][0].reset(circle_back_color[0],circle_front_color[0]);
+  wf_colors[0][1].reset(tick_back_color[0],tick_front_color[0]);
+  wf_colors[0][2].reset(number_back_color[0],number_front_color[0]);
 
-  wf_colors[1][0].reset(circle_back_color[1],circle_front_color[1],main_back_color[1],main_front_color[1]);
-  wf_colors[1][1].reset(tick_back_color[1],tick_front_color[1],main_back_color[1],main_front_color[1]);
-  wf_colors[1][2].reset(number_back_color[1],number_front_color[1],main_back_color[1],main_front_color[1]);
+  wf_colors[1][0].reset(circle_back_color[1],circle_front_color[1]);
+  wf_colors[1][1].reset(tick_back_color[1],tick_front_color[1]);
+  wf_colors[1][2].reset(number_back_color[1],number_front_color[1]);
 
-  sec_color[0].reset(second_back_color[0],second_front_color[0],main_back_color[0],main_front_color[0]);
-  sec_color[1].reset(second_back_color[1],second_front_color[1],main_back_color[1],main_front_color[1]);
+  sec_color[0].reset(second_back_color[0],second_front_color[0]);
+  sec_color[1].reset(second_back_color[1],second_front_color[1]);
 }
 
 

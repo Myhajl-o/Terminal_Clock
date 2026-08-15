@@ -11,14 +11,17 @@ set(SOURCES main.cpp background.cpp watch_face.cpp Simple_string.cpp Settings_cl
 list(TRANSFORM SOURCES PREPEND "source/")
 
 set(INPUT)
-set(OUTPUT libraries/output.c)
+set(OUTPUT)
 set(MATH libraries/math.cpp)
 set(PARSING libraries/parsing.c)
 
+
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 	list(APPEND INPUT libraries/linux/input.cpp)
+  list(APPEND OUTPUT libraries/linux/output.c)
 elseif(WIN32)
 	list(APPEND INPUT libraries/win/input.cpp)
+  list(APPEND OUTPUT libraries/win/output.c)
 endif()
 
 
@@ -30,6 +33,7 @@ add_library(_parsing_lib SHARED ${PARSING})
 target_compile_definitions(_parsing_lib PRIVATE CONF_PATH="${CMAKE_SOURCE_DIR}/configuration/clock.conf")
 
 add_executable(clock ${SOURCES})
+
 
 target_compile_options(clock PRIVATE -fno-exceptions -fno-rtti -Wall -Wextra -Werror -O2)
 target_compile_options(_input_lib PRIVATE -fno-exceptions -fno-rtti -Wall -Wextra -Werror -O2)

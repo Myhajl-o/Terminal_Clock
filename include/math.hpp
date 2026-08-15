@@ -10,6 +10,7 @@ void Calculation_radius(short &radius, short backdown, const Coordinates &center
 void Coordinates_circle(const short &radius, std::vector<Coordinates> &circle);
 void Coordinate_upgrade(std::vector<Coordinates> &circle,const short width);
 void Coordinate_degree(short degree, Coordinates &tick_element, const std::vector<Coordinates> &circle);
+void Coordinate_circle_degrees(Coordinates *ticks,const std::vector<Coordinates>&circle);
 void Coordinates_line(const Coordinates &B, std::vector<Coordinates> &line);
 
 #endif
