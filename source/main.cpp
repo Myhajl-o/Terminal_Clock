@@ -11,6 +11,7 @@
 #include "input.hpp"
 #include "watch_face.hpp"
 #include "addition_functional.hpp"
+#include "timedate.hpp"
 #include <unistd.h>
 
 bool correct_term_size(const Coordinates &size,const short width)
@@ -20,6 +21,7 @@ bool correct_term_size(const Coordinates &size,const short width)
 
 int main(const int argc,const char*const*argv)
 {
+  update_time();
   short flag = 0;
   if(argc > 1)
   {
@@ -71,6 +73,9 @@ int main(const int argc,const char*const*argv)
         draw_watch_face(term_size,set.get_width(),set.get_wf_color(color),set.get_circ_symbol(),set.get_num_symbols(),set.get_num_shift());
         second.update(term_size,set.get_sec_color(color),set.get_bg_color(color));
       }
+
+      update_time();
+
       second.clear();
       second.draw();
     }
