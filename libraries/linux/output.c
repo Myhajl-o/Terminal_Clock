@@ -3,6 +3,11 @@
 #include <stdio.h>
 
 
+void def_term()
+{
+  printf("\033[0m");
+}
+
 /* The clear_term function resets all escape codes
  * that were previously output, clears the terminal
  * of characters, and moves the cursor to the beginning

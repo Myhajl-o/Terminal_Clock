@@ -3,6 +3,11 @@
 #include <stdio.h>
 #include <windows.h>
 
+void def_term()
+{
+  HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+  SetConsoleTextAttribute(hStdout, 7);
+}
 /* The clear_term function resets all escape codes
  * that were previously output, clears the terminal
  * of characters, and moves the cursor to the beginning
