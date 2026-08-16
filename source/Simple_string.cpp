@@ -46,7 +46,8 @@ void Simple_string::update_size_spaces(const Coordinates size,bool flag)
 void Simple_string::fixed_size(const Coordinates size)
 {
   for(short i = 1; i < size.y;i++) spaces[i * size.x] = '\n';
-  spaces[size.x * size.y] = '\0';
+  spaces[size.x * size.y] = '\n';
+  spaces[(size.x * size.y) + 1] = '\0';
 }
 
 char* Simple_string::get_spaces()

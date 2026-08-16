@@ -3,13 +3,18 @@
 #include <stdio.h>
 
 
+void clear_term()
+{
+  printf("\033[0m");
+}
+
 /* The clear_term function resets all escape codes
  * that were previously output, clears the terminal
  * of characters, and moves the cursor to the beginning
  * of the terminal, using escape codes.
  *
  * The function is used in the main.cpp file. */
-void clear_term(const char*spaces)
+void full_clear_term(const char*spaces)
 {
   printf("\033[0m%s\033[1;1H",spaces);
 }

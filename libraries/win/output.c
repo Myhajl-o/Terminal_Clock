@@ -3,13 +3,18 @@
 #include <stdio.h>
 #include <windows.h>
 
+void clear_term()
+{
+  HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+  SetConsoleTextAttribute(hStdout, 7);
+}
 /* The clear_term function resets all escape codes
  * that were previously output, clears the terminal
  * of characters, and moves the cursor to the beginning
  * of the terminal, using escape codes.
  *
  * The function is used in the main.cpp file. */
-void clear_term(const char*spaces)
+void full_clear_term(const char*spaces)
 {
 //  printf("\033[0m\033[2J\033[1;1H");
 
@@ -75,6 +80,7 @@ void output_message(const char*msg)
 
 void set_cursor(short x,short y)
 {
+  HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
   COORD pos;
 
   pos.X = x;

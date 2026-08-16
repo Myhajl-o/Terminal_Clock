@@ -81,13 +81,14 @@ int main(const int argc,const char*const*argv)
     }
     else
     {
-      clear_term(canvas.get_spaces());
+      full_clear_term(canvas.get_spaces());
     }
     if(flag)
     {
       setting_term_mode(false);
       hide_cursor(false);
-      set_cursor(1,term_size.y);
+      clear_term();
+      set_cursor(0,term_size.y + 1);
       return 0;
     }
     past_term_size = term_size;
@@ -98,7 +99,7 @@ int main(const int argc,const char*const*argv)
 
   setting_term_mode(false);
   hide_cursor(false);
-  clear_term(canvas.get_spaces());
+  full_clear_term(canvas.get_spaces());
 
   return 0;
 }
