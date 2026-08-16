@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <windows.h>
 
-void def_term()
+void clear_term()
 {
   HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
   SetConsoleTextAttribute(hStdout, 7);
@@ -14,7 +14,7 @@ void def_term()
  * of the terminal, using escape codes.
  *
  * The function is used in the main.cpp file. */
-void clear_term(const char*spaces)
+void full_clear_term(const char*spaces)
 {
 //  printf("\033[0m\033[2J\033[1;1H");
 

@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 
-void def_term()
+void clear_term()
 {
   printf("\033[0m");
 }
@@ -14,7 +14,7 @@ void def_term()
  * of the terminal, using escape codes.
  *
  * The function is used in the main.cpp file. */
-void clear_term(const char*spaces)
+void full_clear_term(const char*spaces)
 {
   printf("\033[0m%s\033[1;1H",spaces);
 }
