@@ -6,7 +6,7 @@ void move_to_char(short num, char*msg,char spec_sym)
 {
   char s[10],*c = s + 9;
   short i = 0;
-  for(i = 0;num;num/=10,i++)*--c = num%10 + '0';
+  for(;num;num/=10,i++)*--c = num%10 + '0';
   if((i%2) == 1){*--c = '0';i++;}
   while(i>0){*msg++ = *c++;i--;}
   *++msg = spec_sym;*++msg = '\0';
@@ -14,7 +14,7 @@ void move_to_char(short num, char*msg,char spec_sym)
 
 void help()
 {
-  const char*msg_help = "\n======  all_flags  ======\n      -h\n      -s : static version\n      -n : name progect\n      -r : raw output time and date\n      -v : version progect\n";
+  const char*msg_help = "\n======  all_flags  ======\n      -help :    show all flags\n      -static :  static version\n      -name :    name progect\n      -raw :     raw output time and date\n      -version : version progect\n";
   output_message(msg_help);
 }
 
@@ -27,13 +27,13 @@ void name()
 void time_and_date()
 {
   char msg[10],*temp = msg;
-  move_to_char(cur_second(),temp,':');
+  move_to_char(cur_hour(),temp,':');
   output_message(msg);
 
   move_to_char(cur_minute(),temp,':');
   output_message(msg);
 
-  move_to_char(cur_hour(),temp,'\n');
+  move_to_char(cur_second(),temp,'\n');
   output_message(msg);
 
   move_to_char(cur_day(),temp,'/');
