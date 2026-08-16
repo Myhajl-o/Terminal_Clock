@@ -3,7 +3,7 @@
 #include "Color_object.hpp"
 #include "math.hpp"
 #include "output.h"
-#include <ctime>
+#include "timedate.hpp"
 #include <vector>
 
 Second_hand::Second_hand(const short wi,const Color_object draw_c,const Color_object clear_c,const char* const*sym)
@@ -47,15 +47,12 @@ void Second_hand::update(const Coordinates &new_size,const Color_object draw_c,c
 // The method is used in the draw method.
 bool Second_hand::second_update(bool flag)
 {
-  time_t now = time(NULL);
-  tm *time = localtime(&now);
+  short temp = cur_second();
   if (flag)
   {
-    return (current_second != time->tm_sec)
-               ? (current_second = time->tm_sec, true)
-               : false;
+    return (current_second != temp) ? (current_second = temp, true) : false;
   }
-  return current_second != time->tm_sec;
+  return current_second != temp;
 }
 
 // The calculation_coordinate_line method of the Second_hand class

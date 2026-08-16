@@ -29,7 +29,7 @@ void skip_to_next_line(char*buffer,size_t*i_buf,const size_t all_size)
 void move_to_int(short*num,char*symbols,const short size)
 {
   int i = 0;
-  for(i = 0; i < size; i++)
+  for(; i < size; i++)
   {
     *num = *num * 10 + (symbols[i] - '0');
   }
@@ -173,3 +173,33 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
 
 }
 
+char comparisons(const char*arg1,const char*arg2)
+{
+  short i = 0;
+  for(;arg1[i] != '\0' || arg2[i] != '\0';i++)
+  {
+    if(arg1[i] != arg2[i]) return 0;
+  }
+  return 1;
+}
+
+char parsing_main(short *flag,const char* const*argv)
+{
+  const char*flags[5] = {"-static","-help","-name","-raw","-version"};
+  short i = 0;
+  if(argv[1][0] == '-')
+  {
+    if(argv[1][1] >= 'h' && argv[1][1] <= 'v')
+    {
+      for(;i < 5; i++)
+      {
+        if(comparisons(flags[i],argv[1]))
+        {
+          *flag = i+1;
+          return 1;
+        }
+      }
+    }
+  }
+  return 0;
+}
