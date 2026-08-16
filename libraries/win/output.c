@@ -71,3 +71,14 @@ void output_message(const char*msg)
 {
   printf("%s",msg);
 }
+
+
+void set_cursor(short x,short y)
+{
+  COORD pos;
+
+  pos.X = x;
+  pos.Y = y;
+
+  SetConsoleCursorPosition(hStdout, pos);
+}

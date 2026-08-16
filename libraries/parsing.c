@@ -175,7 +175,7 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
 
 char comparisons(const char*arg1,const char*arg2)
 {
-  short i = 0;
+  short i = 1;
   for(;arg1[i] != '\0' || arg2[i] != '\0';i++)
   {
     if(arg1[i] != arg2[i]) return 0;
