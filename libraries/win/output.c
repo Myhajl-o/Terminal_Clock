@@ -75,6 +75,7 @@ void output_message(const char*msg)
 
 void set_cursor(short x,short y)
 {
+  HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
   COORD pos;
 
   pos.X = x;

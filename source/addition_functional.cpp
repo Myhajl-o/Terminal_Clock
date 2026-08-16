@@ -20,7 +20,7 @@ void help()
 
 void name()
 {
-  const char*msg_name = NAME;
+  const char*msg_name = NAME"\n\0";
   output_message(msg_name);
 }
 
@@ -48,7 +48,7 @@ void time_and_date()
 
 void version()
 {
-  const char*msg_version = VERSION;
+  const char*msg_version = VERSION"\n\0";
   output_message(msg_version);
 }
 
