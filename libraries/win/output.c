@@ -14,20 +14,22 @@ void clear_term()
  * of the terminal, using escape codes.
  *
  * The function is used in the main.cpp file. */
-void full_clear_term(const char*spaces)
+void full_clear_term(const short y,const char*spaces)
 {
-//  printf("\033[0m\033[2J\033[1;1H");
-
   HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
   COORD pos;
+
   SetConsoleTextAttribute(hStdout, 7);
   pos.X = 0;
   pos.Y = 1;
 
-  SetConsoleCursorPosition(hStdout, pos);
+  for(; pos.Y <= y ; pos.Y++)
+  {
+    SetConsoleCursorPosition(hStdout, pos);
+    printf("%s",spaces);
+  }
 
-  printf("%s",spaces);
-
+  pos.Y = 1;
   SetConsoleCursorPosition(hStdout, pos);
 }
 
@@ -87,4 +89,9 @@ void set_cursor(short x,short y)
   pos.Y = y;
 
   SetConsoleCursorPosition(hStdout, pos);
+}
+
+void output_number(const short num)
+{
+  printf("%d",num);
 }

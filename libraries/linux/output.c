@@ -14,9 +14,16 @@ void clear_term()
  * of the terminal, using escape codes.
  *
  * The function is used in the main.cpp file. */
-void full_clear_term(const char*spaces)
+void full_clear_term(const short y,const char*spaces)
 {
-  printf("\033[0m%s\033[1;1H",spaces);
+  short i = 1;
+
+  printf("\033[0m");
+  for(;i <= y; i++)
+  {
+    printf("\033[%d;0H%s",i,spaces);
+  }
+  set_cursor(0,1);
 }
 
 /* The hide_cursor function hides the terminal cursor
@@ -34,6 +41,12 @@ void hide_cursor(char hide)
     printf("\033[?25h");
   }
 }
+
+void set_cursor(short x,short y)
+{
+  printf("\033[%d;%dH",y,x);
+}
+
 /* The output_symbols function is written in C. It is the primary
  * output function for this utility. The function prints elements from
  * a char array to specific terminal locations using specific colors.
@@ -51,8 +64,8 @@ void output_message(const char*msg)
   printf("%s",msg);
 }
 
-void set_cursor(short x,short y)
+void output_number(const short num)
 {
-  printf("\033[%d;%dH",y,x);
+  printf("%d",num);
 }
 

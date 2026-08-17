@@ -3,6 +3,6 @@
 
 #include "Color_object.hpp"
 
-void draw_background(const char*symbols,const Color_object colors);
+void draw_background(const short y,const char*symbols,const Color_object colors);
 
 #endif

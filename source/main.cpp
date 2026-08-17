@@ -1,7 +1,7 @@
 // #include "Hour-hand.hpp"
 // #include "Minute-hand.hpp"
 #include "Second-hand.hpp"
-#include "Simple_string.hpp"
+#include "bg_string.hpp"
 #include "output.h"
 //  #include "date.hpp"
 #include "Coordinates.hpp"
@@ -53,7 +53,7 @@ int main(const int argc,const char*const*argv)
   hide_cursor(true);
 
   get_term_size(term_size);
-  Simple_string canvas(term_size.x * term_size.y);
+  bg_string canvas(term_size.x);
 
   while (!check_buffer(temp, color))
   {
@@ -68,8 +68,8 @@ int main(const int argc,const char*const*argv)
       if (term_size != past_term_size || color != past_color)
       {
         hide_cursor(true);
-        canvas.update_size_spaces(term_size,flag);
-        draw_background(canvas.get_spaces(), set.get_bg_color(color));
+        canvas.update_size_spaces(term_size.x);
+        draw_background(term_size.y,canvas.get_spaces(), set.get_bg_color(color));
         draw_watch_face(term_size,set.get_width(),set.get_wf_color(color),set.get_circ_symbol(),set.get_num_symbols(),set.get_num_shift());
         second.update(term_size,set.get_sec_color(color),set.get_bg_color(color));
       }
@@ -81,7 +81,7 @@ int main(const int argc,const char*const*argv)
     }
     else
     {
-      full_clear_term(canvas.get_spaces());
+      full_clear_term(term_size.y,canvas.get_spaces());
     }
     if(flag)
     {
@@ -99,7 +99,7 @@ int main(const int argc,const char*const*argv)
 
   setting_term_mode(false);
   hide_cursor(false);
-  full_clear_term(canvas.get_spaces());
+  full_clear_term(term_size.y,canvas.get_spaces());
 
   return 0;
 }
