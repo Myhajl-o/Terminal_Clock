@@ -6,7 +6,10 @@
 // window with spaces.
 // 
 // The function is used in the main.cpp file.
-void draw_background(const char*symbols,const Color_object colors)
+void draw_background(const short y,const char*symbols,const Color_object colors)
 {
-  output_symbols(0, 1, symbols, colors.c);
+  for(short i = 1; i <= y; i++)
+  {
+    output_symbols(0, i, symbols, colors.c);
+  }
 }

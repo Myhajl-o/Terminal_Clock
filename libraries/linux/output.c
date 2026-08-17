@@ -14,9 +14,16 @@ void clear_term()
  * of the terminal, using escape codes.
  *
  * The function is used in the main.cpp file. */
-void full_clear_term(const char*spaces)
+void full_clear_term(const short y,const char*spaces)
 {
-  printf("\033[0m%s\033[1;1H",spaces);
+  short i = 1;
+
+  printf("\033[0m");
+  for(;i <= y; i++)
+  {
+    printf("\033[%d;0H%s",i,spaces);
+  }
+  set_cursor(0,1);
 }
 
 /* The hide_cursor function hides the terminal cursor

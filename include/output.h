@@ -9,7 +9,7 @@ extern "C"
 #endif
 
 void clear_term();
-void full_clear_term(const char*spaces);
+void full_clear_term(const short y,const char*spaces);
 void hide_cursor(char hide);
 void output_symbols(short x, short y, const char *symbols,const Colors color);
 void output_message(const char*msg);
