@@ -41,6 +41,12 @@ void hide_cursor(char hide)
     printf("\033[?25h");
   }
 }
+
+void set_cursor(short x,short y)
+{
+  printf("\033[%d;%dH",y,x);
+}
+
 /* The output_symbols function is written in C. It is the primary
  * output function for this utility. The function prints elements from
  * a char array to specific terminal locations using specific colors.
@@ -58,8 +64,8 @@ void output_message(const char*msg)
   printf("%s",msg);
 }
 
-void set_cursor(short x,short y)
+void output_number(const short num)
 {
-  printf("\033[%d;%dH",y,x);
+  printf("%d",num);
 }
 

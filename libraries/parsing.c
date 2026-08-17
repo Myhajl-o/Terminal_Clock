@@ -185,13 +185,13 @@ char comparisons(const char*arg1,const char*arg2)
 
 char parsing_main(short *flag,const char* const*argv)
 {
-  const char*flags[5] = {"-static","-help","-name","-raw","-version"};
+  const char*flags[6] = {"-static","-help","-name","-raw","-test","-version"};
   short i = 0;
   if(argv[1][0] == '-')
   {
     if(argv[1][1] >= 'h' && argv[1][1] <= 'v')
     {
-      for(;i < 5; i++)
+      for(;i < 6; i++)
       {
         if(comparisons(flags[i],argv[1]))
         {
