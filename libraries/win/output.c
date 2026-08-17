@@ -16,7 +16,6 @@ void clear_term()
  * The function is used in the main.cpp file. */
 void full_clear_term(const short y,const char*spaces)
 {
-  short i = 1;
   HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
   COORD pos;
 
@@ -90,4 +89,9 @@ void set_cursor(short x,short y)
   pos.Y = y;
 
   SetConsoleCursorPosition(hStdout, pos);
+}
+
+void output_number(const short num)
+{
+  printf("%d",num);
 }
