@@ -24,7 +24,7 @@ void bg_string::update_size_spaces(const short size)
     spaces[size] = '\0';
     all_size = size;
   }
-  else if(all_size > size)
+  else
   {
     spaces[past_size] = ' ';
     spaces[size] = '\0';

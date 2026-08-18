@@ -15,14 +15,14 @@ void move_to_char(short num, char*msg,short*i_msg)
   }
   if(!num)
   {
-    s[i] = '0';i--;
+    s[i--] = '0';
   }
   else
   {
-    for(;num;num/=10,i--)s[i] = num%10 + '0';
+    for(;num;num/=10)s[i--] = num%10 + '0';
   }
-  if(sub){s[i] = '-';i--;}
-  for(; j < (5 - i); j++,(*i_msg)++){msg[*i_msg] = s[i + j + 1];}
+  if(sub)s[i--] = '-';
+  for(; j < (5 - i); j++)msg[(*i_msg)++] = s[i + j + 1];
 }
 
 void move_to_time_format(short num, char*msg,short*i_msg)
@@ -39,22 +39,21 @@ void move_to_time_format(short num, char*msg,short*i_msg)
   }
   if(!num)
   {
-    s[i] = '0';i--;
+    s[i--] = '0';
     zero = !zero;
   }
   else
   {
-    for(;num;num/=10,i--,zero = !zero)s[i] = num%10 + '0';
+    for(;num;num/=10,zero = !zero)s[i--] = num%10 + '0';
   }
-  if(zero){s[i] = '0'; i--;}
-  if(sub){s[i] = '-';i--;}
-  for(; j < (6 - i); j++,(*i_msg)++){msg[*i_msg] = s[i + j + 1];}
+  if(zero)s[i--] = '0';
+  if(sub)s[i--] = '-';
+  for(; j < (6 - i); j++)msg[(*i_msg)++] = s[i + j + 1];
 }
-
 
 void clear_term()
 {
-  static const char*esc_clear = "\033[0m";
+  static const char*esc_clear = "\033[0m\0";
   output_symbols(esc_clear);
 }
 
@@ -82,7 +81,7 @@ void full_clear_term(const short y,const char*spaces)
  * The function is used in the main.cpp file. */
 void hide_cursor(const char hide)
 {
-  static char esc_cursor[10] = "\033[?25l";
+  static char esc_cursor[8] = "\033[?25l\0";
   if (hide)
   {
     esc_cursor[5] = 'l';
@@ -99,9 +98,9 @@ void set_cursor(const short x,const short y)
   char esc_pos[20] = "\033[";
   short i = 2;
   move_to_char(y,esc_pos,&i);
-  esc_pos[i] = ';';i++;
+  esc_pos[i++] = ';';
   move_to_char(x,esc_pos,&i);
-  esc_pos[i] = 'H';
+  esc_pos[i++] = 'H';esc_pos[i] = '\0';
   output_symbols(esc_pos);
 }
 
@@ -110,9 +109,9 @@ void set_color(const Colors color)
   char esc_color[20] = "\033[";
   short i = 2;
   move_to_char(color.back,esc_color,&i);
-  esc_color[i] = ';';i++;
+  esc_color[i++] = ';';
   move_to_char(color.front,esc_color,&i);
-  esc_color[i] = 'm';
+  esc_color[i++] = 'm';esc_color[i] = '\0';
   output_symbols(esc_color);
 }
 
@@ -130,7 +129,7 @@ void output_object(const short x,const short y, const char *symbols,const Colors
 
 void output_symbols(const char*symbols)
 {
-  printf("%s",symbols);
+  fputs(symbols,stdout);
   fflush(stdout);
 }
 
