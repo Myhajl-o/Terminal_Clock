@@ -144,7 +144,7 @@ void Second_hand::draw()
 
     for (unsigned short i = 0; i < line.size(); i++)
     {
-      output_symbols(center.x + line[i].x * shift.x, center.y + line[i].y * shift.y, symbols[current_symbol(i)], draw_color.c);
+      output_object(center.x + line[i].x * shift.x, center.y + line[i].y * shift.y, symbols[current_symbol(i)], draw_color.c);
     }
     clearing = true;
     drawing = false;
@@ -167,7 +167,7 @@ void Second_hand::clear()
     char space[3] = " \0";
     for (unsigned short i = 0; i < line.size(); i++)
     {
-      output_symbols(center.x + line[i].x * shift.x,center.y + line[i].y * shift.y, space, clear_color.c);
+      output_object(center.x + line[i].x * shift.x,center.y + line[i].y * shift.y, space, clear_color.c);
     }
   }
 }
