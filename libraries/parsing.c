@@ -170,9 +170,14 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
     free(buffer_conf);
     return 0;
   }
-
 }
 
+/* The `comparisons` function compares two
+ * `char` arrays passed to it. If at least one character
+ * does not match, it returns 0. Conversely,
+ * if the two arrays are identical, it returns 1.
+ *
+ * The function is used in the `parsing_main` function.*/
 char comparisons(const char*arg1,const char*arg2)
 {
   short i = 1;
@@ -183,6 +188,16 @@ char comparisons(const char*arg1,const char*arg2)
   return 1;
 }
 
+/* The `parsing_main` function checks the second element
+ * of the second argument passed to the `main` function.
+ * It checks, one by one, whether the passed
+ * argument matches any of the program's flags. The function
+ * returns 0 if the second element does not match
+ * any flag, and 1 if it does match
+ * at least one flag. The function writes to the `flag` pointer
+ * the index of the flag to which the second element is equal.
+
+ * The function is used in the `main.cpp` file.*/
 char parsing_main(short *flag,const char* const*argv)
 {
   const char*flags[6] = {"-static","-help","-name","-raw","-test","-version"};

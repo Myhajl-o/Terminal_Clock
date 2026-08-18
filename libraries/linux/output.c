@@ -2,6 +2,14 @@
 #include "Colors.h"
 #include <stdio.h>
 
+/* The `move_to_char` function converts an integer
+ * into an array of characters. It takes as its last
+ * argument a pointer to the array index where
+ * the characters should be written. This allows for flexible appending
+ * of characters to an array that already contains characters.
+
+ * The function is used in the `set_cursor` and
+ * `set_color` functions, as well as in the `addition_functional.cpp` file. */
 void move_to_char(short num, char*msg,short*i_msg)
 {
   char s[6];
@@ -25,6 +33,14 @@ void move_to_char(short num, char*msg,short*i_msg)
   for(; j < (5 - i); j++)msg[(*i_msg)++] = s[i + j + 1];
 }
 
+/* The `move_to_time_format` function converts an integer
+ * into a character array. It takes as its last
+ * argument a pointer to the array index where
+ * the characters should be written. This allows for flexible appending
+ * of characters to an array that already contains characters. It also
+ * adds a zero if the number has an odd number of digits.
+
+ * The function is used in the addition_functional.cpp file.*/
 void move_to_time_format(short num, char*msg,short*i_msg)
 {
   char s[7];
@@ -51,13 +67,19 @@ void move_to_time_format(short num, char*msg,short*i_msg)
   for(; j < (6 - i); j++)msg[(*i_msg)++] = s[i + j + 1];
 }
 
+/*The `clear_term` function clears the terminal of all other
+ * colors and sets the colors to their
+ * default values in the terminal.
+
+ * This function is used within the `full_clear_term` function
+ * and is defined in the `main.cpp` file.*/
 void clear_term()
 {
   static const char*esc_clear = "\033[0m\0";
   output_symbols(esc_clear);
 }
 
-/* The clear_term function resets all escape codes
+/* The full_clear_term function resets all escape codes
  * that were previously output, clears the terminal
  * of characters, and moves the cursor to the beginning
  * of the terminal, using escape codes.
@@ -93,6 +115,7 @@ void hide_cursor(const char hide)
   output_symbols(esc_cursor);
 }
 
+
 void set_cursor(const short x,const short y)
 {
   char esc_pos[20] = "\033[";
@@ -115,11 +138,12 @@ void set_color(const Colors color)
   output_symbols(esc_color);
 }
 
-/* The output_symbols function is written in C. It is the primary
+/* The output_object is the primary
  * output function for this utility. The function prints elements from
  * a char array to specific terminal locations using specific colors.
  *
- * It is used in the following files: main.cpp, background.cpp, watch_face.cpp, and Second-hand.cpp. */
+ * It is used in the following files: main.cpp, background.cpp, 
+ * watch_face.cpp, and Second-hand.cpp. */
 void output_object(const short x,const short y, const char *symbols,const Colors color)
 {
   set_cursor(x,y);
@@ -127,6 +151,14 @@ void output_object(const short x,const short y, const char *symbols,const Colors
   output_symbols(symbols);
 }
 
+/*The `output_symbols` function is highly optimized.
+ * It uses a simple C function that is very straightforward
+ * and highly optimized. Essentially, it is simply a function that
+ * outputs symbols to the terminal.
+ *
+ * The function is used in the functions `full_clear_term`, `hide_cursor`,
+ * `set_cursor`, `set_color`, and `output_object`, as well as in the file 
+ * `addition_functional.cpp`.*/
 void output_symbols(const char*symbols)
 {
   fputs(symbols,stdout);

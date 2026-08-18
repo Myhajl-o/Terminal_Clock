@@ -25,7 +25,7 @@ int main(const int argc,const char*const*argv)
   short flag = 0;
   if(argc > 1)
   {
-    if((!parsing_main(&flag,argv)) || flag == 0)
+    if((!parsing_main(&flag,argv)) || !flag)
     {
       return 1;
     }
