@@ -6,19 +6,12 @@
  * in the provided character buffer, starting from the current index.
  *
  * This function is used in the parsing_conf function. */
-void skip_to_next_line(char*buffer,size_t*i_buf,const size_t all_size)
+void skip_to_next_line(char*buffer,int*i_buf,const int all_size)
 {
   while(*i_buf < all_size)
   {
-    if(buffer[*i_buf] == '\n')
-    {
-      (*i_buf)++;
-      return;
-    }
-    else
-    {
-      (*i_buf)++;
-    }
+    if(buffer[*i_buf] == '\n'){(*i_buf)++;return;}
+    (*i_buf)++;
   }
 }
 
@@ -35,6 +28,28 @@ void move_to_int(short*num,char*symbols,const short size)
   }
 }
 
+short check_size_symbol(const char c)
+{
+  if((c & 0x80) == 0x00)
+  {
+    return 1;
+  }
+  else if((c & 0xE0) == 0xC0)
+  {
+    return 2;
+  }
+  else if((c & 0xF0) == 0xE0)
+  {
+    return 3;
+  }
+  else if((c & 0xF8) == 0xF0)
+  {
+    return 4;
+  }
+  return 1;
+}
+
+
 /* The parsing_conf function is written entirely in C. It allocates heap memory 
  * to store bytes from the configuration file. The function iterates through 
  * each byte and populates the passed arrays according to their size. 
@@ -44,11 +59,11 @@ void move_to_int(short*num,char*symbols,const short size)
 char parsing_conf(short**numbers,char**symbols,const short size_num,const short size_sym)
 {
   const short size_buffer = 16384;
-  char*buffer_conf = (char*)malloc(size_buffer);
-  size_t i_buf = 0;
+  char*buffer_conf = (char*)malloc(size_buffer + 1);
+  int i_buf = 0;
 
   FILE*conf_file = fopen(CONF_PATH,"r");
-  size_t size_file = fread(buffer_conf,1,size_buffer,conf_file); 
+  int size_file = fread(buffer_conf,1,size_buffer,conf_file); 
   
   short i_num = 0;
   short i_sym = 0;
@@ -57,7 +72,7 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
   char temp_num[4];
 
   short count_sym = 0;
-
+  short add_bytes = 1;
   if(size_file < 50)
   {
     free(buffer_conf);
@@ -104,25 +119,7 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
 
       while(i_buf < size_file && buffer_conf[i_buf] != '\n' && count_sym < 2)
       {
-        short add_bytes = 1;
-        if((buffer_conf[i_buf] & 0x80) == 0x00)
-        {
-          add_bytes = 1;
-        }
-        else if((buffer_conf[i_buf] & 0xE0) == 0xC0)
-        {
-          add_bytes = 2;
-        }
-        else if((buffer_conf[i_buf] & 0xF0) == 0xE0)
-        {
-          add_bytes = 3;
-        }
-        else if((buffer_conf[i_buf] & 0xF8) == 0xF0)
-        {
-          add_bytes = 4;
-        }
-
-        add_bytes += i;
+        add_bytes = check_size_symbol(buffer_conf[i_buf]) + i;
 
         while(i < add_bytes)
         {
