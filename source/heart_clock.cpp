@@ -24,6 +24,7 @@ bool correct_term_size(const Coordinates &size,const short width)
 
 int main(const int argc,const char*const*argv)
 {
+  char clear_sym[6] = {32,0,0,0,0,1};
   update_time();
   short flag = 0;
   if(argc > 1)
@@ -55,6 +56,7 @@ int main(const int argc,const char*const*argv)
 
   get_term_size(term_size);
   bg_string canvas(term_size.x,set.get_bg_symbol());
+  bg_string cleaner(term_size.x,clear_sym);
 
   while (!check_buffer(temp, color))
   {
@@ -70,6 +72,7 @@ int main(const int argc,const char*const*argv)
       {
         hide_cursor(true);
         canvas.update_size_spaces(term_size.x);
+        cleaner.update_size_spaces(term_size.x);
         draw_background(term_size.y,canvas.get_spaces(), set.get_bg_color(color));
         draw_watch_face(term_size,set.get_width(),set.get_wf_color(color),set.get_circ_symbol(),set.get_num_symbols(),set.get_num_shift());
         second.update(term_size,set.get_sec_color(color),set.get_bg_color(color));
@@ -82,7 +85,7 @@ int main(const int argc,const char*const*argv)
     }
     else
     {
-      full_clear_term(term_size.y,canvas.get_spaces());
+      full_clear_term(term_size.y,cleaner.get_spaces());
     }
     if(flag)
     {
@@ -100,7 +103,7 @@ int main(const int argc,const char*const*argv)
 
   setting_term_mode(false);
   hide_cursor(false);
-  full_clear_term(term_size.y,canvas.get_spaces());
+  full_clear_term(term_size.y,cleaner.get_spaces());
 
   return 0;
 }
