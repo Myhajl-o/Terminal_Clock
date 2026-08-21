@@ -15,6 +15,37 @@ void skip_to_next_line(char*buffer,int*i_buf,const int all_size)
   }
 }
 
+void skip_comment(char*buffer,int*i_buf,const int all_size)
+{
+  while(*i_buf < all_size)
+  {
+    if(buffer[*i_buf] == '#'){(*i_buf)++;return;}
+    (*i_buf)++;
+  }
+}
+
+char transfer_to_the(char c,char*buffer,int*i_buf,const int all_size)
+{
+  while(*i_buf < all_size)
+  {
+    if(buffer[*i_buf] == c){(*i_buf)++;return 0;}
+    else if(buffer[*i_buf] == ' ' || buffer[*i_buf] == '\n' || buffer[*i_buf] == '\r'){(*i_buf)++;}
+    else{return 1;}
+  }
+  return 1;
+}
+
+char transfer_to_number(char*buffer,int*i_buf,const int all_size)
+{
+  while(*i_buf < all_size)
+  {
+    if(buffer[*i_buf] >= '0' || buffer[*i_buf] <= '9'){return 0;}
+    else if(buffer[*i_buf] == ' ' || buffer[*i_buf] == '\n' || buffer[*i_buf] == '\r'){(*i_buf)++;}
+    else{return 1;}
+  }
+  return 1;
+}
+
 /* The move_to_int function converts a character array into an integer.
  * The number of characters processed depends on the provided size.
  *
@@ -73,52 +104,49 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
 
   short count_sym = 0;
   short add_bytes = 1;
-  if(size_file < 50)
-  {
-    free(buffer_conf);
-    return 0;
-  }
+  
   fclose(conf_file);
-
+  if(size_file < 50){free(buffer_conf);return 0;}
+  
   while((i_buf < size_file) && (i_num < size_num || i_sym < size_sym))
   {
     if(buffer_conf[i_buf] == '=')
     {
+      i_buf++;
+      if(transfer_to_number(buffer_conf,&i_buf,size_file)){free(buffer_conf);return 0;}
       i = 0;
-      while((i_buf++,i_buf < size_file) && buffer_conf[i_buf] != '\n' && i < 3)
+      while((i_buf < size_file) &&
+      (buffer_conf[i_buf] != ';' && buffer_conf[i_buf] != ' ' &&
+      buffer_conf[i_buf] != '\n' && buffer_conf[i_buf] != '\r') && 
+      (i < 3))
       {
         if(buffer_conf[i_buf] >= '0' && buffer_conf[i_buf] <= '9')
         {
           temp_num[i] = buffer_conf[i_buf];
-          i++;
+          i_buf++;i++;
         }
-        else
-        {
-          free(buffer_conf);
-          return 0;
-        }
+        else{free(buffer_conf);return 0;}
       }
-
-      if(i == 0)
-      {
-        free(buffer_conf);
-        return 0;
-      }
+      
+      if(i == 0){free(buffer_conf);return 0;}
 
       move_to_int(numbers[i_num],temp_num,i);
       i_num++;
 
-      skip_to_next_line(buffer_conf,&i_buf,size_file);
+      if(transfer_to_the(';',buffer_conf,&i_buf,size_file)){free(buffer_conf);return 0;}
 
     }
     else if(buffer_conf[i_buf] == '-')
     {
+      i_buf++;
+      if(transfer_to_the('"',buffer_conf,&i_buf,size_file)){free(buffer_conf);return 0;}
+      
       i = 0;
       count_sym = 0;
-      i_buf++;
 
-      while(i_buf < size_file && buffer_conf[i_buf] != '\n' && count_sym < 2)
+      while((i_buf < size_file) && (buffer_conf[i_buf] != '"') && (count_sym < 2))
       {
+        if(buffer_conf[i_buf] == '\n' || buffer_conf[i_buf] == '\r'){free(buffer_conf);return 0;}
         add_bytes = check_size_symbol(buffer_conf[i_buf]) + i;
 
         while(i < add_bytes)
@@ -130,21 +158,18 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
         count_sym++;
       }
 
-      if(count_sym == 0)
-      {
-        free(buffer_conf);
-        return 0;
-      }
+      if(count_sym == 0){free(buffer_conf);return 0;}
 
       symbols[i_sym][i] = '\0';
       i_sym++;
 
-      skip_to_next_line(buffer_conf,&i_buf,size_file);
-
+      i_buf++;
+      if(transfer_to_the(';',buffer_conf,&i_buf,size_file)){free(buffer_conf);return 0;}
     }
     else if(buffer_conf[i_buf] == '#')
     {
-      skip_to_next_line(buffer_conf,&i_buf,size_file);
+      i_buf++;
+      skip_comment(buffer_conf,&i_buf,size_file);
     }
     else if(buffer_conf[i_buf] == ' ' || buffer_conf[i_buf] == '\n')
     {
