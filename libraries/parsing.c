@@ -19,7 +19,7 @@ void skip_comment(char*buffer,int*i_buf,const int all_size)
 {
   while(*i_buf < all_size)
   {
-    if(buffer[*i_buf] == '#'){(*i_buf)++;return;}
+    if(buffer[*i_buf] == '*'){(*i_buf)++;return;}
     (*i_buf)++;
   }
 }
@@ -29,7 +29,7 @@ char transfer_to_the(char c,char*buffer,int*i_buf,const int all_size)
   while(*i_buf < all_size)
   {
     if(buffer[*i_buf] == c){(*i_buf)++;return 0;}
-    else if(buffer[*i_buf] == ' ' || buffer[*i_buf] == '\n' || buffer[*i_buf] == '\r'){(*i_buf)++;}
+    else if(buffer[*i_buf] == ' ' || buffer[*i_buf] == '\n'){(*i_buf)++;}
     else{return 1;}
   }
   return 1;
@@ -40,7 +40,7 @@ char transfer_to_number(char*buffer,int*i_buf,const int all_size)
   while(*i_buf < all_size)
   {
     if(buffer[*i_buf] >= '0' && buffer[*i_buf] <= '9'){return 0;}
-    else if(buffer[*i_buf] == ' ' || buffer[*i_buf] == '\n' || buffer[*i_buf] == '\r'){(*i_buf)++;}
+    else if(buffer[*i_buf] == ' ' || buffer[*i_buf] == '\n'){(*i_buf)++;}
     else{return 1;}
   }
   return 1;
@@ -107,7 +107,7 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
   
   fclose(conf_file);
   if(size_file < 50){*error = 1;free(buffer_conf);return 0;}
-  
+  for(;buffer_conf[i_buf] < 0;i_buf++);
   while((i_buf < size_file) && (i_num < size_num || i_sym < size_sym))
   {
     if(buffer_conf[i_buf] == '=')
@@ -117,8 +117,7 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
       i = 0;
       while((i_buf < size_file) &&
       (buffer_conf[i_buf] != ';' && buffer_conf[i_buf] != ' ' &&
-      buffer_conf[i_buf] != '\n' && buffer_conf[i_buf] != '\r') && 
-      (i < 3))
+      buffer_conf[i_buf] != '\n') && (i < 3))
       {
         if(buffer_conf[i_buf] >= '0' && buffer_conf[i_buf] <= '9')
         {
@@ -146,7 +145,7 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
 
       while((i_buf < size_file) && (buffer_conf[i_buf] != '"') && (count_sym < 2))
       {
-        if(buffer_conf[i_buf] == '\n' || buffer_conf[i_buf] == '\r'){*error = 7;free(buffer_conf);return 0;}
+        if(buffer_conf[i_buf] == '\n'){*error = 7;free(buffer_conf);return 0;}
         add_bytes = check_size_symbol(buffer_conf[i_buf]) + i;
 
         while(i < add_bytes)
@@ -165,7 +164,7 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
       i_buf++;
       if(transfer_to_the(';',buffer_conf,&i_buf,size_file)){*error = 9;free(buffer_conf);return 0;}
     }
-    else if(buffer_conf[i_buf] == '#')
+    else if(buffer_conf[i_buf] == '*')
     {
       i_buf++;
       skip_comment(buffer_conf,&i_buf,size_file);
