@@ -39,7 +39,7 @@ char transfer_to_number(char*buffer,int*i_buf,const int all_size)
 {
   while(*i_buf < all_size)
   {
-    if(buffer[*i_buf] >= '0' || buffer[*i_buf] <= '9'){return 0;}
+    if(buffer[*i_buf] >= '0' && buffer[*i_buf] <= '9'){return 0;}
     else if(buffer[*i_buf] == ' ' || buffer[*i_buf] == '\n' || buffer[*i_buf] == '\r'){(*i_buf)++;}
     else{return 1;}
   }
@@ -52,7 +52,7 @@ char transfer_to_number(char*buffer,int*i_buf,const int all_size)
  * This function is used in the parsing_conf function. */
 void move_to_int(short*num,char*symbols,const short size)
 {
-  int i = 0;
+  short i = 0;
   for(; i < size; i++)
   {
     *num = *num * 10 + (symbols[i] - '0');
@@ -87,7 +87,7 @@ short check_size_symbol(const char c)
  * While the underlying parsing logic is quite trivial, it is highly optimized.
  *
  * This function is used in the main.cpp file. */
-char parsing_conf(short**numbers,char**symbols,const short size_num,const short size_sym)
+char parsing_conf(short**numbers,char**symbols,const short size_num,const short size_sym,short*error)
 {
   const short size_buffer = 16384;
   char*buffer_conf = (char*)malloc(size_buffer + 1);
@@ -106,14 +106,14 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
   short add_bytes = 1;
   
   fclose(conf_file);
-  if(size_file < 50){free(buffer_conf);return 0;}
+  if(size_file < 50){*error = 1;free(buffer_conf);return 0;}
   
   while((i_buf < size_file) && (i_num < size_num || i_sym < size_sym))
   {
     if(buffer_conf[i_buf] == '=')
     {
       i_buf++;
-      if(transfer_to_number(buffer_conf,&i_buf,size_file)){free(buffer_conf);return 0;}
+      if(transfer_to_number(buffer_conf,&i_buf,size_file)){*error = 2;free(buffer_conf);return 0;}
       i = 0;
       while((i_buf < size_file) &&
       (buffer_conf[i_buf] != ';' && buffer_conf[i_buf] != ' ' &&
@@ -125,46 +125,45 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
           temp_num[i] = buffer_conf[i_buf];
           i_buf++;i++;
         }
-        else{free(buffer_conf);return 0;}
+        else{*error = 3;free(buffer_conf);return 0;}
       }
       
-      if(i == 0){free(buffer_conf);return 0;}
+      if(i == 0){*error = 4;free(buffer_conf);return 0;}
 
       move_to_int(numbers[i_num],temp_num,i);
       i_num++;
 
-      if(transfer_to_the(';',buffer_conf,&i_buf,size_file)){free(buffer_conf);return 0;}
+      if(transfer_to_the(';',buffer_conf,&i_buf,size_file)){*error = 5;free(buffer_conf);return 0;}
 
     }
     else if(buffer_conf[i_buf] == '-')
     {
       i_buf++;
-      if(transfer_to_the('"',buffer_conf,&i_buf,size_file)){free(buffer_conf);return 0;}
+      if(transfer_to_the('"',buffer_conf,&i_buf,size_file)){*error = 6;free(buffer_conf);return 0;}
       
       i = 0;
       count_sym = 0;
 
       while((i_buf < size_file) && (buffer_conf[i_buf] != '"') && (count_sym < 2))
       {
-        if(buffer_conf[i_buf] == '\n' || buffer_conf[i_buf] == '\r'){free(buffer_conf);return 0;}
+        if(buffer_conf[i_buf] == '\n' || buffer_conf[i_buf] == '\r'){*error = 7;free(buffer_conf);return 0;}
         add_bytes = check_size_symbol(buffer_conf[i_buf]) + i;
 
         while(i < add_bytes)
         {
           symbols[i_sym][i] = buffer_conf[i_buf];
-          i_buf++;
-          i++;
+          i_buf++;i++;
         }
         count_sym++;
       }
 
-      if(count_sym == 0){free(buffer_conf);return 0;}
+      if(count_sym == 0){*error = 8;free(buffer_conf);return 0;}
 
       symbols[i_sym][i] = '\0';
       i_sym++;
 
       i_buf++;
-      if(transfer_to_the(';',buffer_conf,&i_buf,size_file)){free(buffer_conf);return 0;}
+      if(transfer_to_the(';',buffer_conf,&i_buf,size_file)){*error = 9;free(buffer_conf);return 0;}
     }
     else if(buffer_conf[i_buf] == '#')
     {
@@ -177,6 +176,7 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
     }
     else
     {
+      *error = 10;
       free(buffer_conf);
       return 0;
     }
@@ -189,6 +189,7 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
   }
   else
   {
+    *error = 11;
     free(buffer_conf);
     return 0;
   }

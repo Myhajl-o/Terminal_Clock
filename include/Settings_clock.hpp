@@ -47,6 +47,8 @@ class Settings_clock
   char second_diagonal2_line[10];
   char second_horizontal_line[10];
 
+  short error;
+
   short*array_num[33];
   char*array_sym[19];
 
