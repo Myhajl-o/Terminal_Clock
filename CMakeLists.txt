@@ -33,11 +33,10 @@ add_library(_math_lib SHARED ${MATH})
 add_library(_parsing_lib SHARED ${PARSING})
 add_library(_timedate_lib SHARED ${TIME})
 
+target_compile_definitions(_output_lib PRIVATE ERROR="${CMAKE_SOURCE_DIR}/configuration/error")
 target_compile_definitions(_parsing_lib PRIVATE CONF_PATH="${CMAKE_SOURCE_DIR}/configuration/clock.conf")
 
 add_executable(clock ${SOURCES})
-
-add_executable(test_parsing ${TEST})
 
 target_compile_definitions(clock PRIVATE NAME=\"${PROJECT_NAME}\")
 target_compile_definitions(clock PRIVATE VERSION=\"${VERSION}\")
@@ -46,8 +45,7 @@ target_compile_options(clock PRIVATE -fno-exceptions -fno-rtti -Wall -Wextra -We
 target_compile_options(_input_lib PRIVATE -fno-exceptions -fno-rtti -Wall -Wextra -Werror -O2)
 target_compile_options(_math_lib PRIVATE -fno-exceptions -fno-rtti -Wall -Wextra -Werror -O2)
 target_compile_options(_timedate_lib PRIVATE -fno-exceptions -fno-rtti -Wall -Wextra -Werror -O2)
-target_compile_options(test_parsing PRIVATE -fno-exceptions -fno-rtti -Wall -Wextra -Werror -O2)
-set_target_properties(clock _input_lib _math_lib _timedate_lib test_parsing PROPERTIES CXX_STANDARD 98 CXX_STANDARD_REQUIRED ON)
+set_target_properties(clock _input_lib _math_lib _timedate_lib PROPERTIES CXX_STANDARD 98 CXX_STANDARD_REQUIRED ON)
 
 target_compile_options(_output_lib PRIVATE -Wall -Wextra -Werror -O2)
 target_compile_options(_parsing_lib PRIVATE -Wall -Wextra -Werror -O2)
@@ -56,5 +54,4 @@ set_target_properties(_output_lib _parsing_lib PROPERTIES C_STANDARD 90 C_STANDA
 
 target_link_libraries(clock PRIVATE _input_lib _output_lib _math_lib _parsing_lib _timedate_lib)
 
-target_link_libraries(test_parsing PRIVATE _parsing_lib)
 

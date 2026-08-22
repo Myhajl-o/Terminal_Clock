@@ -67,6 +67,27 @@ void move_to_time_format(short num, char*msg,short*i_msg)
   for(; j < (6 - i); j++)msg[(*i_msg)++] = s[i + j + 1];
 }
 
+void output_error(const short error)
+{
+  FILE*err_f = fopen(ERROR,"w");
+  char const*msg_error[11] = {"No errors, everything was read correctly.\n",
+                              "Error code : 1\nThe file was either not read or is too small.\n",
+                              "Error code : 2\nThe loop successfully read the ‘=’ character,\nbut was unable to find a digit after it\nor encountered an invalid character.\n",
+                              "Error code : 3\nAn invalid character was encountered while reading the digits.\n",
+                              "Error code : 4\nAfter the digits were read, an invalid character was found.\n",
+                              "Error code : 5\nAfter reading the character ‘-’,\nthe quotation mark was not found,\nor an invalid character was read.\n",
+                              "Error code : 6\nAn invalid character was read during character reading.\n",
+                              "Error code : 7\nNo characters were read during the character read operation.\n",
+                              "Error code : 8\nAn invalid character was found after the characters were read.\n",
+                              "Error code : 9\nInvalid character in the main loop.\n",
+                              "Error code : 10\nInsufficient data to populate the arrays.\n"};
+
+  output_symbols(msg_error[error],err_f);
+
+  fclose(err_f);
+}
+
+
 /*The `clear_term` function clears the terminal of all other
  * colors and sets the colors to their
  * default values in the terminal.
@@ -76,7 +97,7 @@ void move_to_time_format(short num, char*msg,short*i_msg)
 void clear_term()
 {
   static const char*esc_clear = "\033[0m\0";
-  output_symbols(esc_clear);
+  output_symbols(esc_clear,stdout);
 }
 
 /* The full_clear_term function resets all escape codes
@@ -92,7 +113,7 @@ void full_clear_term(const short y,const char*spaces)
   for(;i <= y; i++)
   {
     set_cursor(0,i);
-    output_symbols(spaces);
+    output_symbols(spaces,stdout);
   }
   set_cursor(0,1);
 }
@@ -112,7 +133,7 @@ void hide_cursor(const char hide)
   {
     esc_cursor[5] = 'h';
   }
-  output_symbols(esc_cursor);
+  output_symbols(esc_cursor,stdout);
 }
 
 
@@ -124,7 +145,7 @@ void set_cursor(const short x,const short y)
   esc_pos[i++] = ';';
   move_to_char(x,esc_pos,&i);
   esc_pos[i++] = 'H';esc_pos[i] = '\0';
-  output_symbols(esc_pos);
+  output_symbols(esc_pos,stdout);
 }
 
 void set_color(const Colors color)
@@ -135,7 +156,7 @@ void set_color(const Colors color)
   esc_color[i++] = ';';
   move_to_char(color.front,esc_color,&i);
   esc_color[i++] = 'm';esc_color[i] = '\0';
-  output_symbols(esc_color);
+  output_symbols(esc_color,stdout);
 }
 
 /* The output_object is the primary
@@ -148,7 +169,7 @@ void output_object(const short x,const short y, const char *symbols,const Colors
 {
   set_cursor(x,y);
   set_color(color);
-  output_symbols(symbols);
+  output_symbols(symbols,stdout);
 }
 
 /*The `output_symbols` function is highly optimized.
@@ -159,10 +180,10 @@ void output_object(const short x,const short y, const char *symbols,const Colors
  * The function is used in the functions `full_clear_term`, `hide_cursor`,
  * `set_cursor`, `set_color`, and `output_object`, as well as in the file 
  * `addition_functional.cpp`.*/
-void output_symbols(const char*symbols)
+void output_symbols(const char*symbols,FILE*out)
 {
-  fputs(symbols,stdout);
-  fflush(stdout);
+  fputs(symbols,out);
+  fflush(out);
 }
 
 

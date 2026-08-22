@@ -126,26 +126,24 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
         }
         else{*error = 3;free(buffer_conf);return 0;}
       }
-      
-      if(i == 0){*error = 4;free(buffer_conf);return 0;}
 
       move_to_int(numbers[i_num],temp_num,i);
       i_num++;
 
-      if(transfer_to_the(';',buffer_conf,&i_buf,size_file)){*error = 5;free(buffer_conf);return 0;}
+      if(transfer_to_the(';',buffer_conf,&i_buf,size_file)){*error = 4;free(buffer_conf);return 0;}
 
     }
     else if(buffer_conf[i_buf] == '-')
     {
       i_buf++;
-      if(transfer_to_the('"',buffer_conf,&i_buf,size_file)){*error = 6;free(buffer_conf);return 0;}
+      if(transfer_to_the('"',buffer_conf,&i_buf,size_file)){*error = 5;free(buffer_conf);return 0;}
       
       i = 0;
       count_sym = 0;
 
       while((i_buf < size_file) && (buffer_conf[i_buf] != '"') && (count_sym < 2))
       {
-        if(buffer_conf[i_buf] == '\n'){*error = 7;free(buffer_conf);return 0;}
+        if(buffer_conf[i_buf] == '\n'){*error = 6;free(buffer_conf);return 0;}
         add_bytes = check_size_symbol(buffer_conf[i_buf]) + i;
 
         while(i < add_bytes)
@@ -156,13 +154,13 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
         count_sym++;
       }
 
-      if(count_sym == 0){*error = 8;free(buffer_conf);return 0;}
+      if(count_sym == 0){*error = 7;free(buffer_conf);return 0;}
 
       symbols[i_sym][i] = '\0';
       i_sym++;
 
       i_buf++;
-      if(transfer_to_the(';',buffer_conf,&i_buf,size_file)){*error = 9;free(buffer_conf);return 0;}
+      if(transfer_to_the(';',buffer_conf,&i_buf,size_file)){*error = 8;free(buffer_conf);return 0;}
     }
     else if(buffer_conf[i_buf] == '*')
     {
@@ -175,7 +173,7 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
     }
     else
     {
-      *error = 10;
+      *error = 9;
       free(buffer_conf);
       return 0;
     }
@@ -183,12 +181,13 @@ char parsing_conf(short**numbers,char**symbols,const short size_num,const short 
 
   if(i_num == size_num && i_sym == size_sym)
   {
+    *error = 0;
     free(buffer_conf);
     return 1;
   }
   else
   {
-    *error = 11;
+    *error = 10;
     free(buffer_conf);
     return 0;
   }

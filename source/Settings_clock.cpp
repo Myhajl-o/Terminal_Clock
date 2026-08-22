@@ -1,6 +1,7 @@
 #include "Settings_clock.hpp"
 #include "Color_object.hpp"
 #include "parsing.h"
+#include "output.h"
 
 void Settings_clock::initialization()
 {
@@ -71,6 +72,7 @@ Settings_clock::Settings_clock():size_num(33),size_sym(19)
 {
   initialization();
   new_settings(parsing_conf(array_num,array_sym,size_num,size_sym,&error));
+  output_error(error);
 }
 
 

@@ -53,6 +53,28 @@ void move_to_time_format(short num, char*msg,short*i_msg)
   for(; j < (6 - i); j++)msg[(*i_msg)++] = s[i + j + 1];
 }
 
+
+void output_error(const short error)
+{
+  FILE*err_f = fopen(ERROR,"w");
+  char const*msg_error[11] = {"No errors, everything was read correctly.\n",
+                              "Error code : 1\nThe file was either not read or is too small.\n",
+                              "Error code : 2\nThe loop successfully read the ‘=’ character,\nbut was unable to find a digit after it\nor encountered an invalid character.\n",
+                              "Error code : 3\nAn invalid character was encountered while reading the digits.\n",
+                              "Error code : 4\nAfter the digits were read, an invalid character was found.\n",
+                              "Error code : 5\nAfter reading the character ‘-’,\nthe quotation mark was not found,\nor an invalid character was read.\n",
+                              "Error code : 6\nAn invalid character was read during character reading.\n",
+                              "Error code : 7\nNo characters were read during the character read operation.\n",
+                              "Error code : 8\nAn invalid character was found after the characters were read.\n",
+                              "Error code : 9\nInvalid character in the main loop.\n",
+                              "Error code : 10\nInsufficient data to populate the arrays.\n"};
+
+  output_symbols(msg_error[error],err_f);
+
+  fclose(err_f);
+}
+
+
 void clear_term()
 {
   HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -77,7 +99,7 @@ void full_clear_term(const short y,const char*spaces)
   for(; pos.Y <= y ; pos.Y++)
   {
     SetConsoleCursorPosition(hStdout, pos);
-    output_symbols(spaces);
+    output_symbols(spaces,stdout);
   }
 
   pos.Y = 1;
@@ -128,13 +150,13 @@ void output_object(const short x,const short y, const char *symbols,const Colors
 {
   set_cursor(x,y);
   set_color(color);
-  output_symbols(symbols);
+  output_symbols(symbols,stdout);
 }
 
-void output_symbols(const char*symbols)
+void output_symbols(const char*symbols,FILE*out)
 {
-  fputs(symbols,stdout);
-  fflush(stdout);
+  fputs(symbols,out);
+  fflush(out);
 }
 
 
