@@ -1,7 +1,9 @@
 #include "Settings_clock.hpp"
 #include "Color_object.hpp"
+#include "parsing.h"
+#include "output.h"
 
-Settings_clock::Settings_clock():size_num(33),size_sym(18)
+void Settings_clock::initialization()
 {
   array_num[0] = &width;
   array_num[1] = &main_back_color[0];
@@ -35,33 +37,42 @@ Settings_clock::Settings_clock():size_num(33),size_sym(18)
     *(array_num[i]) = 0;
   }
 
-  array_sym[0] = circle_symbol;
-  array_sym[1] = tick_symbol;
-  array_sym[2] = first_number;
-  array_sym[3] = second_number;
-  array_sym[4] = third_number;
-  array_sym[5] = fourth_number;
-  array_sym[6] = fifth_number;
-  array_sym[7] = sixth_number;
-  array_sym[8] = seventh_number;
-  array_sym[9] = eighth_number;
-  array_sym[10] = ninth_number;
-  array_sym[11] = tenth_number;
-  array_sym[12] = eleventh_number;
-  array_sym[13] = twelfth_number;
-  array_sym[14] = second_vertical_line;
-  array_sym[15] = second_diagonal1_line;
-  array_sym[16] = second_diagonal2_line;
-  array_sym[17] = second_horizontal_line;
+  array_sym[0] = bg_symbol;
+  array_sym[1] = circle_symbol;
+  array_sym[2] = tick_symbol;
+  array_sym[3] = first_number;
+  array_sym[4] = second_number;
+  array_sym[5] = third_number;
+  array_sym[6] = fourth_number;
+  array_sym[7] = fifth_number;
+  array_sym[8] = sixth_number;
+  array_sym[9] = seventh_number;
+  array_sym[10] = eighth_number;
+  array_sym[11] = ninth_number;
+  array_sym[12] = tenth_number;
+  array_sym[13] = eleventh_number;
+  array_sym[14] = twelfth_number;
+  array_sym[15] = second_vertical_line;
+  array_sym[16] = second_diagonal1_line;
+  array_sym[17] = second_diagonal2_line;
+  array_sym[18] = second_horizontal_line;
 
   for(int i = 0; i < 13; i++)
   {
-    num_clock_symbol[i] = array_sym[i + 1];
+    num_clock_symbol[i] = array_sym[i + 2];
   }
   for(int i = 0; i < 4; i++)
   {
-    second_symbol[i] = array_sym[i + 14];
+    second_symbol[i] = array_sym[i + 15];
   }
+  second_symbol[4] = array_sym[0];
+}
+
+Settings_clock::Settings_clock():size_num(33),size_sym(19)
+{
+  initialization();
+  new_settings(parsing_conf(array_num,array_sym,size_num,size_sym,&error));
+  output_error(error);
 }
 
 
@@ -77,6 +88,8 @@ void Settings_clock::default_settings()
   main_back_color[1] = black_back;
   main_front_color[0] = white_front;
   main_front_color[1] = black_front;
+  bg_symbol[0] = ' ';
+  bg_symbol[5] = 1;
 
   circle_back_color[0] = black_back;
   circle_back_color[1] = white_back;
@@ -130,7 +143,7 @@ void Settings_clock::default_settings()
 
   for(short i = 0; i < size_sym; i++ )
   {
-    short add = (i >= 11 && i <= 13);
+    short add = (i >= 12 && i <= 14);
     array_sym[i][1+add] = '\0';
   }
 }
@@ -166,26 +179,13 @@ void Settings_clock::new_settings(const bool conf)
 {
   if(conf && validation_check())
   {
-    if((circle_symbol[0] & 0x80) == 0x00)
-    {
-      circle_symbol[1] = '\0';
-      circle_symbol[5] = 1;
-    }
-    else if((circle_symbol[0] & 0xE0) == 0xC0)
-    {
-      circle_symbol[2] = '\0';
-      circle_symbol[5] = 2;
-    }
-    else if((circle_symbol[0] & 0xF0) == 0xE0)
-    {
-      circle_symbol[3] = '\0';
-      circle_symbol[5] = 3;
-    }
-    else if((circle_symbol[0] & 0xF8) == 0xF0)
-    {
-      circle_symbol[4] = '\0';
-      circle_symbol[5] = 4;
-    }
+    short temp = check_size_symbol(bg_symbol[0]);
+    bg_symbol[temp] = '\0';
+    bg_symbol[5] = temp;
+
+    temp = check_size_symbol(circle_symbol[0]);
+    circle_symbol[temp] = '\0';
+    circle_symbol[5] = temp;
   }
   else
   {
@@ -206,27 +206,6 @@ void Settings_clock::new_settings(const bool conf)
   sec_color[1].reset(second_back_color[1],second_front_color[1]);
 }
 
-
-
-short** Settings_clock::get_array_numbers()
-{
-  return array_num;
-}
-
-char** Settings_clock::get_array_symbols()
-{
-  return array_sym;
-}
-
-short Settings_clock::get_size_num()
-{
-  return size_num;
-}
-
-short Settings_clock::get_size_sym()
-{
-  return size_sym;
-}
 
 short Settings_clock::get_width()
 {
@@ -251,6 +230,11 @@ const Color_object*Settings_clock::get_wf_color(const bool color)
 const Color_object Settings_clock::get_sec_color(const bool color)
 {
   return sec_color[color];
+}
+
+const char* Settings_clock::get_bg_symbol()
+{
+  return bg_symbol;
 }
 
 const char* Settings_clock::get_circ_symbol()

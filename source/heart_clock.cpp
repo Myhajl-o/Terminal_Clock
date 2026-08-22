@@ -2,30 +2,34 @@
 // #include "Minute-hand.hpp"
 #include "Second-hand.hpp"
 #include "bg_string.hpp"
-#include "output.h"
 //  #include "date.hpp"
 #include "Coordinates.hpp"
 #include "Settings_clock.hpp"
 #include "background.hpp"
-#include "parsing.h"
-#include "input.hpp"
 #include "watch_face.hpp"
 #include "addition_functional.hpp"
+
+#include "input.hpp"
+#include "output.h"
+#include "parsing.h"
 #include "timedate.hpp"
+
 #include <unistd.h>
 
 bool correct_term_size(const Coordinates &size,const short width)
 {
-  return (size.x > (15 * width) && size.y > 15 && size.x < (1024 * width) && size.y < 1024);
+  static const short min = 15,max = 1024;
+  return (size.x > (min * width) && size.y > min && size.x < (max * width) && size.y < max);
 }
 
 int main(const int argc,const char*const*argv)
 {
+  char clear_sym[6] = {32,0,0,0,0,1};
   update_time();
   short flag = 0;
   if(argc > 1)
   {
-    if((!parsing_main(&flag,argv)) || flag == 0)
+    if((!parsing_main(&flag,argv)) || !flag)
     {
       return 1;
     }
@@ -43,8 +47,6 @@ int main(const int argc,const char*const*argv)
   bool past_color = false;
 
   Settings_clock set;
-  bool correct_read = parsing_conf(set.get_array_numbers(),set.get_array_symbols(),set.get_size_num(),set.get_size_sym());
-  set.new_settings(correct_read);
 
   Second_hand second(set.get_width(),set.get_sec_color(color),set.get_bg_color(color),set.get_sec_symbols());
   bool temp;
@@ -53,7 +55,8 @@ int main(const int argc,const char*const*argv)
   hide_cursor(true);
 
   get_term_size(term_size);
-  bg_string canvas(term_size.x);
+  bg_string canvas(term_size.x,set.get_bg_symbol());
+  bg_string cleaner(term_size.x,clear_sym);
 
   while (!check_buffer(temp, color))
   {
@@ -69,6 +72,7 @@ int main(const int argc,const char*const*argv)
       {
         hide_cursor(true);
         canvas.update_size_spaces(term_size.x);
+        cleaner.update_size_spaces(term_size.x);
         draw_background(term_size.y,canvas.get_spaces(), set.get_bg_color(color));
         draw_watch_face(term_size,set.get_width(),set.get_wf_color(color),set.get_circ_symbol(),set.get_num_symbols(),set.get_num_shift());
         second.update(term_size,set.get_sec_color(color),set.get_bg_color(color));
@@ -81,7 +85,7 @@ int main(const int argc,const char*const*argv)
     }
     else
     {
-      full_clear_term(term_size.y,canvas.get_spaces());
+      full_clear_term(term_size.y,cleaner.get_spaces());
     }
     if(flag)
     {
@@ -99,7 +103,7 @@ int main(const int argc,const char*const*argv)
 
   setting_term_mode(false);
   hide_cursor(false);
-  full_clear_term(term_size.y,canvas.get_spaces());
+  full_clear_term(term_size.y,cleaner.get_spaces());
 
   return 0;
 }

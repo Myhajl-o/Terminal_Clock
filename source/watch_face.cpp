@@ -39,13 +39,13 @@ void draw_circle(const Coordinates &center, const std::vector<Coordinates> &circ
 
   for (unsigned short i = 0; i < circle.size(); i++)
   {
-    output_symbols(center.x + circle[i].x * width, (center.y - circle[i].y), space, circ.c);
-    output_symbols(center.x + circle[i].x * width, (center.y + circle[i].y), space, circ.c);
-    output_symbols((center.x - circle[i].x * width) - width, (center.y + circle[i].y), space, circ.c);
-    output_symbols((center.x - circle[i].x * width) - width, (center.y - circle[i].y), space, circ.c);
+    output_object(center.x + circle[i].x * width, (center.y - circle[i].y), space, circ.c);
+    output_object(center.x + circle[i].x * width, (center.y + circle[i].y), space, circ.c);
+    output_object((center.x - circle[i].x * width) - width, (center.y + circle[i].y), space, circ.c);
+    output_object((center.x - circle[i].x * width) - width, (center.y - circle[i].y), space, circ.c);
   }
 
-  output_symbols(center.x, center.y, &space[(width * size_sym) - size_sym], circ.c);
+  output_object(center.x, center.y, &space[(width * size_sym) - size_sym], circ.c);
 }
 
 // The calculate_data_numbers function calculates all data for outputting the watch face
@@ -70,10 +70,10 @@ void draw_tick(const Coordinates &center,const Coordinates*tick,const Color_obje
 for (short i = 0; i < 14; i++)
   {
     i += (i == 4 || i == 9);
-    output_symbols(center.x + tick[i].x, center.y - tick[i].y, tick_symbol, t_color.c);
-    output_symbols(center.x + tick[i].x, center.y + tick[i].y, tick_symbol, t_color.c);
-    output_symbols(center.x - tick[i].x - 1, center.y + tick[i].y,tick_symbol, t_color.c);
-    output_symbols(center.x - tick[i].x - 1, center.y - tick[i].y, tick_symbol, t_color.c);
+    output_object(center.x + tick[i].x, center.y - tick[i].y, tick_symbol, t_color.c);
+    output_object(center.x + tick[i].x, center.y + tick[i].y, tick_symbol, t_color.c);
+    output_object(center.x - tick[i].x - 1, center.y + tick[i].y,tick_symbol, t_color.c);
+    output_object(center.x - tick[i].x - 1, center.y - tick[i].y, tick_symbol, t_color.c);
   }
 }
 
@@ -85,21 +85,21 @@ for (short i = 0; i < 14; i++)
 // The function is used in the draw_watch_face function.
 void draw_numbers(const Coordinates &center, const Coordinates *tick, const std::vector<Coordinates> &circle_tick,const short width,const Color_object n_color,const char* const* num_sym,const short*num_shift)
 {
-  output_symbols(center.x + tick[4].x + (num_shift[0] - 2), center.y - tick[4].y, num_sym[1], n_color.c);
-  output_symbols(center.x + tick[9].x + (num_shift[1] - 2), center.y - tick[9].y, num_sym[2], n_color.c);
-  output_symbols(center.x + circle_tick[0].y * width + (num_shift[2] - 2), center.y, num_sym[3], n_color.c);
+  output_object(center.x + tick[4].x + (num_shift[0] - 2), center.y - tick[4].y, num_sym[1], n_color.c);
+  output_object(center.x + tick[9].x + (num_shift[1] - 2), center.y - tick[9].y, num_sym[2], n_color.c);
+  output_object(center.x + circle_tick[0].y * width + (num_shift[2] - 2), center.y, num_sym[3], n_color.c);
 
-  output_symbols(center.x + tick[4].x + (num_shift[4] - 2), center.y + tick[4].y, num_sym[5], n_color.c);
-  output_symbols(center.x + tick[9].x + (num_shift[3] - 2), center.y + tick[9].y, num_sym[4], n_color.c);
-  output_symbols(center.x + (num_shift[5] - 2), center.y + circle_tick[0].y, num_sym[6], n_color.c);
+  output_object(center.x + tick[4].x + (num_shift[4] - 2), center.y + tick[4].y, num_sym[5], n_color.c);
+  output_object(center.x + tick[9].x + (num_shift[3] - 2), center.y + tick[9].y, num_sym[4], n_color.c);
+  output_object(center.x + (num_shift[5] - 2), center.y + circle_tick[0].y, num_sym[6], n_color.c);
 
-  output_symbols(center.x - tick[4].x - 1 + (num_shift[6] - 2), center.y + tick[4].y, num_sym[7], n_color.c);
-  output_symbols(center.x - tick[9].x - 1 + (num_shift[7] - 2), center.y + tick[9].y, num_sym[8], n_color.c);
-  output_symbols(center.x - circle_tick[0].y * width - 1 + (num_shift[8] - 2), center.y, num_sym[9], n_color.c);
+  output_object(center.x - tick[4].x - 1 + (num_shift[6] - 2), center.y + tick[4].y, num_sym[7], n_color.c);
+  output_object(center.x - tick[9].x - 1 + (num_shift[7] - 2), center.y + tick[9].y, num_sym[8], n_color.c);
+  output_object(center.x - circle_tick[0].y * width - 1 + (num_shift[8] - 2), center.y, num_sym[9], n_color.c);
 
-  output_symbols(center.x - tick[4].x - 1 + (num_shift[10] - 2), center.y - tick[4].y, num_sym[11], n_color.c);
-  output_symbols(center.x - tick[9].x - 1 + (num_shift[9] - 2), center.y - tick[9].y, num_sym[10], n_color.c);
-  output_symbols(center.x + (num_shift[11] - 2), center.y - circle_tick[0].y, num_sym[12], n_color.c);
+  output_object(center.x - tick[4].x - 1 + (num_shift[10] - 2), center.y - tick[4].y, num_sym[11], n_color.c);
+  output_object(center.x - tick[9].x - 1 + (num_shift[9] - 2), center.y - tick[9].y, num_sym[10], n_color.c);
+  output_object(center.x + (num_shift[11] - 2), center.y - circle_tick[0].y, num_sym[12], n_color.c);
 }
 
 // The draw_watch_face function calculates all data and outputs

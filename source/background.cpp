@@ -10,6 +10,6 @@ void draw_background(const short y,const char*symbols,const Color_object colors)
 {
   for(short i = 1; i <= y; i++)
   {
-    output_symbols(0, i, symbols, colors.c);
+    output_object(0, i, symbols, colors.c);
   }
 }

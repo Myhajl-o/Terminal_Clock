@@ -3,11 +3,85 @@
 #include <stdio.h>
 #include <windows.h>
 
+
+void move_to_char(short num, char*msg,short*i_msg)
+{
+  char s[6];
+  short i = 5;
+  short j = 0;
+  char sub = 0;
+  if(num < 0)
+  {
+    sub = !sub;
+    num = -num;
+  }
+  if(!num)
+  {
+    s[i--] = '0';
+  }
+  else
+  {
+    for(;num;num/=10)s[i--] = num%10 + '0';
+  }
+  if(sub)s[i--] = '-';
+  for(; j < (5 - i); j++)msg[(*i_msg)++] = s[i + j + 1];
+}
+
+void move_to_time_format(short num, char*msg,short*i_msg)
+{
+  char s[7];
+  short i = 6;
+  short j = 0;
+  char zero = 0;
+  char sub = 0;
+  if(num < 0)
+  {
+    sub = !sub;
+    num = -num;
+  }
+  if(!num)
+  {
+    s[i--] = '0';
+    zero = !zero;
+  }
+  else
+  {
+    for(;num;num/=10,zero = !zero)s[i--] = num%10 + '0';
+  }
+  if(zero)s[i--] = '0';
+  if(sub)s[i--] = '-';
+  for(; j < (6 - i); j++)msg[(*i_msg)++] = s[i + j + 1];
+}
+
+
+void output_error(const short error)
+{
+  FILE*err_f = fopen(ERROR_CONF,"w");
+  char const*msg_error[11] = {"No errors, everything was read correctly.\n",
+                              "Error code : 1\nThe file was either not read or is too small.\n",
+                              "Error code : 2\nThe loop successfully read the ‘=’ character,\nbut was unable to find a digit after it\nor encountered an invalid character.\n",
+                              "Error code : 3\nAn invalid character was encountered while reading the digits.\n",
+                              "Error code : 4\nAfter the digits were read, an invalid character was found.\n",
+                              "Error code : 5\nAfter reading the character ‘-’,\nthe quotation mark was not found,\nor an invalid character was read.\n",
+                              "Error code : 6\nAn invalid character was read during character reading.\n",
+                              "Error code : 7\nNo characters were read during the character read operation.\n",
+                              "Error code : 8\nAn invalid character was found after the characters were read.\n",
+                              "Error code : 9\nInvalid character in the main loop.\n",
+                              "Error code : 10\nInsufficient data to populate the arrays.\n"};
+  if(err_f == NULL)return;
+
+  output_symbols(msg_error[error],err_f);
+
+  fclose(err_f);
+}
+
+
 void clear_term()
 {
   HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
   SetConsoleTextAttribute(hStdout, 7);
 }
+
 /* The clear_term function resets all escape codes
  * that were previously output, clears the terminal
  * of characters, and moves the cursor to the beginning
@@ -26,7 +100,7 @@ void full_clear_term(const short y,const char*spaces)
   for(; pos.Y <= y ; pos.Y++)
   {
     SetConsoleCursorPosition(hStdout, pos);
-    printf("%s",spaces);
+    output_symbols(spaces,stdout);
   }
 
   pos.Y = 1;
@@ -37,7 +111,7 @@ void full_clear_term(const short y,const char*spaces)
  * using escape codes.
  *
  * The function is used in the main.cpp file. */
-void hide_cursor(char hide)
+void hide_cursor(const char hide)
 {
   HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
   CONSOLE_CURSOR_INFO cursorInfo;
@@ -46,52 +120,44 @@ void hide_cursor(char hide)
   cursorInfo.bVisible = !hide;
   SetConsoleCursorInfo(hStdout, &cursorInfo);
 }
-/* The output_symbols function is written in C. It is the primary
- * output function for this utility. The function prints elements from
- * a char array to specific terminal locations using specific colors.
- *
- * It is used in the following files: main.cpp, background.cpp, watch_face.cpp, and Second-hand.cpp. */
-void output_symbols(short x, short y, const char *symbols,const Colors color)
+
+void set_cursor(const short x,const short y)
+{
+  HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+  COORD pos;
+  pos.X = x;
+  pos.Y = y;
+
+  SetConsoleCursorPosition(hStdout, pos);
+}
+
+void set_color(const Colors color)
 {
   HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
 
   unsigned short background = (color.back < 50) ? (color.back%10) : (color.back%10) + 8;
   unsigned short foreground = (color.front < 50) ? (color.front%10) : (color.front%10) + 8;
-
   unsigned short atribute = (background << 4) | foreground;
 
-  COORD pos;
-
   SetConsoleTextAttribute(hStdout, atribute);
-
-  pos.X = x;
-  pos.Y = y;
-
-  SetConsoleCursorPosition(hStdout, pos);
-
-  printf("%s", symbols);
-
-  fflush(stdout);
 }
 
-void output_message(const char*msg)
+/* The output_symbols function is written in C. It is the primary
+ * output function for this utility. The function prints elements from
+ * a char array to specific terminal locations using specific colors.
+ *
+ * It is used in the following files: main.cpp, background.cpp, watch_face.cpp, and Second-hand.cpp. */
+void output_object(const short x,const short y, const char *symbols,const Colors color)
 {
-  printf("%s",msg);
+  set_cursor(x,y);
+  set_color(color);
+  output_symbols(symbols,stdout);
 }
 
-
-void set_cursor(short x,short y)
+void output_symbols(const char*symbols,FILE*out)
 {
-  HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
-  COORD pos;
-
-  pos.X = x;
-  pos.Y = y;
-
-  SetConsoleCursorPosition(hStdout, pos);
+  fputs(symbols,out);
+  fflush(out);
 }
 
-void output_number(const short num)
-{
-  printf("%d",num);
-}
+
