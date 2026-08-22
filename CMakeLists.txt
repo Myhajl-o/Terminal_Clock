@@ -33,7 +33,7 @@ add_library(_math_lib SHARED ${MATH})
 add_library(_parsing_lib SHARED ${PARSING})
 add_library(_timedate_lib SHARED ${TIME})
 
-target_compile_definitions(_output_lib PRIVATE ERROR="${CMAKE_SOURCE_DIR}/configuration/error")
+target_compile_definitions(_output_lib PRIVATE ERROR_CONF="${CMAKE_SOURCE_DIR}/configuration/error_conf")
 target_compile_definitions(_parsing_lib PRIVATE CONF_PATH="${CMAKE_SOURCE_DIR}/configuration/clock.conf")
 
 add_executable(clock ${SOURCES})

@@ -69,7 +69,7 @@ void move_to_time_format(short num, char*msg,short*i_msg)
 
 void output_error(const short error)
 {
-  FILE*err_f = fopen(ERROR,"w");
+  FILE*err_f = fopen(ERROR_CONF,"w");
   char const*msg_error[11] = {"No errors, everything was read correctly.\n",
                               "Error code : 1\nThe file was either not read or is too small.\n",
                               "Error code : 2\nThe loop successfully read the ‘=’ character,\nbut was unable to find a digit after it\nor encountered an invalid character.\n",
@@ -81,6 +81,7 @@ void output_error(const short error)
                               "Error code : 8\nAn invalid character was found after the characters were read.\n",
                               "Error code : 9\nInvalid character in the main loop.\n",
                               "Error code : 10\nInsufficient data to populate the arrays.\n"};
+  if(err_f == NULL)return;
 
   output_symbols(msg_error[error],err_f);
 
