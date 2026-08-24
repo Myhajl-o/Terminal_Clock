@@ -13,7 +13,7 @@ void calculate_data_circle(const Coordinates &size, Coordinates &center, short &
 {
   Coordinate_center(center, size);
   Calculation_radius(radius, 1, center,width);
-  Coordinates_circle(radius, circle);
+  Coordinates_circle(circle,radius);
 }
 
 // The draw_circle function draws a circle in the terminal window that is
@@ -55,7 +55,7 @@ void draw_circle(const Coordinates &center, const std::vector<Coordinates> &circ
 void calculate_data_numbers(short &radius, std::vector<Coordinates> &circle_tick, Coordinates *tick,const short width)
 {
   radius--;
-  Coordinates_circle(radius, circle_tick);
+  Coordinates_circle(circle_tick,radius);
   Coordinate_upgrade(circle_tick,width);
   Coordinate_circle_degrees(tick,circle_tick);
 }

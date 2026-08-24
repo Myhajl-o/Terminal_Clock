@@ -32,7 +32,7 @@ void Second_hand::update(const Coordinates &new_size,const Color_object draw_c,c
   drawing = true;
   Coordinate_center(center, new_size);
   Calculation_radius(radius, 3, center,width);
-  Coordinates_circle(radius, circle_second);
+  Coordinates_circle(circle_second,radius);
   Coordinate_upgrade(circle_second,width);
   Coordinate_circle_degrees(second_tick,circle_second);
 }
@@ -83,12 +83,10 @@ void Second_hand::calculation_coordinate_line()
   else
   {
     temp = ((current_second > 15 && current_second < 30) ||
-            (current_second > 45 && current_second < 60))
-               ? 15 - temp
-               : temp;
+            (current_second > 45 && current_second < 60)) ? 15 - temp : temp;
     second_stop = second_tick[temp - 1];
     second_stop.x += current_second > 30;
-    Coordinates_line(second_stop, line);
+    Coordinates_line(line,second_stop);
   }
 }
 

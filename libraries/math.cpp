@@ -65,7 +65,7 @@ void Calculation_radius(short &radius, short backdown, const Coordinates &center
 //
 // This function is used in the watch_face.cpp and
 // Second-hand.cpp files.
-void Coordinates_circle(const short &radius, std::vector<Coordinates> &circle)
+void Coordinates_circle(std::vector<Coordinates> &circle,const short &radius)
 {
   circle.clear();
   short d = 3 - 2 * radius;
@@ -148,7 +148,7 @@ void Coordinate_upgrade(std::vector<Coordinates> &circle,const short width)
 //
 // This function is used in the watch_face.cpp and
 // Second-hand.cpp files.
-void Coordinate_degree(short degree, Coordinates &tick_element,const std::vector<Coordinates> &circle)
+void Coordinate_degree(Coordinates &tick_element,const short degree,const std::vector<Coordinates> &circle)
 {
   float difference[2];
   unsigned short i;
@@ -219,7 +219,7 @@ void Coordinate_circle_degrees(Coordinates *ticks,const std::vector<Coordinates>
 // into the variable passed to the function by reference.
 //
 // The function is used in the Second-hand.cpp file.
-void Coordinates_line(const Coordinates &B, std::vector<Coordinates> &line)
+void Coordinates_line(std::vector<Coordinates> &line,const Coordinates &B)
 {
   line.clear();
   Coordinates temp;
