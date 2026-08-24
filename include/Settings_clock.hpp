@@ -47,17 +47,27 @@ class Settings_clock
   char second_diagonal2_line[10];
   char second_horizontal_line[10];
 
+  short minute_back_color[2];
+  short minute_front_color[2];
+  char minute_vertical_line[10];
+  char minute_diagonal1_line[10];
+  char minute_diagonal2_line[10];
+  char minute_horizontal_line[10];
+
   short error;
 
-  short*array_num[33];
-  char*array_sym[19];
+  short*array_num[37];
+  char*array_sym[23];
 
   Color_object bg_color[2];
   Color_object wf_colors[2][3];
   Color_object sec_color[2];
+  Color_object min_color[2];
 
   char*num_clock_symbol[13];
   char*second_symbol[5];
+  char*minute_symbol[5];
+
 
   void initialization();
   void default_settings();
@@ -73,10 +83,12 @@ class Settings_clock
   const Color_object get_bg_color(const bool color);
   const Color_object*get_wf_color(const bool color);
   const Color_object get_sec_color(const bool color);
+  const Color_object get_min_color(const bool color);
   const char* get_bg_symbol();
   const char* get_circ_symbol();
   const char* const* get_num_symbols();
   const char* const* get_sec_symbols();
+  const char* const* get_min_symbols();
 
   ~Settings_clock();
 };

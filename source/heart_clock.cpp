@@ -49,7 +49,7 @@ int main(const int argc,const char*const*argv)
   Settings_clock set;
 
   Second_hand second(set.get_width(),set.get_sec_color(color),set.get_bg_color(color),set.get_sec_symbols());
-  Minute_hand minute(set.get_width(),set.get_sec_color(color),set.get_bg_color(color),set.get_sec_symbols());
+  Minute_hand minute(set.get_width(),set.get_min_color(color),set.get_bg_color(color),set.get_min_symbols());
   bool temp;
 
   setting_term_mode(true);
@@ -77,7 +77,7 @@ int main(const int argc,const char*const*argv)
         draw_background(term_size.y,canvas.get_spaces(), set.get_bg_color(color));
         draw_watch_face(term_size,set.get_width(),set.get_wf_color(color),set.get_circ_symbol(),set.get_num_symbols(),set.get_num_shift());
         second.update(term_size,set.get_sec_color(color),set.get_bg_color(color));
-        minute.update(term_size,set.get_sec_color(color),set.get_bg_color(color));
+        minute.update(term_size,set.get_min_color(color),set.get_bg_color(color));
       }
 
       update_time();
