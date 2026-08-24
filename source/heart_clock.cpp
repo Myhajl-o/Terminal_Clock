@@ -1,4 +1,4 @@
-// #include "Hour-hand.hpp"
+#include "Hour-hand.hpp"
 #include "Minute-hand.hpp"
 #include "Second-hand.hpp"
 #include "bg_string.hpp"
@@ -50,6 +50,7 @@ int main(const int argc,const char*const*argv)
 
   Second_hand second(set.get_width(),set.get_sec_color(color),set.get_bg_color(color),set.get_sec_symbols());
   Minute_hand minute(set.get_width(),set.get_min_color(color),set.get_bg_color(color),set.get_min_symbols());
+  Hour_hand hour(set.get_width(),set.get_min_color(color),set.get_bg_color(color),set.get_min_symbols());
   bool temp;
 
   setting_term_mode(true);
@@ -78,15 +79,18 @@ int main(const int argc,const char*const*argv)
         draw_watch_face(term_size,set.get_width(),set.get_wf_color(color),set.get_circ_symbol(),set.get_num_symbols(),set.get_num_shift());
         second.update(term_size,set.get_sec_color(color),set.get_bg_color(color));
         minute.update(term_size,set.get_min_color(color),set.get_bg_color(color));
+        hour.update(term_size,set.get_min_color(color),set.get_bg_color(color));
       }
 
       update_time();
 
       second.clear();
       minute.clear();
+      hour.clear();
 
       second.draw();
       minute.draw();
+      hour.draw();
     }
     else
     {
