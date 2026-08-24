@@ -35,6 +35,10 @@ void Settings_clock::initialization()
   array_num[34] = &minute_back_color[1];
   array_num[35] = &minute_front_color[0];
   array_num[36] = &minute_front_color[1];
+  array_num[37] = &hour_back_color[0];
+  array_num[38] = &hour_back_color[1];
+  array_num[39] = &hour_front_color[0];
+  array_num[40] = &hour_front_color[1];
 
   for(short i = 0; i < size_num; i++)
   {
@@ -64,6 +68,10 @@ void Settings_clock::initialization()
   array_sym[20] = minute_diagonal1_line;
   array_sym[21] = minute_diagonal2_line;
   array_sym[22] = minute_horizontal_line;
+  array_sym[23] = hour_vertical_line;
+  array_sym[24] = hour_diagonal1_line;
+  array_sym[25] = hour_diagonal2_line;
+  array_sym[26] = hour_horizontal_line;
 
   for(short i = 0; i < 13; i++)
   {
@@ -77,11 +85,16 @@ void Settings_clock::initialization()
   {
     minute_symbol[i] = array_sym[i + 19];
   }
+  for(short i = 0; i < 4; i++)
+  {
+    hour_symbol[i] = array_sym[i + 23];
+  }
   second_symbol[4] = array_sym[0];
   minute_symbol[4] = array_sym[0];
+  hour_symbol[4] = array_sym[0];
 }
 
-Settings_clock::Settings_clock():size_num(37),size_sym(23)
+Settings_clock::Settings_clock():size_num(41),size_sym(27)
 {
   initialization();
   new_settings(parsing_conf(array_num,array_sym,size_num,size_sym,&error));
@@ -164,6 +177,16 @@ void Settings_clock::default_settings()
   minute_diagonal2_line[0] = ' ';
   minute_horizontal_line[0] = ' ';
 
+  hour_back_color[0] = black_back;
+  hour_back_color[1] = white_back;
+  hour_front_color[0] = white_front;
+  hour_front_color[1] = black_front;
+
+  hour_vertical_line[0] = ' ';
+  hour_diagonal1_line[0] = ' ';
+  hour_diagonal2_line[0] = ' ';
+  hour_horizontal_line[0] = ' ';
+
   for(short i = 0; i < size_sym; i++ )
   {
     short add = (i >= 12 && i <= 14);
@@ -230,6 +253,9 @@ void Settings_clock::new_settings(const bool conf)
 
   min_color[0].reset(minute_back_color[0],minute_front_color[0]);
   min_color[1].reset(minute_back_color[1],minute_front_color[1]);
+
+  hour_color[0].reset(hour_back_color[0],hour_front_color[0]);
+  hour_color[0].reset(hour_back_color[0],hour_front_color[0]);
 }
 
 
@@ -263,6 +289,11 @@ const Color_object Settings_clock::get_min_color(const bool color)
   return min_color[color];
 }
 
+const Color_object Settings_clock::get_hour_color(const bool color)
+{
+  return hour_color[color];
+}
+
 const char* Settings_clock::get_bg_symbol()
 {
   return bg_symbol;
@@ -286,6 +317,11 @@ const char* const* Settings_clock::get_sec_symbols()
 const char* const* Settings_clock::get_min_symbols()
 {
   return minute_symbol;
+}
+
+const char* const* Settings_clock::get_hour_symbols()
+{
+  return hour_symbol;
 }
 
 Settings_clock::~Settings_clock()
