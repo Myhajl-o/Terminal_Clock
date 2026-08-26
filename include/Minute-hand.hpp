@@ -27,8 +27,8 @@ class Minute_hand
 
   void calculation_coordinate_line();
   short current_symbol(const unsigned short &i);
-  bool second_update(const bool flag);
-  bool minute_update();
+  bool second_update();
+  bool minute_update(const bool flag);
 
 public:
   Minute_hand(const short wi,const Color_object draw_c,const Color_object clear_c,const char* const*sym);

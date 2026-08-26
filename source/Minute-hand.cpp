@@ -31,21 +31,21 @@ void Minute_hand::update(const Coordinates &new_size,const Color_object draw_c,c
 }
 
 
-bool Minute_hand::second_update(const bool flag)
+bool Minute_hand::second_update()
 {
   short temp = cur_second();
-  if (flag)
-  {
     return (current_second != temp) ? (current_second = temp, true) : false;
-  }
-  return current_second != temp;
 }
 
 
-bool Minute_hand::minute_update()
+bool Minute_hand::minute_update(const bool flag)
 {
   short temp = cur_minute();
-  return (current_minute != temp) ? (current_minute = temp, true) : false;
+  if(flag)
+  {
+    return (current_minute != temp) ? (current_minute = temp, true) : false;
+  }
+  return current_minute != temp;
 }
 
 void Minute_hand::calculation_coordinate_line()
@@ -107,13 +107,13 @@ short Minute_hand::current_symbol(const unsigned short &i)
 
 void Minute_hand::draw()
 {
-  if(minute_update() || drawing)
+  if(minute_update(true) || drawing)
   {
     calculation_coordinate_line();
     shift.x = (current_minute < 31) ? 1 : -1;
     shift.y = (current_minute > 15 && current_minute < 46) ? 1 : -1;
   }
-  if(second_update(true) || drawing)
+  if(second_update() || drawing)
   {
     for (unsigned short i = 0; i < line.size(); i++)
     {
@@ -126,7 +126,7 @@ void Minute_hand::draw()
 
 void Minute_hand::clear()
 {
-  if(second_update(false) && clearing)
+  if(minute_update(false) && clearing)
   {
     for (unsigned short i = 0; i < line.size(); i++)
     {

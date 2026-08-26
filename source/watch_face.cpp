@@ -26,13 +26,11 @@ void draw_circle(const Coordinates &center, const std::vector<Coordinates> &circ
 {
   short size_sym = circ_sym[5];
   char space[17];
-  short j = 0;
 
-  for(short i = 0; i < (width * size_sym); i++)
+  for(short i = 0,j = 0; i < (width * size_sym); i++,j++)
   {
     if(j == size_sym) j = 0;
     space[i] = circ_sym[j];
-    j++;
   }
 
   space[width * size_sym] = '\0';

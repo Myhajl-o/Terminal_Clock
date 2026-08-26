@@ -65,7 +65,7 @@ void Calculation_radius(short &radius, short backdown, const Coordinates &center
 //
 // This function is used in the watch_face.cpp and
 // Second-hand.cpp files.
-void Coordinates_circle(std::vector<Coordinates> &circle,const short &radius)
+void Coordinates_circle(std::vector<Coordinates> &circle,const short radius)
 {
   circle.clear();
   short d = 3 - 2 * radius;
@@ -114,7 +114,9 @@ void Coordinate_upgrade(std::vector<Coordinates> &circle,const short width)
   {
     return;
   }
-  std::vector<Coordinates> temp = circle;
+  static std::vector<Coordinates> temp;
+  temp.clear();
+  temp = circle;
   circle.resize(circle.size() * width - 1);
   short j = 0;
   short add;

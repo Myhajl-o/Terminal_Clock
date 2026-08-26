@@ -60,22 +60,26 @@ class Settings_clock
   char hour_diagonal1_line[10];
   char hour_diagonal2_line[10];
   char hour_horizontal_line[10];
- 
+  short hour_min_circ_back_color[2];
+  short hour_min_circ_front_color[2];
+  char hour_min_circ_symbol[10];
+  short show_min_circ;
+
   short error;
 
-  short*array_num[41];
-  char*array_sym[27];
+  short*array_num[46];
+  char*array_sym[28];
 
   Color_object bg_color[2];
   Color_object wf_colors[2][3];
   Color_object sec_color[2];
   Color_object min_color[2];
-  Color_object hour_color[2];
+  Color_object hour_color[2][2];
 
   char*num_clock_symbol[13];
   char*second_symbol[5];
   char*minute_symbol[5];
-  char*hour_symbol[5];
+  char*hour_symbol[6];
 
 
   void initialization();
@@ -88,12 +92,13 @@ class Settings_clock
   Settings_clock();
 
   short get_width();
+  short get_show_min_circ();
   const short* get_num_shift();
   const Color_object get_bg_color(const bool color);
   const Color_object*get_wf_color(const bool color);
   const Color_object get_sec_color(const bool color);
   const Color_object get_min_color(const bool color);
-  const Color_object get_hour_color(const bool color);
+  const Color_object*get_hour_color(const bool color);
   const char* get_bg_symbol();
   const char* get_circ_symbol();
   const char* const* get_num_symbols();
