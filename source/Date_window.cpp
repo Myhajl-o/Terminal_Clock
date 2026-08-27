@@ -12,6 +12,7 @@ Date_window::Date_window(const short wi,const Color_object*wind_c,const char*con
   spaces[0] = (char*)malloc(130);
   spaces[1] = (char*)malloc(33);
   spaces[2] = (char*)malloc(130);
+  
   window_size[0].reset(32,8);
   window_size[1].reset(10,9);
   term_size.reset(0,0);
@@ -19,42 +20,41 @@ Date_window::Date_window(const short wi,const Color_object*wind_c,const char*con
   current_wday = 7;
   current_month = 13;
   current_year = 2077;
+  show_window = false;
+  
   width = wi;
   window_color[0] = wind_c[0];
   window_color[1] = wind_c[1];
   window_color[2] = wind_c[2];
-  size_sym[0] = filling_space(spaces[0],sym[0],window_size[0].x);
-  size_sym[1] = filling_space(spaces[1],sym[1],8);
-  size_sym[2] = filling_space(spaces[2],sym[2],window_size[0].x);
+  
+  short size_sym = filling_space(spaces[0],sym[0],window_size[0].x);
+
+  draw_sym[0] = spaces[0];
+  draw_sym[1] = draw_sym[0] + 22 * size_sym;
+  
+  filling_space(spaces[1],sym[1],8);
+  
+  size_sym = filling_space(spaces[2],sym[2],window_size[0].x);
+  clear_sym[0] = spaces[2];
+  clear_sym[1] = clear_sym[0] + 22 * size_sym;
 }
 
 
-short filling_space(char*space,const char*symbol,const short count)
+void Date_window::update(const Coordinates term_siz,const Color_object*wind_c)
 {
-  short size_sym = space[5];
-  short all_size = count * size_sym;
-  for(short i = 0,j = 0; i < all_size; i++, j++)
-  {
-    if(j == size_sym) j = 0 ;
-    space[i] = symbol[j];
-  }
-  space[all_size] = '\0';
-  return size_sym;
-}
-
-
-void Date_window::update(const bool show_win,const Coordinates term_siz,const Color_object*wind_c)
-{
-  show_window = show_win;
   window_color[0] = wind_c[0];
   window_color[1] = wind_c[1];
   window_color[2] = wind_c[2];
   if(term_size != term_siz)
   {
+    term_size = term_siz;
     update_mode();
-    update_position();
+    if(correct_size)
+    {
+      update_position();
+    }
   }
-  term_size = term_siz;
+  drawing = true;
 }
 
 bool Date_window::update_day()
@@ -91,9 +91,9 @@ void Date_window::update_position()
     pos_back_year.reset(pos_start.x + 1,8);
     
     pos_day.reset(pos_back_day.x + 3,4);
-    pos_wday.reset(pos_start.x + 1,2);
+    pos_wday.reset(pos_back_month.x,2);
     pos_month.reset(pos_back_month.x + 3, 6);
-    pos_back_year.reset(pos_back_year.x + 2, 8);
+    pos_year.reset(pos_back_year.x + 2, 8);
   }
   else
   {
@@ -102,9 +102,9 @@ void Date_window::update_position()
     pos_back_year.reset(pos_start.x + 22,4);
     
     pos_day.reset(pos_back_day.x + 3,5);
-    pos_wday.reset(pos_start.x + 10,2);
+    pos_wday.reset(pos_back_month.x,2);
     pos_month.reset(pos_back_month.x + 3, 5);
-    pos_back_year.reset(pos_back_year.x + 2, 5);
+    pos_year.reset(pos_back_year.x + 2, 5);
   }
 }
 
@@ -121,10 +121,12 @@ void Date_window::update_mode()
   if(open_space < window_size[1].x)
   {
     correct_size = false;
+    small_mode = true;
   }
   else if(open_space < window_size[0].x)
   {
     small_mode = true;
+    correct_size = true;
   }
   else
   {
@@ -136,7 +138,7 @@ void Date_window::update_mode()
 
 void Date_window::draw_day()
 {
-  if(update_day())
+  if(update_day() || drawing)
   {
     if(small_mode)
     {
@@ -160,24 +162,24 @@ void Date_window::draw_day()
 
 void Date_window::draw_wday()
 {
-  if(update_wday())
+  if(update_wday() || drawing)
   {
     static const char*day_week[7] = {"Monday\0",
-                                     "Thusday\0",
+                                     "Tuesday\0",
                                      "Wednesday\0",
-                                     "Thorsday\0",
+                                     "Thursday\0",
                                      "Friday\0",
                                      "Saturday\0",
                                      "Sunday\0"};
     
-    output_object(pos_wday.x,pos_wday.y,day_week[current_wday],window_color[1].c);
+    output_object(pos_wday.x,pos_wday.y,day_week[current_wday - 1],window_color[0].c);
   }
 }
 
 
 void Date_window::draw_month()
 {
-  if(update_month())
+  if(update_month() || drawing)
   {
     if(small_mode)
     {
@@ -201,7 +203,7 @@ void Date_window::draw_month()
 
 void Date_window::draw_year()
 {
-  if(update_year())
+  if(update_year() || drawing)
   {
     if(small_mode)
     {
@@ -228,26 +230,38 @@ void Date_window::draw()
 {
   if(show_window && correct_size)
   {
-    for(short i = 0; i < window_size[small_mode].y; i++)
+    if(drawing)
     {
-      output_object(pos_start.x,pos_start.y + i,spaces[0],window_color[0].c);
+      for(short i = 0; i < window_size[small_mode].y; i++)
+      {
+        output_object(pos_start.x,pos_start.y + i,draw_sym[small_mode],window_color[0].c);
+      }
     }
     draw_day();
     draw_wday();
     draw_month();
     draw_year();
+    drawing = false;
+    clearing = true;
   }
 }
 
 
-void Date_window::clear()
+void Date_window::clear(const bool show_win)
 {
-  if(!show_window && correct_size)
+  if(show_window != show_win)
+  {
+    drawing = true;
+    show_window = show_win;
+  }
+
+  if(!show_window && correct_size && clearing)
   {
     for(short i = 0; i < window_size[small_mode].y; i++)
     {
-      output_object(pos_start.x,pos_start.y + i, spaces[2],window_color[2].c);
+      output_object(pos_start.x,pos_start.y + i, clear_sym[small_mode],window_color[2].c);
     }
+    clearing = false;
   }
 }
 

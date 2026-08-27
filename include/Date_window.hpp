@@ -5,20 +5,21 @@
 #include "Coordinates.hpp"
 
 
-short filling_space(char*space,const char*symbol,const short count);
-
 class Date_window
 {
   bool show_window;
   bool correct_size;
+  bool drawing;
+  bool clearing;
   short width;
   Color_object window_color[3];
 
   Coordinates window_size[2];
   Coordinates term_size;
-  short size_sym[3];
   
   char*spaces[3];
+  char*draw_sym[2];
+  char*clear_sym[2];
 
   short current_day;
   short current_wday;
@@ -53,9 +54,9 @@ class Date_window
   public:
 
   Date_window(const short wi,const Color_object*wind_c,const char*const*sym);
-  void update(const bool show_win,const Coordinates term_siz,const Color_object*wind_c);
+  void update(const Coordinates term_siz,const Color_object*wind_c);
   void draw();
-  void clear();
+  void clear(const bool show_win);
   ~Date_window();
 
 };

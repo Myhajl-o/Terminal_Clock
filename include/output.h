@@ -11,6 +11,7 @@ extern "C"
 
 void move_to_char(short num, char*msg,short*i_msg);
 void move_to_time_format(short num, char*msg,short*i_msg);
+short filling_space(char*space,const char*symbol,const short count);
 void output_error(const short error);
 void clear_term();
 void full_clear_term(const short y,const char*spaces);

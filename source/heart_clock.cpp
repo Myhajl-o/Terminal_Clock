@@ -52,7 +52,7 @@ int main(const int argc,const char*const*argv)
   Second_hand second(set.get_width(),set.get_sec_color(color),set.get_bg_color(color),set.get_sec_symbols());
   Minute_hand minute(set.get_width(),set.get_min_color(color),set.get_bg_color(color),set.get_min_symbols());
   Hour_hand hour(set.get_width(),set.get_hour_color(color),set.get_bg_color(color),set.get_hour_symbols(),set.get_show_min_circ());
-  Date_window date(set.get_width(),set.);
+  Date_window date(set.get_width(),set.get_date_win_color(color),set.get_date_win_symbols());
   bool show_date_window = false;
 
   setting_term_mode(true);
@@ -82,6 +82,7 @@ int main(const int argc,const char*const*argv)
         second.update(term_size,set.get_sec_color(color),set.get_bg_color(color));
         minute.update(term_size,set.get_min_color(color),set.get_bg_color(color));
         hour.update(term_size,set.get_hour_color(color),set.get_bg_color(color));
+        date.update(term_size,set.get_date_win_color(color));
       }
 
       update_time();
@@ -89,10 +90,12 @@ int main(const int argc,const char*const*argv)
       second.clear();
       minute.clear();
       hour.clear();
+      date.clear(show_date_window);
 
       second.draw();
       minute.draw();
       hour.draw();
+      date.draw();
     }
     else
     {

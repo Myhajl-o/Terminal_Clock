@@ -24,16 +24,8 @@ void calculate_data_circle(const Coordinates &size, Coordinates &center, short &
 // The function is used in the draw_watch_face function.
 void draw_circle(const Coordinates &center, const std::vector<Coordinates> &circle,const short width,const Color_object circ,const char*circ_sym)
 {
-  short size_sym = circ_sym[5];
   char space[17];
-
-  for(short i = 0,j = 0; i < (width * size_sym); i++,j++)
-  {
-    if(j == size_sym) j = 0;
-    space[i] = circ_sym[j];
-  }
-
-  space[width * size_sym] = '\0';
+  short size_sym = filling_space(space,circ_sym,width);
 
   for (unsigned short i = 0; i < circle.size(); i++)
   {

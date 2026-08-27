@@ -15,7 +15,8 @@ set(SOURCES heart_clock.cpp
             Settings_clock.cpp
             Second-hand.cpp
             Minute-hand.cpp
-            Hour-hand.cpp)
+            Hour-hand.cpp
+            Date_window.cpp)
 
 
 list(TRANSFORM SOURCES PREPEND "source/")
