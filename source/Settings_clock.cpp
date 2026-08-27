@@ -22,7 +22,7 @@ void Settings_clock::initialization()
   array_num[14] = &number_back_color[1];
   array_num[15] = &number_front_color[0];
   array_num[16] = &number_front_color[1];
-  for(int i = 0; i < 12; i++)
+  for(short i = 0; i < 12; i++)
   {
     array_num[17 + i] = &number_shift[i];
   }
@@ -31,6 +31,27 @@ void Settings_clock::initialization()
   array_num[30] = &second_back_color[1];
   array_num[31] = &second_front_color[0];
   array_num[32] = &second_front_color[1];
+  array_num[33] = &minute_back_color[0];
+  array_num[34] = &minute_back_color[1];
+  array_num[35] = &minute_front_color[0];
+  array_num[36] = &minute_front_color[1];
+  array_num[37] = &hour_back_color[0];
+  array_num[38] = &hour_back_color[1];
+  array_num[39] = &hour_front_color[0];
+  array_num[40] = &hour_front_color[1];
+  array_num[41] = &hour_min_circ_back_color[0];
+  array_num[42] = &hour_min_circ_back_color[1];
+  array_num[43] = &hour_min_circ_front_color[0];
+  array_num[44] = &hour_min_circ_front_color[1];
+  array_num[45] = &show_min_circ;
+  array_num[46] = &date_win_back_color1[0];
+  array_num[47] = &date_win_back_color1[1];
+  array_num[48] = &date_win_front_color1[0];
+  array_num[49] = &date_win_front_color1[1];
+  array_num[50] = &date_win_back_color2[0];
+  array_num[51] = &date_win_back_color2[1];
+  array_num[52] = &date_win_front_color2[0];
+  array_num[53] = &date_win_front_color2[1];
 
   for(short i = 0; i < size_num; i++)
   {
@@ -56,19 +77,46 @@ void Settings_clock::initialization()
   array_sym[16] = second_diagonal1_line;
   array_sym[17] = second_diagonal2_line;
   array_sym[18] = second_horizontal_line;
+  array_sym[19] = minute_vertical_line;
+  array_sym[20] = minute_diagonal1_line;
+  array_sym[21] = minute_diagonal2_line;
+  array_sym[22] = minute_horizontal_line;
+  array_sym[23] = hour_vertical_line;
+  array_sym[24] = hour_diagonal1_line;
+  array_sym[25] = hour_diagonal2_line;
+  array_sym[26] = hour_horizontal_line;
+  array_sym[27] = hour_min_circ_symbol;
+  array_sym[28] = date_win_symbol1;
+  array_sym[29] = date_win_symbol2;
 
-  for(int i = 0; i < 13; i++)
+  for(short i = 0; i < 13; i++)
   {
     num_clock_symbol[i] = array_sym[i + 2];
   }
-  for(int i = 0; i < 4; i++)
+  for(short i = 0; i < 4; i++)
   {
     second_symbol[i] = array_sym[i + 15];
   }
+  for(short i = 0; i < 4; i++)
+  {
+    minute_symbol[i] = array_sym[i + 19];
+  }
+  for(short i = 0; i < 5; i++)
+  {
+    hour_symbol[i] = array_sym[i + 23];
+  }
+  for(short i = 0; i < 2; i++)
+  {
+    date_win_symbols[i] = array_sym[i + 28];
+  }
   second_symbol[4] = array_sym[0];
+  minute_symbol[4] = array_sym[0];
+  hour_symbol[5] = array_sym[0];
+  date_win_symbols[2] = array_sym[0];
 }
 
-Settings_clock::Settings_clock():size_num(33),size_sym(19)
+
+Settings_clock::Settings_clock():size_num(54),size_sym(30)
 {
   initialization();
   new_settings(parsing_conf(array_num,array_sym,size_num,size_sym,&error));
@@ -141,6 +189,47 @@ void Settings_clock::default_settings()
   second_diagonal2_line[0] = '\\';
   second_horizontal_line[0] = '-';
 
+  minute_back_color[0] = black_back;
+  minute_back_color[1] = white_back;
+  minute_front_color[0] = white_front;
+  minute_front_color[1] = black_front;
+
+  minute_vertical_line[0] = ' ';
+  minute_diagonal1_line[0] = ' ';
+  minute_diagonal2_line[0] = ' ';
+  minute_horizontal_line[0] = ' ';
+
+  hour_back_color[0] = black_back;
+  hour_back_color[1] = white_back;
+  hour_front_color[0] = white_front;
+  hour_front_color[1] = black_front;
+
+  hour_vertical_line[0] = ' ';
+  hour_diagonal1_line[0] = ' ';
+  hour_diagonal2_line[0] = ' ';
+  hour_horizontal_line[0] = ' ';
+  
+  hour_min_circ_back_color[0] = black_back;
+  hour_min_circ_back_color[1] = white_back;
+  hour_min_circ_front_color[0] = white_front;
+  hour_min_circ_front_color[1] = black_front;
+
+  hour_min_circ_symbol[0] = ' ';
+
+  show_min_circ = 1;
+
+  date_win_back_color1[0] = black_back;
+  date_win_back_color1[1] = white_back;
+  date_win_front_color1[0] = white_front;
+  date_win_front_color1[1] = black_front;
+  date_win_back_color2[0] = white_back;
+  date_win_back_color2[1] = black_back;
+  date_win_front_color2[0] = black_front;
+  date_win_front_color2[1] = white_front;
+
+  date_win_symbol1[0] = ' ';
+  date_win_symbol2[0] = ' ';
+
   for(short i = 0; i < size_sym; i++ )
   {
     short add = (i >= 12 && i <= 14);
@@ -155,22 +244,25 @@ bool Settings_clock::validation_check()
     return false;
   }
   
-  for(int i = 1; i < size_num; i++)
+  for(short i = 1; i < size_num; i++)
   {
     i += (i == 17) ? 12 : 0;
+    i += (i == 45);
     if(*(array_num[i]) < 30 || (*(array_num[i]) > 37 && *(array_num[i]) < 40) || (*(array_num[i]) > 47 && *(array_num[i]) < 90) || (*(array_num[i]) > 97 && *(array_num[i]) < 100) || *(array_num[i]) > 107)
     {
       return false;
     }
   }
   
-  for(int i = 0; i < 12; i++)
+  for(short i = 0; i < 12; i++)
   {
     if(number_shift[i] < 0 || number_shift[i] > 4)
     {
       return false;
     }
   }
+
+  if(show_min_circ > 1) return false;
 
   return true;
 }
@@ -186,6 +278,18 @@ void Settings_clock::new_settings(const bool conf)
     temp = check_size_symbol(circle_symbol[0]);
     circle_symbol[temp] = '\0';
     circle_symbol[5] = temp;
+
+    temp = check_size_symbol(hour_min_circ_symbol[0]);
+    hour_min_circ_symbol[temp] = '\0';
+    hour_min_circ_symbol[5] = temp;
+  
+    temp = check_size_symbol(date_win_symbol1[0]);
+    date_win_symbol1[temp] = '\0';
+    date_win_symbol1[5] = temp;
+
+    temp = check_size_symbol(date_win_symbol2[0]);
+    date_win_symbol2[temp] = '\0';
+    date_win_symbol2[5] = temp;
   }
   else
   {
@@ -204,12 +308,36 @@ void Settings_clock::new_settings(const bool conf)
 
   sec_color[0].reset(second_back_color[0],second_front_color[0]);
   sec_color[1].reset(second_back_color[1],second_front_color[1]);
+
+  min_color[0].reset(minute_back_color[0],minute_front_color[0]);
+  min_color[1].reset(minute_back_color[1],minute_front_color[1]);
+
+  hour_color[0][0].reset(hour_back_color[0],hour_front_color[0]);
+  hour_color[0][1].reset(hour_min_circ_back_color[0],hour_min_circ_front_color[0]);
+  hour_color[0][2] = bg_color[0];
+  
+  hour_color[1][0].reset(hour_back_color[1],hour_front_color[1]);
+  hour_color[1][1].reset(hour_min_circ_back_color[1],hour_min_circ_front_color[1]);
+  hour_color[1][2] = bg_color[1];
+
+  date_win_color[0][0].reset(date_win_back_color1[0],date_win_front_color1[0]);
+  date_win_color[0][1].reset(date_win_back_color2[0],date_win_front_color2[0]);
+  date_win_color[0][2] = bg_color[0];
+
+  date_win_color[1][0].reset(date_win_back_color1[1],date_win_front_color1[1]);
+  date_win_color[1][1].reset(date_win_back_color2[1],date_win_front_color2[1]);
+  date_win_color[1][2] = bg_color[1];
 }
 
 
 short Settings_clock::get_width()
 {
   return width;
+}
+
+short Settings_clock::get_show_min_circ()
+{
+  return show_min_circ;
 }
 
 const short* Settings_clock::get_num_shift()
@@ -232,6 +360,21 @@ const Color_object Settings_clock::get_sec_color(const bool color)
   return sec_color[color];
 }
 
+const Color_object Settings_clock::get_min_color(const bool color)
+{
+  return min_color[color];
+}
+
+const Color_object*Settings_clock::get_hour_color(const bool color)
+{
+  return hour_color[color];
+}
+
+const Color_object*Settings_clock::get_date_win_color(const bool color)
+{
+  return date_win_color[color];
+}
+
 const char* Settings_clock::get_bg_symbol()
 {
   return bg_symbol;
@@ -251,6 +394,22 @@ const char* const* Settings_clock::get_sec_symbols()
 {
   return second_symbol;
 }
+
+const char* const* Settings_clock::get_min_symbols()
+{
+  return minute_symbol;
+}
+
+const char* const* Settings_clock::get_hour_symbols()
+{
+  return hour_symbol;
+}
+
+const char* const* Settings_clock::get_date_win_symbols()
+{
+  return date_win_symbols;
+}
+
 
 Settings_clock::~Settings_clock()
 {

@@ -13,7 +13,7 @@ void calculate_data_circle(const Coordinates &size, Coordinates &center, short &
 {
   Coordinate_center(center, size);
   Calculation_radius(radius, 1, center,width);
-  Coordinates_circle(radius, circle);
+  Coordinates_circle(circle,radius);
 }
 
 // The draw_circle function draws a circle in the terminal window that is
@@ -24,18 +24,8 @@ void calculate_data_circle(const Coordinates &size, Coordinates &center, short &
 // The function is used in the draw_watch_face function.
 void draw_circle(const Coordinates &center, const std::vector<Coordinates> &circle,const short width,const Color_object circ,const char*circ_sym)
 {
-  short size_sym = circ_sym[5];
   char space[17];
-  short j = 0;
-
-  for(short i = 0; i < (width * size_sym); i++)
-  {
-    if(j == size_sym) j = 0;
-    space[i] = circ_sym[j];
-    j++;
-  }
-
-  space[width * size_sym] = '\0';
+  short size_sym = filling_space(space,circ_sym,width);
 
   for (unsigned short i = 0; i < circle.size(); i++)
   {
@@ -55,7 +45,7 @@ void draw_circle(const Coordinates &center, const std::vector<Coordinates> &circ
 void calculate_data_numbers(short &radius, std::vector<Coordinates> &circle_tick, Coordinates *tick,const short width)
 {
   radius--;
-  Coordinates_circle(radius, circle_tick);
+  Coordinates_circle(circle_tick,radius);
   Coordinate_upgrade(circle_tick,width);
   Coordinate_circle_degrees(tick,circle_tick);
 }

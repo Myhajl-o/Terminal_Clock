@@ -25,6 +25,12 @@ short&cur_day()
   return day;
 }
 
+short&cur_wday()
+{
+  static short wday;
+  return wday;
+}
+
 short&cur_month()
 {
   static short month;
@@ -45,6 +51,7 @@ void update_time()
   cur_minute() = time->tm_min;
   cur_hour() = time->tm_hour;
   cur_day() = time->tm_mday;
+  cur_wday() = time->tm_wday;
   cur_month() = time->tm_mon + 1;
   cur_year() = time->tm_year + 1900;
 }

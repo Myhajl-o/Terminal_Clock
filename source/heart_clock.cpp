@@ -1,8 +1,9 @@
-// #include "Hour-hand.hpp"
-// #include "Minute-hand.hpp"
+#include "Date_window.hpp"
+#include "Hour-hand.hpp"
+#include "Minute-hand.hpp"
 #include "Second-hand.hpp"
+
 #include "bg_string.hpp"
-//  #include "date.hpp"
 #include "Coordinates.hpp"
 #include "Settings_clock.hpp"
 #include "background.hpp"
@@ -49,7 +50,10 @@ int main(const int argc,const char*const*argv)
   Settings_clock set;
 
   Second_hand second(set.get_width(),set.get_sec_color(color),set.get_bg_color(color),set.get_sec_symbols());
-  bool temp;
+  Minute_hand minute(set.get_width(),set.get_min_color(color),set.get_bg_color(color),set.get_min_symbols());
+  Hour_hand hour(set.get_width(),set.get_hour_color(color),set.get_hour_symbols(),set.get_show_min_circ());
+  Date_window date(set.get_width(),set.get_date_win_color(color),set.get_date_win_symbols());
+  bool show_date_window = false;
 
   setting_term_mode(true);
   hide_cursor(true);
@@ -58,7 +62,7 @@ int main(const int argc,const char*const*argv)
   bg_string canvas(term_size.x,set.get_bg_symbol());
   bg_string cleaner(term_size.x,clear_sym);
 
-  while (!check_buffer(temp, color))
+  while (!check_buffer(show_date_window, color))
   {
     get_term_size(term_size);
     if(flag)
@@ -76,12 +80,22 @@ int main(const int argc,const char*const*argv)
         draw_background(term_size.y,canvas.get_spaces(), set.get_bg_color(color));
         draw_watch_face(term_size,set.get_width(),set.get_wf_color(color),set.get_circ_symbol(),set.get_num_symbols(),set.get_num_shift());
         second.update(term_size,set.get_sec_color(color),set.get_bg_color(color));
+        minute.update(term_size,set.get_min_color(color),set.get_bg_color(color));
+        hour.update(term_size,set.get_hour_color(color),set.get_bg_color(color));
+        date.update(term_size,set.get_date_win_color(color));
       }
 
       update_time();
 
       second.clear();
+      minute.clear();
+      hour.clear();
+      date.clear(show_date_window);
+
       second.draw();
+      minute.draw();
+      hour.draw();
+      date.draw();
     }
     else
     {

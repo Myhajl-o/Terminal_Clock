@@ -7,7 +7,18 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 
 include_directories(include/)
 
-set(SOURCES heart_clock.cpp addition_functional.cpp background.cpp watch_face.cpp bg_string.cpp Settings_clock.cpp Second-hand.cpp)
+set(SOURCES heart_clock.cpp
+            addition_functional.cpp
+            background.cpp
+            watch_face.cpp
+            bg_string.cpp
+            Settings_clock.cpp
+            Second-hand.cpp
+            Minute-hand.cpp
+            Hour-hand.cpp
+            Date_window.cpp)
+
+
 list(TRANSFORM SOURCES PREPEND "source/")
 
 set(INPUT)
