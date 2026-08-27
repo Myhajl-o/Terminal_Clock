@@ -6,12 +6,12 @@
 #include "timedate.hpp"
 #include <vector>
 
-Hour_hand::Hour_hand(const short wi,const Color_object*draw_c,const Color_object clear_c,const char* const*sym,const bool show_min_circ)
+Hour_hand::Hour_hand(const short wi,const Color_object*hour_c,const char* const*sym,const bool show_min_circ)
 {
   width = wi;
-  draw_color = draw_c[0];
-  mini_circle_color = draw_c[1];
-  clear_color = clear_c;
+  draw_color = hour_c[0];
+  mini_circle_color = hour_c[1];
+  clear_color = hour_c[2];
   symbols = sym;
   show_mini_circle = show_min_circ;
   current_hour = 60;
@@ -35,12 +35,33 @@ void Hour_hand::update(const Coordinates &new_size,const Color_object*draw_c,con
 
   if(show_mini_circle)
   {
-    mini_radius = radius / 5;
-    mini_shift = radius / 3;
+    filling_space(min_circ_sym,symbols[4],width);
+    filling_space(clear_min_circ_sym,symbols[5],width);
+    calculation_size_mini_circle(new_size);
     Coordinates_circle(temp_circle,mini_shift);
     Coordinate_upgrade(temp_circle,width);
     Coordinate_degree(mini_tick[0],30,temp_circle);
     Coordinate_degree(mini_tick[1],60,temp_circle);
+  }
+}
+
+
+void Hour_hand::calculation_size_mini_circle(const Coordinates&size)
+{
+  if(size.x < 100 || size.y < 50)
+  {
+    mini_radius = radius / 4;
+    mini_shift = radius / 2;
+  }
+  else if(size.x < 200 || size.y < 100)
+  {
+    mini_radius = radius / 5;
+    mini_shift = radius / 3;
+  }
+  else
+  {
+    mini_radius = radius / 6;
+    mini_shift = radius / 4;
   }
 }
 
@@ -115,7 +136,6 @@ void Hour_hand::calculation_mini_circle(short temp)
     mini_center.x += current_hour > 6;
   }
   Coordinates_circle(mini_circle,mini_radius);
-  Coordinate_upgrade(mini_circle,width);
 }
 
 
@@ -167,10 +187,10 @@ void Hour_hand::draw()
     {
       for(unsigned short i = 0; i < mini_circle.size(); i++)
       {
-        output_object(center.x + (mini_center.x + mini_circle[i].x) * shift.x,center.y + (mini_center.y - mini_circle[i].y) * shift.y,symbols[4],mini_circle_color.c);
-        output_object(center.x + (mini_center.x + mini_circle[i].x) * shift.x,center.y + (mini_center.y + mini_circle[i].y) * shift.y,symbols[4],mini_circle_color.c);
-        output_object(center.x + (mini_center.x - mini_circle[i].x) * shift.x,center.y + (mini_center.y + mini_circle[i].y) * shift.y,symbols[4],mini_circle_color.c);
-        output_object(center.x + (mini_center.x - mini_circle[i].x) * shift.x,center.y + (mini_center.y - mini_circle[i].y) * shift.y,symbols[4],mini_circle_color.c);
+        output_object(center.x + (mini_center.x + mini_circle[i].x * width) * shift.x,center.y + (mini_center.y - mini_circle[i].y) * shift.y,min_circ_sym,mini_circle_color.c);
+        output_object(center.x + (mini_center.x + mini_circle[i].x * width) * shift.x,center.y + (mini_center.y + mini_circle[i].y) * shift.y,min_circ_sym,mini_circle_color.c);
+        output_object(center.x + (mini_center.x - mini_circle[i].x * width) * shift.x,center.y + (mini_center.y + mini_circle[i].y) * shift.y,min_circ_sym,mini_circle_color.c);
+        output_object(center.x + (mini_center.x - mini_circle[i].x * width) * shift.x,center.y + (mini_center.y - mini_circle[i].y) * shift.y,min_circ_sym,mini_circle_color.c);
       }
     }
     clearing = true;
@@ -191,10 +211,10 @@ void Hour_hand::clear()
     {
       for(unsigned short i = 0; i < mini_circle.size(); i++)
       {
-        output_object(center.x + (mini_center.x + mini_circle[i].x) * shift.x,center.y + (mini_center.y - mini_circle[i].y) * shift.y,symbols[5],clear_color.c);
-        output_object(center.x + (mini_center.x + mini_circle[i].x) * shift.x,center.y + (mini_center.y + mini_circle[i].y) * shift.y,symbols[5],clear_color.c);
-        output_object(center.x + (mini_center.x - mini_circle[i].x) * shift.x,center.y + (mini_center.y + mini_circle[i].y) * shift.y,symbols[5],clear_color.c);
-        output_object(center.x + (mini_center.x - mini_circle[i].x) * shift.x,center.y + (mini_center.y - mini_circle[i].y) * shift.y,symbols[5],clear_color.c);
+        output_object(center.x + (mini_center.x + mini_circle[i].x * width) * shift.x,center.y + (mini_center.y - mini_circle[i].y) * shift.y,clear_min_circ_sym,clear_color.c);
+        output_object(center.x + (mini_center.x + mini_circle[i].x * width) * shift.x,center.y + (mini_center.y + mini_circle[i].y) * shift.y,clear_min_circ_sym,clear_color.c);
+        output_object(center.x + (mini_center.x - mini_circle[i].x * width) * shift.x,center.y + (mini_center.y + mini_circle[i].y) * shift.y,clear_min_circ_sym,clear_color.c);
+        output_object(center.x + (mini_center.x - mini_circle[i].x * width) * shift.x,center.y + (mini_center.y - mini_circle[i].y) * shift.y,clear_min_circ_sym,clear_color.c);
       }
     }
   }

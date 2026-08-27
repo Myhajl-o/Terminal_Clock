@@ -51,7 +51,7 @@ int main(const int argc,const char*const*argv)
 
   Second_hand second(set.get_width(),set.get_sec_color(color),set.get_bg_color(color),set.get_sec_symbols());
   Minute_hand minute(set.get_width(),set.get_min_color(color),set.get_bg_color(color),set.get_min_symbols());
-  Hour_hand hour(set.get_width(),set.get_hour_color(color),set.get_bg_color(color),set.get_hour_symbols(),set.get_show_min_circ());
+  Hour_hand hour(set.get_width(),set.get_hour_color(color),set.get_hour_symbols(),set.get_show_min_circ());
   Date_window date(set.get_width(),set.get_date_win_color(color),set.get_date_win_symbols());
   bool show_date_window = false;
 

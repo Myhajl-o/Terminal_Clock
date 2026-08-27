@@ -81,7 +81,7 @@ class Settings_clock
   Color_object wf_colors[2][3];
   Color_object sec_color[2];
   Color_object min_color[2];
-  Color_object hour_color[2][2];
+  Color_object hour_color[2][3];
   Color_object date_win_color[2][3];
 
   char*num_clock_symbol[13];

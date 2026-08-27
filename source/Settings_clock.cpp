@@ -314,9 +314,11 @@ void Settings_clock::new_settings(const bool conf)
 
   hour_color[0][0].reset(hour_back_color[0],hour_front_color[0]);
   hour_color[0][1].reset(hour_min_circ_back_color[0],hour_min_circ_front_color[0]);
-
+  hour_color[0][2] = bg_color[0];
+  
   hour_color[1][0].reset(hour_back_color[1],hour_front_color[1]);
   hour_color[1][1].reset(hour_min_circ_back_color[1],hour_min_circ_front_color[1]);
+  hour_color[1][2] = bg_color[1];
 
   date_win_color[0][0].reset(date_win_back_color1[0],date_win_front_color1[0]);
   date_win_color[0][1].reset(date_win_back_color2[0],date_win_front_color2[0]);
