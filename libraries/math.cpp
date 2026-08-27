@@ -10,6 +10,42 @@ float absolute_number(float number)
   return (number < 0) ? -number : number;
 }
 
+
+/*
+float num_to_pow(float num,short power)
+{
+    while(power > 1){num *= num;power--;}
+    return num;
+}
+
+float arctangens(float a,float b)
+{
+    static const float degree45 = 0.7853;
+    float x;
+    char flag = 0;
+    if(a>b){ x = b / a;flag = 1;}
+    else{ x = a / b;}
+    float arctan = x,temp = 1;
+    short i = 3;
+    printf("%f\n",arctan);
+    for(; temp > 0.01;i+=2)
+    {
+        temp = num_to_pow(x,i) / i;
+        arctan -= temp;
+        printf("arc:%f;t:%f;i:%d\n",arctan,temp,i);
+        i+=2;
+        temp = num_to_pow(x,i) / i;
+        arctan += temp;
+        printf("arc:%f;t:%f;i:%d\n\n",arctan,temp,i);
+    }
+    if(flag)
+    {
+        arctan = arctan + (degree45 - arctan);
+    }
+    return arctan;
+}
+*/
+
 // The Coordinate_center function is designed to calculate
 // the center of the terminal window. The function calculates
 // the center by dividing the terminal width by 2 and
