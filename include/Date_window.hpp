@@ -4,16 +4,21 @@
 #include "Color_object.hpp"
 #include "Coordinates.hpp"
 
+
+short filling_space(char*space,const char*symbol,const short count);
+
 class Date_window
 {
+  bool show_window;
+  bool correct_size;
   short width;
-  Color_object window_back_color;
-  Color_object window_front_color;
+  Color_object window_color[3];
+
   Coordinates window_size[2];
   Coordinates term_size;
-  short size_sym;
+  short size_sym[3];
   
-  char spaces[145];
+  char*spaces[3];
 
   short current_day;
   short current_wday;
@@ -44,12 +49,11 @@ class Date_window
   void draw_month();
   void draw_year();
 
-  void filling_space(const char*sym);
 
   public:
 
-  Date_window(const short wi,const Color_object*wind_c,const char*sym);
-  void update(const Coordinates term_siz,const Color_object*wind_c);
+  Date_window(const short wi,const Color_object*wind_c,const char*const*sym);
+  void update(const bool show_win,const Coordinates term_siz,const Color_object*wind_c);
   void draw();
   void clear();
   ~Date_window();

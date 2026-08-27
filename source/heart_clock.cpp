@@ -1,8 +1,9 @@
+#include "Date_window.hpp"
 #include "Hour-hand.hpp"
 #include "Minute-hand.hpp"
 #include "Second-hand.hpp"
+
 #include "bg_string.hpp"
-//  #include "date.hpp"
 #include "Coordinates.hpp"
 #include "Settings_clock.hpp"
 #include "background.hpp"
@@ -51,7 +52,8 @@ int main(const int argc,const char*const*argv)
   Second_hand second(set.get_width(),set.get_sec_color(color),set.get_bg_color(color),set.get_sec_symbols());
   Minute_hand minute(set.get_width(),set.get_min_color(color),set.get_bg_color(color),set.get_min_symbols());
   Hour_hand hour(set.get_width(),set.get_hour_color(color),set.get_bg_color(color),set.get_hour_symbols(),set.get_show_min_circ());
-  bool temp;
+  Date_window date(set.get_width(),set.);
+  bool show_date_window = false;
 
   setting_term_mode(true);
   hide_cursor(true);
@@ -60,7 +62,7 @@ int main(const int argc,const char*const*argv)
   bg_string canvas(term_size.x,set.get_bg_symbol());
   bg_string cleaner(term_size.x,clear_sym);
 
-  while (!check_buffer(temp, color))
+  while (!check_buffer(show_date_window, color))
   {
     get_term_size(term_size);
     if(flag)
