@@ -1,14 +1,49 @@
 #include "math.hpp"
 #include "Coordinates.hpp"
-#include <cmath>
 #include <vector>
 
-const float convert = 180.0f / M_PI;
+#define convert 180.0f / 3.1415f
 
 float absolute_number(float number)
 {
   return (number < 0) ? -number : number;
 }
+
+
+double simple_pow(double num,short power)
+{
+    double result = num;
+    while(power > 1){result *= num;power--;}
+    return result;
+}
+
+float arctan(short a,short b)
+{
+    static const double degree45 = 0.785398;
+    double x,arctan,temp;
+    
+    bool flag = false;
+    bool sub = true;
+    
+    if(a>b){ x = (double)b / (double)a;flag = true;}
+    else{ x = (double)a / (double)b;}
+    
+    arctan = x;
+    temp = 1;
+    short i = 3;
+    for(; temp > 0.0001 && i < 100;i+=2,sub = !sub)
+    {
+        temp = simple_pow(x,i) / i;
+        if(sub)arctan -= temp;
+        else arctan += temp;
+    }
+    if(flag)
+    {
+        arctan = degree45 + (degree45 - arctan);
+    }
+    return (float)arctan;
+}
+
 
 // The Coordinate_center function is designed to calculate
 // the center of the terminal window. The function calculates
@@ -150,7 +185,7 @@ void Coordinate_upgrade(std::vector<Coordinates> &circle,const short width)
 //
 // This function is used in the watch_face.cpp and
 // Second-hand.cpp files.
-void Coordinate_degree(Coordinates &tick_element,const short degree,const std::vector<Coordinates> &circle)
+void Coordinate_degree(Coordinates &tick_element,const short degree,const std::vector<Coordinates> &circle,const short width)
 {
   float difference[2];
   unsigned short i;
@@ -167,11 +202,11 @@ void Coordinate_degree(Coordinates &tick_element,const short degree,const std::v
     i = circle.size() >> 1;
   }
 
-  difference[0] = absolute_number(degree - (convert * std::atan2((float)circle[1].x,(float)circle[1].y * 2)));
+  difference[0] = absolute_number(degree - (convert * arctan(circle[1].x,circle[1].y * width)));
 
   while(i < circle.size())
   {
-    difference[1] = absolute_number(degree - (convert * std::atan2((float)circle[i].x,(float)circle[i].y * 2)));
+    difference[1] = absolute_number(degree - (convert * arctan(circle[i].x,circle[i].y * width)));
     if (difference[0] < difference[1])
     {
       tick_element = circle[i - 1];
@@ -182,21 +217,21 @@ void Coordinate_degree(Coordinates &tick_element,const short degree,const std::v
   }
 }
 
-void Coordinate_circle_degrees(Coordinates *ticks,const std::vector<Coordinates>&circle)
+void Coordinate_circle_degrees(Coordinates *ticks,const std::vector<Coordinates>&circle,const short width)
 {
   float difference[2];
   static const short degrees[14] = {6,12,18,24,30,36,42,48,54,60,66,72,78,84};
   short i_deg = 0;
-  difference[0] = absolute_number(degrees[0] - (convert * std::atan2((float)circle[1].x,(float)circle[1].y * 2)));
+  difference[0] = absolute_number(degrees[0] - (convert * arctan(circle[1].x,circle[1].y * width)));
 
   for(unsigned short i = 2; i < circle.size() && i_deg < 14; i++)
   {
-    difference[1] = absolute_number(degrees[i_deg] - (convert * std::atan2((float)circle[i].x,(float)circle[i].y * 2)));
+    difference[1] = absolute_number(degrees[i_deg] - (convert * arctan(circle[i].x,circle[i].y * width)));
     if(difference[0] < difference[1])
     {
       ticks[i_deg] = circle[i - 1];
       i_deg++;
-      difference[0] = absolute_number(degrees[i_deg] - (convert * std::atan2((float)circle[i].x,(float)circle[i].y * 2)));
+      difference[0] = absolute_number(degrees[i_deg] - (convert * arctan(circle[i].x,circle[i].y * width)));
     }
     else
     {

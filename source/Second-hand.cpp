@@ -34,7 +34,7 @@ void Second_hand::update(const Coordinates &new_size,const Color_object draw_c,c
   Calculation_radius(radius, 3, center,width);
   Coordinates_circle(circle_second,radius);
   Coordinate_upgrade(circle_second,width);
-  Coordinate_circle_degrees(second_tick,circle_second);
+  Coordinate_circle_degrees(second_tick,circle_second,width);
 }
 
 // The second_update method of the Second_hand class retrieves data about

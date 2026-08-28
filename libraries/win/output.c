@@ -53,6 +53,19 @@ void move_to_time_format(short num, char*msg,short*i_msg)
   for(; j < (6 - i); j++)msg[(*i_msg)++] = s[i + j + 1];
 }
 
+short filling_space(char*space,const char*symbol,const short count)
+{
+  short size_sym = symbol[5];
+  short all_size = count * size_sym;
+  short i = 0, j = 0;
+  for(; i < all_size; i++, j++)
+  {
+    if(j == size_sym) j = 0 ;
+    space[i] = symbol[j];
+  }
+  space[all_size] = '\0';
+  return size_sym;
+}
 
 void output_error(const short error)
 {
