@@ -1,3 +1,12 @@
+/* This is a parsing library that implements functions for parsing data as well as utility functions.
+ * It has two main functions: the first is for reading the configuration file and populating
+ * the arrays passed to it with values. The second function is designed to compare values in the
+ * main; it determines which flag was used to launch the program.
+ *
+ * The library is used in the Settings_clock.cpp file and in the heart_clocki.cpp file*/ 
+
+
+
 #include "parsing.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -5,7 +14,7 @@
 /* The skip_to_next_line function searches for a newline character
  * in the provided character buffer, starting from the current index.
  *
- * This function is used in the parsing_conf function. */
+ * This function is not used anywhere :( */
 void skip_to_next_line(char*buffer,int*i_buf,const int all_size)
 {
   while(*i_buf < all_size)
@@ -86,7 +95,7 @@ short check_size_symbol(const char c)
  * each byte and populates the passed arrays according to their size. 
  * While the underlying parsing logic is quite trivial, it is highly optimized.
  *
- * This function is used in the main.cpp file. */
+ * This function is used in the Settings_clock.cpp file. */
 char parsing_conf(short**numbers,char**symbols,const short size_num,const short size_sym,short*error)
 {
   const short size_buffer = 16384;
@@ -218,7 +227,7 @@ char comparisons(const char*arg1,const char*arg2)
  * at least one flag. The function writes to the `flag` pointer
  * the index of the flag to which the second element is equal.
 
- * The function is used in the `main.cpp` file.*/
+ * The function is used in the `heart_clock.cpp` file.*/
 char parsing_main(short *flag,const char* const*argv)
 {
   const char*flags[6] = {"-static","-help","-name","-raw","-test","-version"};

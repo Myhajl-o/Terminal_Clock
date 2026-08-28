@@ -1,15 +1,29 @@
+/*
+ * This library implements absolutely everything related to output.
+ * Even features that are only indirectly related to output. For example, functions for converting
+ * numbers to characters and filling an array with characters. The functions in this library
+ * allow you to set the position and specify the color of
+ * the characters being output.
+ *
+ * The library is very flexible, so to output data, you need to pass a pointer to
+ * the file where the code should be written, which allows you to output not only to the terminal, 
+ * but essentially anywhere.*/ 
+
+
+
+
 #include "output.h"
 #include "Colors.h"
 #include <stdio.h>
 
-/* The `move_to_char` function converts an integer
+/* The move_to_char function converts an integer
  * into an array of characters. It takes as its last
  * argument a pointer to the array index where
  * the characters should be written. This allows for flexible appending
  * of characters to an array that already contains characters.
-
- * The function is used in the `set_cursor` and
- * `set_color` functions, as well as in the `addition_functional.cpp` file. */
+ *
+ * The function is used in the set_cursor and
+ * set_color functions, as well as in the addition_functional.cpp file. */
 void move_to_char(short num, char*msg,short*i_msg)
 {
   char s[6];
@@ -33,14 +47,15 @@ void move_to_char(short num, char*msg,short*i_msg)
   for(; j < (5 - i); j++)msg[(*i_msg)++] = s[i + j + 1];
 }
 
-/* The `move_to_time_format` function converts an integer
+/* The move_to_time_format function converts an integer
  * into a character array. It takes as its last
  * argument a pointer to the array index where
  * the characters should be written. This allows for flexible appending
  * of characters to an array that already contains characters. It also
  * adds a zero if the number has an odd number of digits.
-
- * The function is used in the addition_functional.cpp file.*/
+ *
+ * The function is used in the addition_functional.cpp and
+ * Date_window.cpp files.*/
 void move_to_time_format(short num, char*msg,short*i_msg)
 {
   char s[7];
@@ -67,6 +82,12 @@ void move_to_time_format(short num, char*msg,short*i_msg)
   for(; j < (6 - i); j++)msg[(*i_msg)++] = s[i + j + 1];
 }
 
+/*
+ * The filling_space function fills an array of characters with a specific
+ * character and appends a null terminator at the end. It is
+ * necessary because characters do not always occupy 1 byte.
+ *
+ * The function is used in the files watch_face.cpp and Hour-hand.cpp*/
 short filling_space(char*space,const char*symbol,const short count)
 {
   short size_sym = symbol[5];
@@ -82,6 +103,12 @@ short filling_space(char*space,const char*symbol,const short count)
 }
 
 
+/*
+ * The `output_error` function outputs the code and description of an error that occurred while
+ * reading the configuration file. It writes the message to the `error_conf` file, which
+ * is located in the same directory as `clock.conf`.
+ *
+ * The function is used in the `Settings_clock.cpp` file.*/
 void output_error(const short error)
 {
   FILE*err_f = fopen(ERROR_CONF,"w");
@@ -104,12 +131,12 @@ void output_error(const short error)
 }
 
 
-/*The `clear_term` function clears the terminal of all other
+/*The clear_term function clears the terminal of all other
  * colors and sets the colors to their
  * default values in the terminal.
-
- * This function is used within the `full_clear_term` function
- * and is defined in the `main.cpp` file.*/
+ *
+ * This function is used within the full_clear_term function
+ * and is defined in the heart_clock.cpp file.*/
 void clear_term()
 {
   static const char*esc_clear = "\033[0m\0";
@@ -121,7 +148,7 @@ void clear_term()
  * of characters, and moves the cursor to the beginning
  * of the terminal, using escape codes.
  *
- * The function is used in the main.cpp file. */
+ * The function is used in the heart_clock.cpp file. */
 void full_clear_term(const short y,const char*spaces)
 {
   short i = 1;
@@ -137,7 +164,7 @@ void full_clear_term(const short y,const char*spaces)
 /* The hide_cursor function hides the terminal cursor
  * using escape codes.
  *
- * The function is used in the main.cpp file. */
+ * The function is used in the heart_clock.cpp file. */
 void hide_cursor(const char hide)
 {
   static char esc_cursor[8] = "\033[?25l\0";
@@ -179,8 +206,8 @@ void set_color(const Colors color)
  * output function for this utility. The function prints elements from
  * a char array to specific terminal locations using specific colors.
  *
- * It is used in the following files: main.cpp, background.cpp, 
- * watch_face.cpp, and Second-hand.cpp. */
+ * It is used in the following files: background.cpp, watch_face.cpp, 
+ * Second-hand.cpp, Minute-hand.cpp, Hour-hand.cpp and Date_window.cpp. */
 void output_object(const short x,const short y, const char *symbols,const Colors color)
 {
   set_cursor(x,y);
@@ -188,14 +215,14 @@ void output_object(const short x,const short y, const char *symbols,const Colors
   output_symbols(symbols,stdout);
 }
 
-/*The `output_symbols` function is highly optimized.
+/*The output_symbols function is highly optimized.
  * It uses a simple C function that is very straightforward
  * and highly optimized. Essentially, it is simply a function that
  * outputs symbols to the terminal.
  *
- * The function is used in the functions `full_clear_term`, `hide_cursor`,
- * `set_cursor`, `set_color`, and `output_object`, as well as in the file 
- * `addition_functional.cpp`.*/
+ * The function is used in the functions full_clear_term, hide_cursor,
+ * set_cursor, set_color, and output_object, as well as in the file 
+ * addition_functional.cpp.*/
 void output_symbols(const char*symbols,FILE*out)
 {
   fputs(symbols,out);

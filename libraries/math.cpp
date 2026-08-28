@@ -1,15 +1,40 @@
+/*
+ * The math.cpp file is the math library for this project. It implements, from scratch and without using
+ * any third-party code, all the necessary mathematical functions required by this project. Specifically,
+ * it includes a function for calculating the arctangent, a function for calculating an array of coordinates
+ * for drawing a circle, a function to find the coordinate closest to a specific degree, and a function
+ * to calculate an array of coordinates for a line segment. This library demonstrates how to implement
+ * these functions in code.
+ *
+ * Virtually all the functions here are well-optimized, which is a huge advantage, since this utility
+ * needs to run very quickly.
+ *
+ * ! This library is tailored specifically for this project; in order to
+ * use it elsewhere, it must be adapted to specific needs as required.*/
+
+
+
+
+
 #include "math.hpp"
 #include "Coordinates.hpp"
 #include <vector>
 
 #define convert 180.0f / 3.1415f
 
-float absolute_number(float number)
+inline float absolute_number(float number)
 {
   return (number < 0) ? -number : number;
 }
 
 
+// The simple_pow function calculates a fractional number
+// raised to an integer power.
+//
+// ! This function is not intended for calculating fractional
+// or negative powers.
+//
+// This function is used in the arctan function.
 double simple_pow(double num,short power)
 {
     double result = num;
@@ -17,6 +42,14 @@ double simple_pow(double num,short power)
     return result;
 }
 
+
+// The arctan function is a manual implementation in code
+// of the standard trigonometric function arctangent.
+// It uses
+// Taylor series to compute the arctangent.
+
+// The function is used in the Coordinate_degree and
+// Coordinate_circle_degrees functions.
 float arctan(short a,short b)
 {
     static const double degree45 = 0.785398;
@@ -26,12 +59,12 @@ float arctan(short a,short b)
     bool sub = true;
     
     if(a>b){ x = (double)b / (double)a;flag = true;}
+    else if(a==b){return (float)degree45;}
     else{ x = (double)a / (double)b;}
     
     arctan = x;
     temp = 1;
-    short i = 3;
-    for(; temp > 0.0001 && i < 100;i+=2,sub = !sub)
+    for(short i = 3; temp > 0.0001 && i < 100;i+=2,sub = !sub)
     {
         temp = simple_pow(x,i) / i;
         if(sub)arctan -= temp;
@@ -50,11 +83,9 @@ float arctan(short a,short b)
 // the center by dividing the terminal width by 2 and
 // dividing the terminal height by 2.
 //
-// The function returns nothing, and writes the result
-// into the variable passed to the function by reference.
-//
-// This function is used in the watch_face.cpp and
-// Second-hand.cpp files.
+// This function is used in the watch_face.cpp,
+// Second-hand.cpp, Minute-hand.cpp, Hour-hand.cpp
+// and Date_window.cpp files.
 void Coordinate_center(Coordinates &center, const Coordinates &size)
 {
   center.reset(size.x / 2, size.y / 2);
@@ -67,11 +98,9 @@ void Coordinate_center(Coordinates &center, const Coordinates &size)
 // the circle drawn using this radius fits exactly into the
 // terminal window.
 //
-// The function returns nothing, and writes the result
-// into the variable passed to the function by reference.
-//
-// This function is used in the watch_face.cpp and
-// Second-hand.cpp files.
+// This function is used in the watch_face.cpp,
+// Second-hand.cpp, Minute-hand.cpp, Hour-hand
+// and Date_window.cpp files.
 void Calculation_radius(short &radius, short backdown, const Coordinates &center,const short width)
 {
   if (center.x < (center.y * width))
@@ -95,11 +124,8 @@ void Calculation_radius(short &radius, short backdown, const Coordinates &center
 // reflecting the previous coordinates that were
 // obtained using Bresenham's algorithm.
 //
-// The function returns nothing, and writes the result
-// into the variable passed to the function by reference.
-//
-// This function is used in the watch_face.cpp and
-// Second-hand.cpp files.
+// This function is used in the watch_face.cpp,
+// Second-hand.cpp, Minute-hand.cpp and Hour-hand.cpp files.
 void Coordinates_circle(std::vector<Coordinates> &circle,const short radius)
 {
   circle.clear();
@@ -138,11 +164,8 @@ void Coordinates_circle(std::vector<Coordinates> &circle,const short radius)
 //! The function is designed for an array of 1/4 circle coordinates;
 // if anything else is passed to it, the result may be incorrect.
 //
-// The function returns nothing, and writes the result
-// into the variable passed to the function by reference.
-//
-// This function is used in the watch_face.cpp and
-// Second-hand.cpp files.
+// This function is used in the watch_face.cpp
+// Second-hand.cpp, Minute-hand.cpp and Hour-hand.cpp files.
 void Coordinate_upgrade(std::vector<Coordinates> &circle,const short width)
 {
   if(width == 1)
@@ -180,11 +203,7 @@ void Coordinate_upgrade(std::vector<Coordinates> &circle,const short width)
 // ! The function is designed for an array of 1/4 circle coordinates;
 // if anything else is passed to it, the result may be incorrect.
 //
-// The function returns nothing, and writes the result
-// into the variable passed to the function by reference.
-//
-// This function is used in the watch_face.cpp and
-// Second-hand.cpp files.
+// This function is used in the Hour-hand.cpp file.
 void Coordinate_degree(Coordinates &tick_element,const short degree,const std::vector<Coordinates> &circle,const short width)
 {
   float difference[2];
@@ -217,6 +236,14 @@ void Coordinate_degree(Coordinates &tick_element,const short degree,const std::v
   }
 }
 
+
+// The Coordinate_circle_degrees function calculates the nearest coordinates
+// of a 1/4 circle that are closest in degrees to where the numbers
+// are positioned on the watch face. In other words, it takes a pre-computed 
+// array of coordinates and iterates through it to find the coordinates, 
+// which are then used to draw the hands or numbers.
+//
+// The function is used in the files watch_face.cpp, Second-hand.cpp, and Minute-hand.cpp.
 void Coordinate_circle_degrees(Coordinates *ticks,const std::vector<Coordinates>&circle,const short width)
 {
   float difference[2];
@@ -252,10 +279,8 @@ void Coordinate_circle_degrees(Coordinates *ticks,const std::vector<Coordinates>
 // using Bresenham's line algorithm.
 // The function is used in drawing watch hands.
 //
-// The function returns nothing, and writes the result
-// into the variable passed to the function by reference.
-//
-// The function is used in the Second-hand.cpp file.
+// The function is used in the Second-hand.cpp,
+// Minute-hand.cpp and Hour-hand.cpp files.
 void Coordinates_line(std::vector<Coordinates> &line,const Coordinates &B)
 {
   line.clear();

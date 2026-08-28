@@ -1,3 +1,16 @@
+/* The Settings_clock.cpp file implements the methods of the Settings_clock class.
+ * This class serves both as a data store and as a bridge between the configuration file
+ * and the program’s main logic. Several things happen within it: first,
+ * it populates arrays of pointers to internal fields for passing to
+ * the parsing_conf function. Second, after that function, a validity check is performed;
+ * if the check fails, default values are set.
+ * Variables are passed to the main program logic using getter methods.
+ *
+ * The Settings_clock class is used in the heart_clock.cpp file.*/
+
+
+
+
 #include "Settings_clock.hpp"
 #include "Color_object.hpp"
 #include "parsing.h"
