@@ -30,8 +30,8 @@ void Hour_hand::update(const Coordinates &new_size,const Color_object*draw_c,con
   Calculation_radius(radius, 5, center,width);
   Coordinates_circle(circle_hour,radius);
   Coordinate_upgrade(circle_hour,width);
-  Coordinate_degree(hour_tick[0],30,circle_hour);
-  Coordinate_degree(hour_tick[1],60,circle_hour);
+  Coordinate_degree(hour_tick[0],30,circle_hour,width);
+  Coordinate_degree(hour_tick[1],60,circle_hour,width);
 
   if(show_mini_circle)
   {
@@ -40,8 +40,8 @@ void Hour_hand::update(const Coordinates &new_size,const Color_object*draw_c,con
     calculation_size_mini_circle(new_size);
     Coordinates_circle(temp_circle,mini_shift);
     Coordinate_upgrade(temp_circle,width);
-    Coordinate_degree(mini_tick[0],30,temp_circle);
-    Coordinate_degree(mini_tick[1],60,temp_circle);
+    Coordinate_degree(mini_tick[0],30,temp_circle,width);
+    Coordinate_degree(mini_tick[1],60,temp_circle,width);
   }
 }
 

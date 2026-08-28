@@ -17,7 +17,7 @@
 
 #include <unistd.h>
 
-bool correct_term_size(const Coordinates &size,const short width)
+inline bool correct_term_size(const Coordinates &size,const short width)
 {
   static const short min = 15,max = 1024;
   return (size.x > (min * width) && size.y > min && size.x < (max * width) && size.y < max);

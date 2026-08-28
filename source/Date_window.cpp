@@ -164,7 +164,7 @@ void Date_window::draw_wday()
 {
   if(update_wday() || drawing)
   {
-    static const char*day_week[7] = {"Monday\0",
+    static char const*day_week[7] = {"Monday\0",
                                      "Tuesday\0",
                                      "Wednesday\0",
                                      "Thursday\0",

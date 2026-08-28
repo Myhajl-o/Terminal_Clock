@@ -27,7 +27,7 @@ void Minute_hand::update(const Coordinates &new_size,const Color_object draw_c,c
   Calculation_radius(radius, 4, center,width);
   Coordinates_circle(circle_minute,radius);
   Coordinate_upgrade(circle_minute,width);
-  Coordinate_circle_degrees(minute_tick,circle_minute);
+  Coordinate_circle_degrees(minute_tick,circle_minute,width);
 }
 
 
