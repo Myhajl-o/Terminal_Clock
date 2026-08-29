@@ -228,6 +228,7 @@ void Settings_clock::default_settings()
   hour_min_circ_front_color[1] = black_front;
 
   hour_min_circ_symbol[0] = ' ';
+  hour_min_circ_symbol[5] = 1;
 
   show_min_circ = 1;
 
@@ -241,7 +242,9 @@ void Settings_clock::default_settings()
   date_win_front_color2[1] = white_front;
 
   date_win_symbol1[0] = ' ';
+  date_win_symbol1[5] = 1;
   date_win_symbol2[0] = ' ';
+  date_win_symbol2[5] = 1;
 
   for(short i = 0; i < size_sym; i++ )
   {
