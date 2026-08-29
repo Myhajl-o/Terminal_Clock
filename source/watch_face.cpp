@@ -96,7 +96,7 @@ void draw_numbers(const Coordinates &center, const Coordinates *tick, const std:
 // the ready watch face, which is adapted to the size
 // of the terminal.
 //
-// The function is used in the main.cpp file.
+// The function is used in the heart_clock.cpp file.
 void draw_watch_face(const Coordinates &size,const short width,const Color_object*colors,const char*circ_sym,const char* const*num_sym,const short*num_shift)
 {
   Coordinates center;

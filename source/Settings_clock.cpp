@@ -1,3 +1,16 @@
+/* The Settings_clock.cpp file implements the methods of the Settings_clock class.
+ * This class serves both as a data store and as a bridge between the configuration file
+ * and the program’s main logic. Several things happen within it: first,
+ * it populates arrays of pointers to internal fields for passing to
+ * the parsing_conf function. Second, after that function, a validity check is performed;
+ * if the check fails, default values are set.
+ * Variables are passed to the main program logic using getter methods.
+ *
+ * The Settings_clock class is used in the heart_clock.cpp file.*/
+
+
+
+
 #include "Settings_clock.hpp"
 #include "Color_object.hpp"
 #include "parsing.h"
@@ -215,6 +228,7 @@ void Settings_clock::default_settings()
   hour_min_circ_front_color[1] = black_front;
 
   hour_min_circ_symbol[0] = ' ';
+  hour_min_circ_symbol[5] = 1;
 
   show_min_circ = 1;
 
@@ -228,7 +242,9 @@ void Settings_clock::default_settings()
   date_win_front_color2[1] = white_front;
 
   date_win_symbol1[0] = ' ';
+  date_win_symbol1[5] = 1;
   date_win_symbol2[0] = ' ';
+  date_win_symbol2[5] = 1;
 
   for(short i = 0; i < size_sym; i++ )
   {

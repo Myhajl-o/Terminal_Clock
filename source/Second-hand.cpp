@@ -21,9 +21,7 @@ Second_hand::Second_hand(const short wi,const Color_object draw_c,const Color_ob
 // relative to the new size, and calculates some of them
 // for the correct output of the second hand.
 //
-// The method returns nothing, and only takes constant data.
-//
-// The method is used in the main.cpp file.
+// The method is used in the heart_clock.cpp file.
 void Second_hand::update(const Coordinates &new_size,const Color_object draw_c,const Color_object clear_c)
 {
   draw_color = draw_c;
@@ -42,8 +40,6 @@ void Second_hand::update(const Coordinates &new_size,const Color_object draw_c,c
 // It is used as an internal indicator that the state of the
 // second hand needs to be updated.
 //
-// The method returns a bool value and takes a bool value.
-//
 // The method is used in the draw method.
 bool Second_hand::second_update(bool flag)
 {
@@ -58,8 +54,6 @@ bool Second_hand::second_update(bool flag)
 // The calculation_coordinate_line method of the Second_hand class
 // calculates the coordinates for drawing the hand, which during the calculation
 // are adapted to a full circle.
-//
-// The method returns nothing and takes no arguments.
 //
 // The method is used in the draw method.
 void Second_hand::calculation_coordinate_line()
@@ -92,8 +86,6 @@ void Second_hand::calculation_coordinate_line()
 
 // The current_symbol method of the Second_hand class determines the specific
 // symbol for a specific coordinate of the second hand.
-//
-// The method returns nothing, and only takes a constant value.
 //
 // The method is used in the draw method.
 short Second_hand::current_symbol(const unsigned short &i)
@@ -129,9 +121,7 @@ short Second_hand::current_symbol(const unsigned short &i)
 // every time the second changes, when the size of the terminal
 // window changes, and when the output color changes.
 //
-// The method returns nothing and takes no arguments.
-//
-// The method is used in the main.cpp file.
+// The method is used in the heart_clock.cpp file.
 void Second_hand::draw()
 {
   if (second_update(true) || drawing)
@@ -155,9 +145,7 @@ void Second_hand::draw()
 // second changes, but not immediately after the terminal
 // size or its color has changed.
 //
-// The method returns nothing and takes no arguments.
-//
-// The method is used in the main.cpp file.
+// The method is used in the heart_clock.cpp file.
 void Second_hand::clear()
 {
   if (second_update(false) && clearing)

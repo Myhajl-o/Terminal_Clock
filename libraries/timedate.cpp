@@ -1,5 +1,16 @@
+/* A very simple timedate library, created with a single goal in mind:
+ * to make it easier to access the current time in a project.
+ * And this library successfully accomplishes its task.
+ *
+ * This library is used in the files heart_clock.cpp,
+ * Second-hand.cpp, Minute-hand.cpp, Hour-hand.cpp, and Date_window.cpp.*/
+
+
+
+
 #include "timedate.hpp"
 #include <ctime>
+
 
 short&cur_second()
 {

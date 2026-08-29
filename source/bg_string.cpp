@@ -1,3 +1,14 @@
+/*
+ * The bg_string.cpp file implements the methods of the bg_string class. This class serves as
+ * a container for storing characters to be displayed on the terminal.
+ *
+ * The class is used in the heart_clock.cpp file
+ */
+
+
+
+
+
 #include "bg_string.hpp"
 #include <stdlib.h>
 
@@ -11,9 +22,10 @@ void bg_string::fill_array_1b(short index)
 
 void bg_string::fill_array_234b(short index)
 {
-  for(; index < all_size; index++)
+  for(short i = 0; index < all_size; index++,i++)
   {
-    spaces[index] = symbol[index%size_sym];
+    if(i == size_sym) i = 0;
+    spaces[index] = symbol[i];
   }
 }
 
