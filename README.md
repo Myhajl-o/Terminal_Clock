@@ -1,3 +1,11 @@
+![Terminal_Clock](screenshots/presents_tc.gif)
+
+
+
+![YOUTUBE](https://www.youtube.com/@MykhailoMosiychuk)
+
+
+
 # Main Description
 
 This project is a terminal utility. It displays a clock face, hands
@@ -71,153 +79,87 @@ visually interesting solutions.
 
 
 Terminal_clock/
-
-
 ├── README.md
-
 ├── .gitignore
-
 ├── CMakeLists.txt
-
 │
-
 ├── source/ 
-
 │ ├── heart_clock.cpp
-
 │ ├── watch_face.cpp
-
 │ ├── bg_string.cpp
-
 │ ├── backgound.cpp
-
 │ ├── addition_functional.cpp
-
 │ ├── Settings_clock.cpp
-
 │ ├── Second-hand.cpp
-
 │ ├── Minute-hand.cpp
-
 │ ├── Hour-hand.cpp
-
 │ └── Date_window.cpp
-
 │
-
 │
-
 ├── screenshots/
-
 │ ├── tc1.png
-
 │ ├── tc2...10.png
-
 │ └── tc11.png
-
 │
-
 │
-
 ├── libreries/
-
 │ ├── math.cpp
-
 │ ├── parsing.c
-
 │ ├── timedate.cpp
-
 │ ├── win/
-
 │ │ ├── output.c
-
 │ │ └── input.cpp
-
 │ └── linux/
-
 │ ├── output.c
-
 │ └── input.cpp
-
 │
-
 │
-
 ├── include/ 
-
 │ ├── watch_face.hpp
-
 │ ├── timedate.hpp
-
 │ ├── parsing.h
-
 │ ├── output.h
-
 │ ├── math.hpp
-
 │ ├── input.hpp
-
 │ ├── bg_string.hpp
-
 │ ├── background.hpp
-
 │ ├── addition_functional.hpp
-
 │ ├── Settings_clock.hpp
-
 │ ├── Second-hand.hpp
-
 │ ├── Minute-hand.hpp
-
 │ ├── Hour-hand.hpp
-
 │ ├── Date_window.hpp
-
 │ ├── Coordinates.hpp
-
 │ ├── Colors.h
-
 │ └── Color_object.hpp
-
 │
-
 ├── diagrams/
-
 │ ├── main/
-
 │ │ └── main.drawio
-
 │ │
-
 │ ├── math/
-
 │ │ ├── arctan.drawio
-
 │ │ ├── Coordinates_line.drawio
-
 │ │ ├── Coordinates_degree.drawio
-
 │ │ ├── Coordinates_circle.drawio
-
 │ │ ├── Coordinates_update.drawio
-
 │ │ └── Coordinates-degrees.drawio
-
 │ │
-
 │ └── parsing/
-
 │ ├── parsing.drawio
-
 │ └──main_parsing.drawio
-
 │
+├── configuration/
+│ ├── error_conf
+│ └── clock.conf
+│
+└── build/
+  ├── lib_timedate_lib.so
+  ├── lib_parsing_lib.so
+  ├── lib_output_lib.so
+  ├── lib_input_lib.so
+  └── clock
 
-└── configuration/
-
-├── error_conf
-
-└── clock.conf
 
 
 # Parsing
@@ -274,9 +216,9 @@ the error_conf file, along with a full description of the error.
 
 # Tests and build
 
- * arch linux - 
+ * arch linux - https://youtu.be/T07ebnZFw9o?si=wGcnoQKkafVm05l3
 
- * windows 10 - 
+ * windows 10 - https://youtu.be/AYZ9I9sbEGo?si=hdLXDLdpCDwh5s-S
 
  * windows 7 64bit - 
 
@@ -319,10 +261,10 @@ and had nothing to do with the configuration file.
 
 This project uses
 
-the C++98 standard
+ * the C++98 standard
 
-the C90 standard
+ * the C90 standard
 
-CMake version 3.10
+ * CMake version 3.10
 
 ### AI WAS NOT USED AT ANY STAGE OF THE PROJECT'S DEVELOPMENT
