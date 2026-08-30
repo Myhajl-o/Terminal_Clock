@@ -189,8 +189,8 @@ void Hour_hand::draw()
       {
         output_object(center.x + (mini_center.x + mini_circle[i].x * width) * shift.x,center.y + (mini_center.y - mini_circle[i].y) * shift.y,min_circ_sym,mini_circle_color.c);
         output_object(center.x + (mini_center.x + mini_circle[i].x * width) * shift.x,center.y + (mini_center.y + mini_circle[i].y) * shift.y,min_circ_sym,mini_circle_color.c);
-        output_object(center.x + (mini_center.x - mini_circle[i].x * width) * shift.x,center.y + (mini_center.y + mini_circle[i].y) * shift.y,min_circ_sym,mini_circle_color.c);
-        output_object(center.x + (mini_center.x - mini_circle[i].x * width) * shift.x,center.y + (mini_center.y - mini_circle[i].y) * shift.y,min_circ_sym,mini_circle_color.c);
+        output_object(center.x + (mini_center.x - mini_circle[i].x * width) * shift.x - (width - 1),center.y + (mini_center.y + mini_circle[i].y) * shift.y,min_circ_sym,mini_circle_color.c);
+        output_object(center.x + (mini_center.x - mini_circle[i].x * width) * shift.x - (width - 1),center.y + (mini_center.y - mini_circle[i].y) * shift.y,min_circ_sym,mini_circle_color.c);
       }
     }
     clearing = true;
@@ -213,8 +213,8 @@ void Hour_hand::clear()
       {
         output_object(center.x + (mini_center.x + mini_circle[i].x * width) * shift.x,center.y + (mini_center.y - mini_circle[i].y) * shift.y,clear_min_circ_sym,clear_color.c);
         output_object(center.x + (mini_center.x + mini_circle[i].x * width) * shift.x,center.y + (mini_center.y + mini_circle[i].y) * shift.y,clear_min_circ_sym,clear_color.c);
-        output_object(center.x + (mini_center.x - mini_circle[i].x * width) * shift.x,center.y + (mini_center.y + mini_circle[i].y) * shift.y,clear_min_circ_sym,clear_color.c);
-        output_object(center.x + (mini_center.x - mini_circle[i].x * width) * shift.x,center.y + (mini_center.y - mini_circle[i].y) * shift.y,clear_min_circ_sym,clear_color.c);
+        output_object(center.x + (mini_center.x - mini_circle[i].x * width) * shift.x - (width - 1),center.y + (mini_center.y + mini_circle[i].y) * shift.y,clear_min_circ_sym,clear_color.c);
+        output_object(center.x + (mini_center.x - mini_circle[i].x * width) * shift.x - (width - 1),center.y + (mini_center.y - mini_circle[i].y) * shift.y,clear_min_circ_sym,clear_color.c);
       }
     }
   }
