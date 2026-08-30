@@ -1,18 +1,27 @@
 ![Terminal_Clock](screenshots/presents_tc.gif)
 
 
-[![youtube](/screenshots/youtube_button.png)](https://www.youtube.com/@MykhailoMosiychuk)
-[![releases](/screenshots/releases_button.png)](https://github.com/Myhajl-o/Terminal_Clock/releases)
-[![main](/screenshots/Main_Description.png)](https://github.com/Myhajl-o/Terminal_Clock/tree/rework#main-description)
-[![phi](/screenshots/Philosiphy_button.png)](https://github.com/Myhajl-o/Terminal_Clock/tree/rework#concept-meaning-philosophy-and-end-user)
-[![mech](/screenshots/Mechanics_button.png)](https://github.com/Myhajl-o/Terminal_Clock/tree/rework#project-mechanics)
-[![str](/screenshots/Structure_button.png)](https://github.com/Myhajl-o/Terminal_Clock/tree/rework#project-structure)
-[![par](/screenshots/Parsing_button.png)](https://github.com/Myhajl-o/Terminal_Clock/tree/rework#parsing)
-[![test](/screenshots/Tests_button.png)](https://github.com/Myhajl-o/Terminal_Clock/tree/rework#tests-and-build)
+[![](/screenshots/youtube_button.png)](https://www.youtube.com/@MykhailoMosiychuk)
 
-[![bug](/screenshots/Bugs_button.png)](https://github.com/Myhajl-o/Terminal_Clock/tree/rework#top-bugs-of-all-time)
-[![futu](/screenshots/Future_prog_button.png)](https://github.com/Myhajl-o/Terminal_Clock/tree/rework#the-future-of-the-project)
-[![stack](/screenshots/Stack_tec_button.png)](https://github.com/Myhajl-o/Terminal_Clock/tree/rework#technology-stack)
+[![](/screenshots/releases_button.png)](https://github.com/Myhajl-o/Terminal_Clock/releases)
+
+[![](/screenshots/Main_Description.png)](https://github.com/Myhajl-o/Terminal_Clock/tree/rework#main-description)
+
+[![](/screenshots/Philosiphy_button.png)](https://github.com/Myhajl-o/Terminal_Clock/tree/rework#concept-meaning-philosophy-and-end-user)
+
+[![](/screenshots/Mechanics_button.png)](https://github.com/Myhajl-o/Terminal_Clock/tree/rework#project-mechanics)
+
+[![](/screenshots/Structure_button.png)](https://github.com/Myhajl-o/Terminal_Clock/tree/rework#project-structure)
+
+[![](/screenshots/Parsing_button.png)](https://github.com/Myhajl-o/Terminal_Clock/tree/rework#parsing)
+
+[![](/screenshots/Tests_button.png)](https://github.com/Myhajl-o/Terminal_Clock/tree/rework#tests-and-build)
+
+[![](/screenshots/Bugs_button.png)](https://github.com/Myhajl-o/Terminal_Clock/tree/rework#top-bugs-of-all-time)
+
+[![](/screenshots/Future_prog_button.png)](https://github.com/Myhajl-o/Terminal_Clock/tree/rework#the-future-of-the-project)
+
+[![](/screenshots/Stack_tec_button.png)](https://github.com/Myhajl-o/Terminal_Clock/tree/rework#technology-stack)
 
 
 
