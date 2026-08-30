@@ -1,8 +1,17 @@
 ![Terminal_Clock](screenshots/presents_tc.gif)
 
 
-
-![YOUTUBE](https://www.youtube.com/@MykhailoMosiychuk)
+![](/screenshots/youtube_button.png)(https://www.youtube.com/@MykhailoMosiychuk)
+![](/screenshots/releases.png)(https://github.com/Myhajl-o/Terminal_Clock/releases)
+![](/screenshots/Main_Description.png)(https://github.com/Myhajl-o/Terminal_Clock/tree/rework#main-description)
+![](/screenshots/Philosiphy_button.png)(https://github.com/Myhajl-o/Terminal_Clock/tree/rework#concept-meaning-philosophy-and-end-user)
+![](/screenshots/Mechanics_button.png)(https://github.com/Myhajl-o/Terminal_Clock/tree/rework#project-mechanics)
+![](/screenshots/Structure_button.png)(https://github.com/Myhajl-o/Terminal_Clock/tree/rework#project-structure)
+![](/screenshots/Parsing_button.png)(https://github.com/Myhajl-o/Terminal_Clock/tree/rework#parsing)
+![](/screenshots/Tests_button.png)(https://github.com/Myhajl-o/Terminal_Clock/tree/rework#tests-and-build)
+![](/screenshots/Bugs_button.png)(https://github.com/Myhajl-o/Terminal_Clock/tree/rework#top-bugs-of-all-time)
+![](/screenshots/Future_prog_button.png)(https://github.com/Myhajl-o/Terminal_Clock/tree/rework#the-future-of-the-project)
+![](/screenshots/Stack_tec_button.png)(https://github.com/Myhajl-o/Terminal_Clock/tree/rework#technology-stack)
 
 
 
@@ -77,6 +86,8 @@ visually interesting solutions.
 
 # Project Structure
 
+```
+```
 
 Terminal_clock/
 ├── README.md
@@ -84,83 +95,84 @@ Terminal_clock/
 ├── CMakeLists.txt
 │
 ├── source/ 
-│ ├── heart_clock.cpp
-│ ├── watch_face.cpp
-│ ├── bg_string.cpp
-│ ├── backgound.cpp
-│ ├── addition_functional.cpp
-│ ├── Settings_clock.cpp
-│ ├── Second-hand.cpp
-│ ├── Minute-hand.cpp
-│ ├── Hour-hand.cpp
-│ └── Date_window.cpp
+│   ├── heart_clock.cpp
+│   ├── watch_face.cpp
+│   ├── bg_string.cpp
+│   ├── backgound.cpp
+│   ├── addition_functional.cpp
+│   ├── Settings_clock.cpp
+│   ├── Second-hand.cpp
+│   ├── Minute-hand.cpp
+│   ├── Hour-hand.cpp
+│   └── Date_window.cpp
 │
 │
 ├── screenshots/
-│ ├── tc1.png
-│ ├── tc2...10.png
-│ └── tc11.png
+│   ├── tc1.png
+│   ├── tc2...10.png
+│   └── tc11.png
 │
 │
 ├── libreries/
-│ ├── math.cpp
-│ ├── parsing.c
-│ ├── timedate.cpp
-│ ├── win/
-│ │ ├── output.c
-│ │ └── input.cpp
-│ └── linux/
-│ ├── output.c
-│ └── input.cpp
+│   ├── math.cpp
+│   ├── parsing.c
+│   ├── timedate.cpp
+│   ├── win/
+│   │   ├── output.c
+│   │   └── input.cpp
+│   └── linux/
+│       ├── output.c
+│       └── input.cpp
 │
 │
 ├── include/ 
-│ ├── watch_face.hpp
-│ ├── timedate.hpp
-│ ├── parsing.h
-│ ├── output.h
-│ ├── math.hpp
-│ ├── input.hpp
-│ ├── bg_string.hpp
-│ ├── background.hpp
-│ ├── addition_functional.hpp
-│ ├── Settings_clock.hpp
-│ ├── Second-hand.hpp
-│ ├── Minute-hand.hpp
-│ ├── Hour-hand.hpp
-│ ├── Date_window.hpp
-│ ├── Coordinates.hpp
-│ ├── Colors.h
-│ └── Color_object.hpp
+│   ├── watch_face.hpp
+│   ├── timedate.hpp
+│   ├── parsing.h
+│   ├── output.h
+│   ├── math.hpp
+│   ├── input.hpp
+│   ├── bg_string.hpp
+│   ├── background.hpp
+│   ├── addition_functional.hpp
+│   ├── Settings_clock.hpp
+│   ├── Second-hand.hpp
+│   ├── Minute-hand.hpp
+│   ├── Hour-hand.hpp
+│   ├── Date_window.hpp
+│   ├── Coordinates.hpp
+│   ├── Colors.h
+│   └── Color_object.hpp
 │
 ├── diagrams/
-│ ├── main/
-│ │ └── main.drawio
-│ │
-│ ├── math/
-│ │ ├── arctan.drawio
-│ │ ├── Coordinates_line.drawio
-│ │ ├── Coordinates_degree.drawio
-│ │ ├── Coordinates_circle.drawio
-│ │ ├── Coordinates_update.drawio
-│ │ └── Coordinates-degrees.drawio
-│ │
-│ └── parsing/
-│ ├── parsing.drawio
-│ └──main_parsing.drawio
+│   ├── main/
+│   │   └── main.drawio
+│   │
+│   ├── math/
+│   │   ├── arctan.drawio
+│   │   ├── Coordinates_line.drawio
+│   │   ├── Coordinates_degree.drawio
+│   │   ├── Coordinates_circle.drawio
+│   │   ├── Coordinates_update.drawio
+│   │   └── Coordinates-degrees.drawio
+│   │
+│   └── parsing/
+│       ├── parsing.drawio
+│       └──main_parsing.drawio
 │
 ├── configuration/
-│ ├── error_conf
-│ └── clock.conf
+│   ├── error_conf
+│   └── clock.conf
 │
 └── build/
-  ├── lib_timedate_lib.so
-  ├── lib_parsing_lib.so
-  ├── lib_output_lib.so
-  ├── lib_input_lib.so
-  └── clock
+    ├── lib_timedate_lib.so
+    ├── lib_parsing_lib.so
+    ├── lib_output_lib.so
+    ├── lib_input_lib.so
+    └── clock
 
-
+```
+```
 
 # Parsing
 
