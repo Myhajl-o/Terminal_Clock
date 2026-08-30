@@ -99,6 +99,7 @@ visually interesting solutions.
 ```
 Terminal_clock/
 ├── README.md
+├── LICENSE
 ├── .gitignore
 ├── CMakeLists.txt
 │
@@ -189,7 +190,7 @@ Terminal_clock/
 
 '*' - a character that marks the beginning or end of a comment
 
-= - a character that indicates a number will follow
+'=' - a character that indicates a number will follow
 
 '-' - a character that indicates the characters enclosed in quotes will be written
 
